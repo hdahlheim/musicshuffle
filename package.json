@@ -8,7 +8,6 @@
   },
   "scripts": {
     "build": "postcss src/assets/tailwind.css -o public/styles.css",
-    "hallo": "echo hallo"
   },
   "repository": {
     "type": "git",

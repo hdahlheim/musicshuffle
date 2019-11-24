@@ -1,24 +1,18 @@
 {
-    "name": "slim/slim-skeleton",
-    "description": "A Slim Framework skeleton application for rapid development",
-    "keywords": [
-        "microframework",
-        "rest",
-        "router",
-        "psr7"
-    ],
-    "homepage": "http://github.com/slimphp/Slim-Skeleton",
-    "license": "MIT",
+    "name": "gibmit_iap17a/musicshuffle",
+    "description": "App to shuffle music and create playlists",
+    "homepage": "https://github.com/hdahlheim/musicshuffle",
+    "license": "We don't care",
     "authors": [
         {
-            "name": "Josh Lockhart",
-            "email": "info@joshlockhart.com",
-            "homepage": "http://www.joshlockhart.com/"
+            "name": "Malte Henning Frans Dahlheim",
+            "email": "malte.dahlheim@gibmit.ch",
+            "homepage": "https://dahlheim.ch/"
         },
         {
-            "name": "Pierre Berube",
-            "email": "pierre@lgse.com",
-            "homepage": "http://www.lgse.com/"
+            "name": "Tatyana Vogel",
+            "email": "tatyana.vogel@gibmit.ch",
+            "homepage": "ihrkoenntmichmal.ch"
         }
     ],
     "require": {

@@ -10,6 +10,13 @@ use Psr\Log\LoggerInterface;
 
 return function (ContainerBuilder $containerBuilder) {
     $containerBuilder->addDefinitions([
+        "db" => function (ContainerInterface $c) {
+            $dbsettings = $c->get('settings')['db'];
+            $host = $dbsettings['host'];
+            $db = $dbsettings['name'];
+
+            return new PDO("mysql:host=$host;dbname=$db;");
+        },
         LoggerInterface::class => function (ContainerInterface $c) {
             $settings = $c->get('settings');
 

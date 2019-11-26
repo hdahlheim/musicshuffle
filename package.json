@@ -7,7 +7,7 @@
     "test": "tests"
   },
   "scripts": {
-    "build": "postcss src/assets/tailwind.css -o public/styles.css",
+    "build": "postcss resources/css/tailwind.css -o public/styles.css"
   },
   "repository": {
     "type": "git",

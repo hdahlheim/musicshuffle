@@ -6,7 +6,9 @@ volumes:
 
 services:
     slim:
-        image: php:7-alpine
+        build:
+            context: .
+            dockerfile: docker/app.dockerfile
         working_dir: /var/www
         command: php -S 0.0.0.0:8080 -t public
         environment:
@@ -16,3 +18,12 @@ services:
         volumes:
             - .:/var/www
             - logs:/var/www/logs
+    db:
+        image: mysql:5.7
+        ports:
+            - 13306:3306
+        environment:
+            - MYSQL_DATABASE=${DB_NAME}
+            - MYSQL_ROOT_PASSWORD=${DB_ROOT_PASSWORD}
+            - MYSQL_USER=${DB_USER}
+            - MYSQL_PASSWORD=${DB_PASSWORD}

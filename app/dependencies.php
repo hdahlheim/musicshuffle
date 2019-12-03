@@ -14,8 +14,10 @@ return function (ContainerBuilder $containerBuilder) {
             $dbsettings = $c->get('settings')['db'];
             $host = $dbsettings['host'];
             $db = $dbsettings['name'];
+            $user = $dbsettings['user'];
+            $pwd = $dbsettings['pwd'];
 
-            return new PDO("mysql:host=$host;dbname=$db;");
+            return new PDO("mysql:host=$host;dbname=$db;charset=UTF8", $user , $pwd);
         },
         LoggerInterface::class => function (ContainerInterface $c) {
             $settings = $c->get('settings');

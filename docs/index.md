@@ -1,12 +1,14 @@
-<md-cover title='Dokumentation Musicshuffle M151' author='Tatyana Vogel & Malte Dahlheim'>
-</md-cover>
+# Dokumentation Musicshuffle
+- [Dokumentation Musicshuffle](#dokumentation-musicshuffle)
+  - [Projekt Planung](#projekt-planung)
+  - [Überprüfung der Nutzereingaben](#%c3%9cberpr%c3%bcfung-der-nutzereingaben)
+  - [Script Injection](#script-injection)
+  - [Testing](#testing)
 
-<md-toc title="Table of Contents"></md-toc>
+## Projekt Planung
 
-# Projekt Planung
+## Überprüfung der Nutzereingaben
 
-# Überprüfung der Nutzereingaben
+## Script Injection
 
-# Script Injection
-
-# Testing
+## Testing

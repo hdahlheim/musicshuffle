@@ -1,4 +1,4 @@
-# Musicshuffle
+# Music shuffle
 
 App developed by Tatyana Vogel and Malte Dahlheim
 
@@ -28,4 +28,4 @@ composer test
 ```
 
 # Docs
-Documentation can be found in the docs [directory](docs/).
+Documentation can be found in the [docs directory](docs/index.md).

@@ -4,7 +4,6 @@ declare(strict_types=1);
 namespace Tests\Infrastructure\Persistence\User;
 
 use App\Domain\User\User;
-use App\Domain\User\UserNotFoundException;
 use App\Infrastructure\Persistence\User\InMemoryUserRepository;
 use Tests\TestCase;
 
@@ -12,7 +11,7 @@ class InMemoryUserRepositoryTest extends TestCase
 {
     public function testFindAll()
     {
-        $user = new User(1, 'bill.gates', 'Bill', 'Gates');
+        $user = new User(1, 'bill.gates', 'bill.gates@example.com');
 
         $userRepository = new InMemoryUserRepository([1 => $user]);
 
@@ -21,7 +20,7 @@ class InMemoryUserRepositoryTest extends TestCase
 
     public function testFindUserOfId()
     {
-        $user = new User(1, 'bill.gates', 'Bill', 'Gates');
+        $user = new User(1, 'bill.gates', 'bill.gates@example.com');
 
         $userRepository = new InMemoryUserRepository([1 => $user]);
 

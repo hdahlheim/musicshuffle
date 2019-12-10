@@ -22,11 +22,11 @@ class InMemoryUserRepository implements UserRepository
     public function __construct(array $users = null)
     {
         $this->users = $users ?? [
-            1 => new User(1, 'bill.gates', 'Bill', 'Gates'),
-            2 => new User(2, 'steve.jobs', 'Steve', 'Jobs'),
-            3 => new User(3, 'mark.zuckerberg', 'Mark', 'Zuckerberg'),
-            4 => new User(4, 'evan.spiegel', 'Evan', 'Spiegel'),
-            5 => new User(5, 'jack.dorsey', 'Jack', 'Dorsey'),
+            1 => new User(1, 'bill.gates', 'bill.gates@example.com'),
+            2 => new User(2, 'steve.jobs', 'steve.jobs@example.com'),
+            3 => new User(3, 'mark.zuckerberg', 'mark.zuckerberg@example.com'),
+            4 => new User(4, 'evan.spiegel', 'evan.spiegel@example.com'),
+            5 => new User(5, 'jack.dorsey', 'jack.dorsey@example.com'),
         ];
     }
 

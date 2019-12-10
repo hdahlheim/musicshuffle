@@ -1,0 +1,9 @@
+
+{% extends "layouts/base.twig" %}
+{% block main %}
+    {% for playlist in playlists %}
+        <div>
+            {{playlist}}
+        </div>
+    {% endfor %}
+{% endblock %}

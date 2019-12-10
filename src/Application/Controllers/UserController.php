@@ -16,6 +16,11 @@ class UserController
     protected $userRepository;
 
     /**
+     * @var \Slim\Views\Twig
+     */
+    protected $view;
+
+    /**
      * @param UserRepository  $userRepository
      */
     public function __construct(Container $container, UserRepository $userRepository)
@@ -35,11 +40,13 @@ class UserController
     {
         $users = $this->userRepository->findAll();
 
-        $json = json_encode([ 'data' => $users], JSON_PRETTY_PRINT);
+        return $this->view->render($res, 'user_list.twig', compact("users"));
 
-        $res->withStatus(200);
-        $res->getBody()->write($json);
-        return $res->withHeader('Content-Type', 'application/json');
+        // $json = json_encode([ 'data' => $users], JSON_PRETTY_PRINT);
+
+        // $res->withStatus(200);
+        // $res->getBody()->write($json);
+        // return $res->withHeader('Content-Type', 'application/json');
     }
 
 
@@ -56,10 +63,12 @@ class UserController
         $userId = (int) $args['id'];
         $user = $this->userRepository->findUserOfId($userId);
 
-        $json = json_encode([ 'data' => $user], JSON_PRETTY_PRINT);
+        return $this->view->render($res, 'user.twig', compact("user"));
 
-        $res->withStatus(200);
-        $res->getBody()->write($json);
-        return $res->withHeader('Content-Type', 'application/json');
+        // $json = json_encode([ 'data' => $user], JSON_PRETTY_PRINT);
+
+        // $res->withStatus(200);
+        // $res->getBody()->write($json);
+        // return $res->withHeader('Content-Type', 'application/json');
     }
 }

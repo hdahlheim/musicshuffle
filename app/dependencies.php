@@ -17,7 +17,6 @@ return function (ContainerBuilder $containerBuilder) {
         },
         'view' => function (ContainerInterface $c) {
             $view = new \Slim\Views\Twig(__DIR__ . '/../resources/templates/', [
-                'cache' => __DIR__ . '/../var/cache'
             ]);
 
             // $view->addExtension(new Knlv\Slim\Views\TwigMessages(

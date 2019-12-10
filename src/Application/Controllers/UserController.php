@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace App\Application\Controllers;
 
 use App\Domain\User\UserRepository;
+use DI\Container;
 use Psr\Http\Message\RequestInterface as Request;
 use Psr\Http\Message\ResponseInterface as Response;
 
@@ -17,8 +18,9 @@ class UserController
     /**
      * @param UserRepository  $userRepository
      */
-    public function __construct(UserRepository $userRepository)
+    public function __construct(Container $container, UserRepository $userRepository)
     {
+        $this->view = $container->get('view');
         $this->userRepository = $userRepository;
     }
 

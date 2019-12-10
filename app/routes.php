@@ -8,9 +8,8 @@ use Slim\App;
 use Slim\Interfaces\RouteCollectorProxyInterface as Group;
 
 return function (App $app) {
-    $app->get('/', function (Request $request, Response $response) {
-        $response->getBody()->write('Hello');
-        return $response;
+    $app->get('/', function (Request $request, Response $response) use ($app) {
+        return $app->getContainer()->get('view')->render($response, 'Home.twig');
     });
 
     $app->group('/users', function (Group $group) {

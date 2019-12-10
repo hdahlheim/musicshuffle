@@ -15,5 +15,17 @@ return function (ContainerBuilder $containerBuilder) {
 
             return new PDO("mysql:host=$host;dbname=$db;charset=UTF8", $user , $pwd);
         },
+        'view' => function (ContainerInterface $c) {
+            $view = new \Slim\Views\Twig(__DIR__ . '/../resources/templates/', [
+                'cache' => __DIR__ . '/../var/cache'
+            ]);
+
+            // $view->addExtension(new Knlv\Slim\Views\TwigMessages(
+            //         new Slim\Flash\Messages()
+            //     )
+            // );
+
+            return $view;
+        }
     ]);
 };

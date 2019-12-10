@@ -1,5 +1,7 @@
 # Musicshuffle
 
+App developed by Tatyana Vogel and Malte Dahlheim
+
 ## Install the Application
 
 * Point your virtual host document root to your new application's `public/` directory.
@@ -24,3 +26,6 @@ Run this command in the application directory to run the test suite
 ```bash
 composer test
 ```
+
+# Docs
+Documentation can be found in the docs [directory](docs/).

@@ -5,7 +5,7 @@ volumes:
         driver: local
 
 services:
-    slim:
+    web:
         build:
             context: .
             dockerfile: docker/app.dockerfile
@@ -17,7 +17,6 @@ services:
             - 8080:8080
         volumes:
             - .:/var/www
-            - logs:/var/www/logs
     db:
         image: mysql:5.7
         ports:

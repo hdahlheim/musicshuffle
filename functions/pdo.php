@@ -3,6 +3,9 @@
 namespace Database;
 use Siler\Container;
 
+/**
+ * @return \PDO
+ */
 function pdo()
 {
     if (Container\has('PDO_INSTANCE')){

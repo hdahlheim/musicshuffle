@@ -3,4 +3,4 @@
 use function Siler\Http\Response\html;
 use function Siler\Twig\render;
 
-html(render('user_create.twig'));
+html(render('create_user.twig'));

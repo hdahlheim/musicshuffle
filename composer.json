@@ -37,7 +37,8 @@
             "Tests\\": "tests/"
         },
         "files": [
-          "functions/pdo.php"
+          "functions/pdo.php",
+          "functions/validators.php"
         ]
     },
     "scripts": {

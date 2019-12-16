@@ -4,6 +4,8 @@ namespace Database;
 use Siler\Container;
 
 /**
+ * Allways returns a working instance of PDO
+ *
  * @return \PDO
  */
 function pdo()

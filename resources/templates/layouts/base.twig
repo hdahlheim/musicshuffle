@@ -7,8 +7,20 @@
     <link rel="stylesheet" href="/styles.css">
     <title>{% block title %}{% endblock %}</title>
 </head>
-<body>
-    {% block main %}{% endblock %}
-
+<body class="text-gray-100 bg-gray-900">
+    {% if errorAlert %}
+    <div class="fixed flex justify-center w-full p-8">
+        <div class="flex items-center p-2 leading-none text-red-100 bg-red-700 rounded-full" role="alert">
+            <span class="flex px-2 py-1 mr-3 text-xs font-bold uppercase bg-red-400 rounded-full">
+                Error
+            </span>
+            <span class="flex-auto mr-2 font-semibold">
+                {{ errorAlert }}
+            </span>
+        </div>
+    </div>
+    {% endif %}
+    {% block main %}
+    {% endblock %}
 </body>
 </html>

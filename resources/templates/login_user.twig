@@ -1,0 +1,16 @@
+{% extends "layouts/base.twig" %}
+{% block main %}
+<div class="container">
+    {% if errorAlert %}
+        <div class="bg-red-400 text-white">
+            {{ errorAlert }}
+        </div>
+    {% endif %}
+    <h1>LOGIN</h1>
+    <form action="/login" method="POST">
+        <input name="username" class="block mb-2" type="text">
+        <input name="password" class="block mb-2" type="password">
+        <button class="bg-blue-200 px-4 py-2" type="submit">Login</button>
+    </form>
+</div>
+{% endblock %}

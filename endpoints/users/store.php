@@ -18,4 +18,4 @@ pdo()
     )
     ->execute(compact('username', 'password', 'email'));
 
-redirect('/users/create');
+redirect('/login');

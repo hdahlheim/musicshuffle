@@ -12,8 +12,8 @@ $email = valid_email(post('email'));
 $password = valid_password(post('password'));
 
 pdo()
-    ->prepare("INSERT INTO users (username, password, email) VALUES (:username, :password, :email)")
+    ->prepare('INSERT INTO users (username, password, email) VALUES (:username, :password, :email)')
     ->execute(compact('username', 'password', 'email'));
 
-redirect('/users/create');
+redirect('/login');
 

@@ -20,6 +20,18 @@
         </div>
     </div>
     {% endif %}
+    {% if infoAlert %}
+    <div class="fixed flex justify-center w-full p-8">
+        <div class="flex items-center p-2 leading-none text-teal-100 bg-teal-700 rounded-full" role="alert">
+            <span class="flex px-2 py-1 mr-3 text-xs font-bold uppercase bg-teal-400 rounded-full">
+                Info
+            </span>
+            <span class="flex-auto mr-2 font-semibold">
+                {{ infoAlert }}
+            </span>
+        </div>
+    </div>
+    {% endif %}
     {% block main %}
     {% endblock %}
 </body>

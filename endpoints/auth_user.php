@@ -20,7 +20,6 @@ if (password_verify($password, $user['password'])) {
     $_SESSION['user_id'] = $user['id'];
     redirect('/');
     exit;
-}
-else {
+} else {
     setErrorAndRedirect('Password is wrong');
 }

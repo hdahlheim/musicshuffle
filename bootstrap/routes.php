@@ -1,6 +1,7 @@
 <?php
 
 use function Siler\Functional\puts;
+use function Siler\Route\did_match;
 use function Siler\Route\get;
 use function Siler\Route\post;
 use function Siler\Route\resource;
@@ -36,3 +37,12 @@ resource('/users', '../endpoints/users');
  * Index, Create, Show, Store, Edit, Update, Delete.
  */
 resource('/playlists', '../endpoints/playlists');
+
+
+if (!did_match()) notFoundError();
+
+function notFoundError()
+{
+    http_response_code(404);
+    echo 'Not found';
+}

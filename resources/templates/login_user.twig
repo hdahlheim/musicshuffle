@@ -1,16 +1,36 @@
-{% extends "layouts/base.twig" %}
+{% extends "layouts/_base.twig" %}
 {% block main %}
-<div class="container">
-    {% if errorAlert %}
-        <div class="bg-red-400 text-white">
-            {{ errorAlert }}
-        </div>
-    {% endif %}
-    <h1>LOGIN</h1>
-    <form action="/login" method="POST">
-        <input name="username" class="block mb-2" type="text">
-        <input name="password" class="block mb-2" type="password">
-        <button class="bg-blue-200 px-4 py-2" type="submit">Login</button>
-    </form>
+<div class="container flex items-center justify-center h-screen mx-auto">
+    <div class="w-full max-w-sm p-4 bg-gray-800 rounded-sm">
+        <h2 class="mb-4 text-lg font-bold">
+            Login
+        </h2>
+        <form action="/login" method="POST">
+            <lable class="block mb-4">
+                <span class="block text-sm font-semibold">Username</span>
+                <input class="w-full bg-gray-700 border-gray-800 form-input"
+                    name="username"
+                    placeholder="Gugus"
+                    type="text">
+            </lable>
+            <lable class="block mb-4">
+                <span class="block text-sm font-semibold">
+                    Password
+                </span>
+                <input class="w-full bg-gray-700 border-gray-800 form-input"
+                    name="password"
+                    placeholder="Password"
+                    type="password">
+            </lable>
+            <button
+                class="w-full px-4 py-2 mt-4 font-semibold text-teal-100 bg-teal-500 rounded-sm hover:bg-teal-700"
+                type="submit">
+                Login
+            </button>
+            <div class="mt-4 text-sm text-center">
+                <p>Do you want to <a class="text-teal-500 hover:text-teal-700" href="/register">register</a> insted?</p>
+            </div>
+        </form>
+    </div>
 </div>
 {% endblock %}

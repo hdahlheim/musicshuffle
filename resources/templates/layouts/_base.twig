@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="/styles.css">
+    <title>{% block title %}{% endblock %}</title>
+    {% block addToHeader %}{% endblock %}
+</head>
+<body class="text-gray-100 bg-gray-900">
+    {% if errorAlert %}
+    <div class="fixed flex justify-center w-full p-8">
+        <div class="flex items-center p-2 leading-none text-red-100 bg-red-700 rounded-full" role="alert">
+            <span class="flex px-2 py-1 mr-3 text-xs font-bold uppercase bg-red-400 rounded-full">
+                Error
+            </span>
+            <span class="flex-auto mr-2 font-semibold">
+                {{ errorAlert }}
+            </span>
+        </div>
+    </div>
+    {% endif %}
+    {% if infoAlert %}
+    <div class="fixed flex justify-center w-full p-8">
+        <div class="flex items-center p-2 leading-none text-teal-100 bg-teal-700 rounded-full" role="alert">
+            <span class="flex px-2 py-1 mr-3 text-xs font-bold uppercase bg-teal-400 rounded-full">
+                Info
+            </span>
+            <span class="flex-auto mr-2 font-semibold">
+                {{ infoAlert }}
+            </span>
+        </div>
+    </div>
+    {% endif %}
+    {% block main %}
+    {% endblock %}
+</body>
+{% block scripts %}{% endblock %}
+</html>

@@ -1,0 +1,13 @@
+{% extends "layouts/_base.twig" %}
+{% block main %}
+    <ul>
+    {% for user in users %}
+        <li class="flex items-center p-4 mx-4 my-2 bg-gray-700 rounded-sm">
+            <img class="w-10 h-10 mr-4 bg-black rounded-full" src="" alt="">
+            <a href="/users/{{user.id}}">
+            {{user.username}}
+            </a>
+        </li>
+    {% endfor %}
+    </ul>
+{% endblock %}

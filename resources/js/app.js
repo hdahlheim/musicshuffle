@@ -1,5 +1,5 @@
 import Vue from 'vue'
-import App from './components/yt.vue'
+import App from './components/player.vue'
 import VueYoutube from 'vue-youtube-embed'
 
 Vue.use(VueYoutube)

@@ -1,5 +1,7 @@
 <?php
 
-use function Siler\Functional\puts;
+use function Auth\checkAuthUser;
+
+checkAuthUser();
 
 var_dump($params);

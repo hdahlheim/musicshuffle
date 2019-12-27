@@ -1,17 +1,17 @@
 <?php
 
-use function Siler\Functional\puts;
+use function Auth\checkAuthUser;
 use function Siler\Route\get;
 use function Siler\Route\post;
 use function Siler\Route\resource;
 
-get('/', puts('chello'));
-
 get('/login', '../endpoints/login.php');
 post('/login', '../endpoints/auth_user.php');
 post('/logout', '../endpoints/logout.php');
+get('/logout', '../endpoints/logout.php');
 get('/register', '../endpoints/register.php');
 
+get('/', '../endpoints/home.php');
 
 /**
  * Registers routes for all seven CRUD actions, on the users resource.

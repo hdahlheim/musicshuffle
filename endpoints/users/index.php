@@ -3,6 +3,9 @@
 use function Database\pdo;
 use function Siler\Http\Response\html;
 use function Siler\Twig\render;
+use function Auth\checkAuthUser;
+
+checkAuthUser();
 
 $limit = 10;
 
@@ -20,4 +23,3 @@ $users = $userQuery->fetchAll();
  * (header response)
  */
 html(render('user_list.twig', compact('users')));
-

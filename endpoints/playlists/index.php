@@ -9,17 +9,17 @@ checkAuthUser();
 
 $limit = 10;
 
-$userQuery = pdo()->prepare(
+$playlistsQuery = pdo()->prepare(
     'SELECT name, created, id, user_id FROM playlists LIMIT :limit;'
 );
-$userQuery->bindParam('limit', $limit, PDO::PARAM_INT);
-$userQuery->execute();
+$playlistsQuery->bindParam('limit', $limit, PDO::PARAM_INT);
+$playlistsQuery->execute();
 
-$playlists = $userQuery->fetchAll();
+$playlists = $playlistsQuery->fetchAll();
 
 /**
  * The compact() function creates a key value array, render() puts the generated
  * array in the twig template and html() makes/sends it as a proper response
  * (header response)
  */
-html(render('playlist_list.twig', compact('playlists')));
+html(render('playlists/index.twig', compact('playlists')));

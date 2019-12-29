@@ -8,7 +8,14 @@ use function Siler\Http\Response\html;
 
 checkAuthUser();
 
-//pdo request with songlist
+$id = $params['id'];
+$playlistQuery = pdo()->prepare(
+    'SELECT name, created, updated, user_id FROM playlists WHERE id=:id;'
+);
+$playlistQuery->bindParam('id', $id, PDO::PARAM_INT);
+$playlistQuery->execute();
+
+$playlist = $playlistQuery->fetch();
 
 header('Feature-Policy', 'autoplay \'self\' https://youtube.com');
-html(render('playlists/play.twig'));
+html(render('playlists/play.twig', compact('playlist')));

@@ -1,0 +1,24 @@
+{% extends "layouts/_base.twig" %}
+{% block main %}
+<div class="container flex items-center justify-center h-screen mx-auto">
+    <div class="w-full max-w-sm p-4 bg-gray-800 rounded-sm">
+        <h2 class="mb-4 text-lg font-bold">
+            Add Playlist
+        </h2>
+        <form action="/playlists" method="POST">
+            <lable class="block mb-4">
+                <span class="block text-sm font-semibold">Playlistname</span>
+                <input class="w-full bg-gray-700 border-gray-800 form-input"
+                    name="name"
+                    placeholder="Playlistname"
+                    type="text">
+            </lable>
+            <button
+                class="w-full px-4 py-2 mt-4 font-semibold text-teal-100 bg-teal-500 rounded-sm hover:bg-teal-700"
+                type="submit">
+                Add Playlist
+            </button>
+        </form>
+    </div>
+</div>
+{% endblock %}

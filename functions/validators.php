@@ -6,7 +6,6 @@ use PDO;
 
 use function Database\pdo;
 use function Siler\Http\redirect;
-use function Siler\Http\Request\post;
 use function Siler\Http\setsession;
 
 

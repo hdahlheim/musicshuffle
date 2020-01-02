@@ -23,11 +23,11 @@ if(parse_url($url, PHP_URL_HOST) != 'www.youtube.com') {
     setErrorAndRedirect('the url should be from youtube.com');
 }
 
-/** Henning bitte sehr langer Kommentar */
 // youtube_id generieren
 $query = parse_url($url, PHP_URL_QUERY);
 $query_array = explode('&', $query);
 
+/** Henning bitte sehr langer Kommentar */
 /**
  * @var array
  */
@@ -43,8 +43,12 @@ $youtube_id = array_get($query_array_asoc, 'v', '');
 if (empty($youtube_id)) {
     setErrorAndRedirect('The id is missing');
 }
+if(strlen($youtube_id) != 11) {
+    setErrorAndRedirect('The video-id is to short/long');
+}
 
 
 $song_id = saveSong($name, $url, $youtube_id);
 addSongToPlaylist($song_id, $playlist_id);
+
 redirect("/playlists/$playlist_id");

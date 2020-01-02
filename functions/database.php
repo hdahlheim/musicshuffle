@@ -5,6 +5,25 @@ namespace Database;
 use function Siler\Http\setsession;
 use function Validators\setErrorAndRedirect;
 
+function savePlaylist($name, $user_id)
+{
+    $query = pdo()->prepare('SELECT * FROM playlists WHERE name=:name');
+    $query->execute(compact('name'));
+    $playlist = $query->fetch(\PDO::FETCH_ASSOC);
+    if (!empty($playlist)) {
+        setErrorAndRedirect('Playlist already exist');
+    }
+    pdo()
+        ->prepare(
+            "INSERT INTO playlists (name, user_id)
+            VALUES (:name, :user_id);"
+        )
+        ->execute(compact('name', 'user_id'));
+    $playlist_id = pdo()->lastInsertID();
+    setsession('infoAlert', 'Playlist created successfully');
+    return $playlist_id;
+}
+
 function saveSong($name, $url, $youtube_id)
 {
     $query = pdo()->prepare('SELECT * FROM songs WHERE youtube_id=:youtube_id');
@@ -42,7 +61,7 @@ function addSongToPlaylist($song_id, $playlist_id)
         )
         ->execute(compact('song_id', 'playlist_id'));
 
-    setsession('infoAlert', 'Song added successfull');
+    setsession('infoAlert', 'Song added successfully');
 }
 
 function getPlaylist($id){

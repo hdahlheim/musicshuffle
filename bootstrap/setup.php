@@ -2,6 +2,7 @@
 
 use Siler\Twig;
 
+use function Auth\isUserLoggedin;
 use function Siler\Http\flash;
 use function Siler\Http\session;
 
@@ -37,5 +38,5 @@ $twigEnv->addGlobal('infoAlert', flash('infoAlert'));
  * $_SESSION variable, if the key dose not exists a default will be
  * returned. If no default is specified null will be returned.
  */
-$twigEnv->addGlobal('isLoggedIn', session('isLoggedIn'));
+$twigEnv->addGlobal('isLoggedIn', isUserLoggedin());
 

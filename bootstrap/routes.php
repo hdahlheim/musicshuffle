@@ -39,7 +39,6 @@ resource('/users', '../endpoints/users');
  */
 resource('/playlists', '../endpoints/playlists');
 
-
 if (!did_match()) notFoundError();
 
 function notFoundError()

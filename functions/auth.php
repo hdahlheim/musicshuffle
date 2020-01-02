@@ -2,21 +2,28 @@
 
 namespace Auth;
 
-use function Siler\Functional\isnull;
 use function Siler\Http\session;
 use function Validators\setErrorAndRedirect;
 use function Siler\Http\redirect;
+use function Siler\Http\setsession;
 
 /**
  * Checks if the session has an user (is logged in) and redirect if not
  */
 function checkAuthUser()
 {
-    $user_session = session('user_name');
-    if (is_null($user_session)){
+    if (!isUserLoggedin()){
         redirect('/logout');
         exit;
     }
+}
+
+function isUserLoggedin() {
+    $user_session = session('user_name');
+    if (is_null($user_session)){
+        return false;
+    }
+    return true;
 }
 
 /**
@@ -26,19 +33,17 @@ function checkAuthUser()
  * @param Array $user
  * @param String $password
  */
-function authUser($user, $password)
-{
-if (password_verify($password, $user['password'])) {
-    session_regenerate_id();
+function authUser($user, $password) {
+    if (password_verify($password, $user['password'])) {
+        session_regenerate_id();
 
-    $_SESSION['user_name'] = $user;
-    $_SESSION['user_id'] = $user['id'];
-    redirect('/');
-    exit;
-}
-else {
-    setErrorAndRedirect('Password is wrong');
-}
+        setsession('user_name', $user['username']);
+        setsession('user_id', $user['id']);
+        redirect('/');
+        exit;
+    } else {
+        setErrorAndRedirect('Password is wrong');
+    }
 }
 
 

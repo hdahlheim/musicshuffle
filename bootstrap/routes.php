@@ -1,17 +1,29 @@
 <?php
 
-use function Siler\Functional\puts;
+use function Siler\Route\did_match;
 use function Siler\Route\get;
 use function Siler\Route\post;
 use function Siler\Route\resource;
 
-get('/', puts('chello'));
+get('/', '../endpoints/home.php');
 
+/**
+ * Login Routes
+ */
 get('/login', '../endpoints/login.php');
 post('/login', '../endpoints/auth_user.php');
-post('/logout', '../endpoints/logout.php');
-get('/register', '../endpoints/register.php');
 
+/**
+ * Logout route, destroyes the current session
+ */
+post('/logout', '../endpoints/logout.php');
+get('/logout', '../endpoints/logout.php');
+
+
+/**
+ * Register route, displays the register form
+ */
+get('/register', '../endpoints/register.php');
 
 /**
  * Registers routes for all seven CRUD actions, on the users resource.
@@ -26,3 +38,12 @@ resource('/users', '../endpoints/users');
  * Index, Create, Show, Store, Edit, Update, Delete.
  */
 resource('/playlists', '../endpoints/playlists');
+
+
+if (!did_match()) notFoundError();
+
+function notFoundError()
+{
+    http_response_code(404);
+    echo 'Not found';
+}

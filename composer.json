@@ -38,7 +38,8 @@
         },
         "files": [
           "functions/pdo.php",
-          "functions/validators.php"
+          "functions/validators.php",
+          "functions/auth.php"
         ]
     },
     "scripts": {

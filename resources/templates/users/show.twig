@@ -1,0 +1,21 @@
+{% extends "layouts/_base.twig" %}
+{% block main %}
+    <main class="container flex p-4 mx-auto bg-gray-800">
+        <div>
+            <div class="text-lg">
+                <span class="text-gray-500">#</span>
+                <span>{{user.id}}</span>
+            </div>
+            <div>
+                <div class="text-gray-500">username</div>
+                <div class="text-3xl">{{user.username}}</div>
+            </div>
+            <div>
+                <div class="text-gray-500">email</div>
+                <div class="text-lg">{{user.email}}</div>
+            </div>
+        </div>
+        <div>
+        </div>
+    </main>
+{% endblock %}

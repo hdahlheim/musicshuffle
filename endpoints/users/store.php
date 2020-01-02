@@ -3,6 +3,7 @@
 use function Database\pdo;
 use function Siler\Http\redirect;
 use function Siler\Http\Request\post;
+use function Siler\Http\setsession;
 use function Validators\valid_password;
 use function Validators\valid_email;
 use function Validators\valid_username;
@@ -18,4 +19,5 @@ pdo()
     )
     ->execute(compact('username', 'password', 'email'));
 
+setsession('infoAlert', 'Registration successfull');
 redirect('/login');

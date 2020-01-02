@@ -4,7 +4,8 @@ namespace Database;
 use Siler\Container;
 
 /**
- * Allways returns a working instance of PDO
+ * Wrapper around the PDO object creation, allways returns a working instance of
+ * PDO with the user and password provided in the config file.
  *
  * @return \PDO
  */

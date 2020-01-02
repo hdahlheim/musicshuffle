@@ -2,9 +2,14 @@
 
 namespace Validators;
 
+use PDO;
+
+use function Database\pdo;
 use function Siler\Http\redirect;
 use function Siler\Http\Request\post;
 use function Siler\Http\setsession;
+
+
 
 /**
  * Takes a raw string and checks if this string is a valid password
@@ -72,6 +77,17 @@ function valid_email($rawEmail)
     }
 
     return $email;
+}
+
+function validPlaylistId($playlist_id)
+{
+    $query = pdo()->prepare('SELECT * FROM playlists WHERE id = :playlist_id');
+    $query->execute(compact('playlist_id'));
+    $playlist = $query->fetch(PDO::FETCH_ASSOC);
+    if (empty($playlist)){
+        setErrorAndRedirect('Playlist does not exist');
+    }
+    return true;
 }
 
 /**

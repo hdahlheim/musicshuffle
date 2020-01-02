@@ -39,6 +39,8 @@ resource('/users', '../endpoints/users');
  */
 resource('/playlists', '../endpoints/playlists');
 
+get('/playlists/{id}/add-song', '../endpoints/songs/create.php');
+post('/playlists/{id}/add-song', '../endpoints/songs/store.php');
 
 if (!did_match()) notFoundError();
 

@@ -1,0 +1,19 @@
+{% extends "layouts/_base.twig" %}
+{% block main %}
+    <ul>
+        <h1>{{playlist.meta.id}}</h1>
+        <h1>{{playlist.meta.name}}</h1>
+    {% for song in playlist.songs %}
+            <li class="flex items-center p-4 mx-4 my-2 bg-gray-700 rounded-sm">
+                <img class="w-10 h-10 mr-4 bg-black rounded-full" src="" alt="">
+                <a href="/songs/{{song.id}}">
+                {{song.name}}
+                </a>
+            </li>
+    {% endfor %}
+    </ul>
+
+    <a href="/playlists/{{playlist.meta.id}}/add-song">
+        <button>add song</button>
+    </a>
+{% endblock %}

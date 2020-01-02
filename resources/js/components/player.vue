@@ -2,7 +2,7 @@
   <div>
     <div style="max-height: 90vh;" class="flex justify-between w-full" id="app">
       <div class="self-center">
-        <youtube :player-width="320" :host="host" :video-id="videoId" :player-vars="playerVars" @playing="playing" />
+        <youtube :player-width="320" :host="host" :video-id="videoId" :player-vars="playerVars" />
         <div class="flex">
           <button>Whatever</button>
           <button class="relative">
@@ -29,7 +29,6 @@
               </svg>
             </div>
             <div class="text-lg font-semibold leading-none">
-              Playlisttime
             </div>
             <div>Votes</div>
             <div></div>

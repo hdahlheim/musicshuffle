@@ -39,7 +39,8 @@
         "files": [
           "functions/pdo.php",
           "functions/validators.php",
-          "functions/auth.php"
+          "functions/auth.php",
+          "functions/database.php"
         ]
     },
     "scripts": {

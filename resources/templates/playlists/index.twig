@@ -1,8 +1,10 @@
 {% extends "layouts/_base.twig" %}
 {% block main %}
+    <main class="relative">
     {% for playlist in playlists %}
         <div>
             {{playlist}}
         </div>
     {% endfor %}
+    </main>
 {% endblock %}

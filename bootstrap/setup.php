@@ -40,3 +40,7 @@ $twigEnv->addGlobal('infoAlert', flash('infoAlert'));
  */
 $twigEnv->addGlobal('isLoggedIn', isUserLoggedin());
 
+$twigEnv->addFilter(new \Twig\TwigFilter('gravatar', function ($email) {
+    $encodedEmail = md5(strtolower(trim($email)));
+    return "https://www.gravatar.com/avatar/{$encodedEmail}?d=retro";
+}));

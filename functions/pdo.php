@@ -9,8 +9,7 @@ use Siler\Container;
  *
  * @return \PDO
  */
-function pdo()
-{
+function pdo() {
     if (Container\has('PDO_INSTANCE')){
         return Container\get('PDO_INSTANCE');
     }

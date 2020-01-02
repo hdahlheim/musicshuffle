@@ -1,7 +1,10 @@
 {% extends "layouts/_base.twig" %}
 {% block main %}
-    <main class="container flex p-4 mx-auto mt-16 bg-gray-800">
+    <main class="flex max-w-md p-4 mx-auto bg-gray-800 shadow">
         <div>
+            <div>
+                <img class="rounded-full" src="{{user.email|gravatar}}" alt="">
+            </div>
             <div class="text-lg">
                 <span class="text-gray-500">#</span>
                 <span>{{user.id}}</span>
@@ -14,8 +17,13 @@
                 <div class="text-gray-500">email</div>
                 <div class="text-lg">{{user.email}}</div>
             </div>
-        </div>
-        <div>
+            {% if true %}
+            <div>
+                <button
+                class="px-4 py-1 text-white bg-teal-700 rounded-sm"
+                >Edit User</button>
+            </div>
+            {% endif %}
         </div>
     </main>
 {% endblock %}

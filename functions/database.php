@@ -109,7 +109,7 @@ function getPlaylist($id){
         ON pli.song_id = s.id
         LEFT JOIN upvotes as uv
         ON pli.id = uv.playlist_item
-        WHERE pl.id=1
+        WHERE pl.id=:id
         GROUP BY s.id
         ORDER BY upvote DESC'
     );

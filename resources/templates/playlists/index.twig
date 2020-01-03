@@ -1,8 +1,10 @@
 {% extends "layouts/_base.twig" %}
 {% block main %}
     {% for playlist in playlists %}
-        <div>
-            {{playlist.name}}
-        </div>
+        <a href="/playlists/{{playlist.id}}">
+            <div>
+                {{playlist.name}}
+            </div>
+        </a>
     {% endfor %}
 {% endblock %}

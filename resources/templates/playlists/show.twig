@@ -1,15 +1,20 @@
 {% extends "layouts/_base.twig" %}
 {% block main %}
+<h1>{{playlist.meta.id}}</h1>
+<h1>{{playlist.meta.name}}</h1>
     <ul>
-        <h1>{{playlist.meta.id}}</h1>
-        <h1>{{playlist.meta.name}}</h1>
     {% for song in playlist.songs %}
-            <li class="flex items-center p-4 mx-4 my-2 bg-gray-700 rounded-sm">
-                <img class="w-10 h-10 mr-4 bg-black rounded-full" src="" alt="">
-                <a href="/songs/{{song.id}}">
-                {{song.name}}
-                </a>
-            </li>
+            <form action="/playlists/{{playlist.meta.id}}/add-song/{{song.id}}" method="POST">
+                <li class="flex items-center p-4 mx-4 my-2 bg-gray-700 rounded-sm">
+                        <img class="w-10 h-10 mr-4 bg-black rounded-full" src="" alt="">
+                        <a href="/songs/{{song.id}}">
+                        {{song.name}}
+                        </a>
+                        <input type="hidden" name="_method" value="put" />
+                        <button>upvote</button>
+                        <p>{{song.upvote}}</p>
+                </li>
+            </form>
     {% endfor %}
     </ul>
 

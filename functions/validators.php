@@ -84,7 +84,8 @@ function validPlaylistId($playlist_id)
     $query->execute(compact('playlist_id'));
     $playlist = $query->fetch(PDO::FETCH_ASSOC);
     if (empty($playlist)){
-        setErrorAndRedirect('Playlist does not exist');
+        http_response_code(404);
+        echo('Playlist does not exist');
     }
     return true;
 }

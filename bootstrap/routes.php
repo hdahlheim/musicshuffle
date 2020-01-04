@@ -1,9 +1,6 @@
 <?php
 
-use function Siler\Diactoros\redirect;
 use function Siler\Http\Response\html;
-use function Siler\Http\Response\redirect as ResponseRedirect;
-use function Siler\Route\did_match;
 use function Siler\Route\get;
 use function Siler\Route\post;
 use function Siler\Route\put;

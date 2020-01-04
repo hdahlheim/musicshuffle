@@ -3,58 +3,24 @@
 use function Auth\checkAuthUser;
 use function Database\addSongToPlaylist;
 use function Database\saveSong;
-use function Siler\array_get;
 use function Siler\Http\redirect;
 use function Siler\Http\Request\post;
-use function Validators\setErrorAndRedirect;
+use function Validators\validateYouTubeUrl;
 use function Validators\validPlaylistId;
+use function YouTubeAPI\getYouTubeVideoId;
+use function YouTubeAPI\getYouTubeVideoName;
 
 checkAuthUser();
 
 $playlist_id = $params['id'];
+$url = post('url');
+
 validPlaylistId($playlist_id);
+validateYouTubeUrl($url);
+$youtubeId = getYouTubeVideoId($url);
+$videoName = getYouTubeVideoName($youtubeId);
 
-$name = trim(post('name'));
-$url = trim(post('url'));
-
-if ($name === '') {
-    setErrorAndRedirect('please enter a playlistname');
-}
-
-if ($url === '') {
-    setErrorAndRedirect('please enter a url');
-}
-
-if(parse_url($url, PHP_URL_HOST) != 'www.youtube.com') {
-    setErrorAndRedirect('the url should be from youtube.com');
-}
-
-// youtube_id generieren
-$query = parse_url($url, PHP_URL_QUERY);
-$query_array = explode('&', $query);
-
-/** Henning bitte sehr langer Kommentar */
-/**
- * @var array
- */
-$query_array_asoc = array_reduce($query_array, function($accumulator, $item){
-    [$key, $value] = explode('=', $item);
-    $accumulator[$key] = $value;
-    return $accumulator;
-}, []);
-
-
-$youtube_id = array_get($query_array_asoc, 'v', '');
-
-if (empty($youtube_id)) {
-    setErrorAndRedirect('The id is missing');
-}
-if(strlen($youtube_id) != 11) {
-    setErrorAndRedirect('The video-id is to short/long');
-}
-
-
-$song_id = saveSong($name, $url, $youtube_id);
+$song_id = saveSong($videoName, $url, $youtubeId);
 addSongToPlaylist($song_id, $playlist_id);
 
 redirect("/playlists/$playlist_id");

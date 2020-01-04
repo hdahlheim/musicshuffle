@@ -2,10 +2,10 @@
 
 use function Siler\Http\Response\html;
 use function Siler\Twig\render;
-use function Auth\checkAuthUser;
-use function Siler\Http\redirect;
+use function Auth\isUserLoggedin;
 
-checkAuthUser();
-
-redirect('/users');
-//html(render('loggedin/home.twig'));
+if (isUserLoggedin()) {
+    html(render('home/loggedin.twig'));
+} else {
+    html(render('home/loggedout.twig'));
+}

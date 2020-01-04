@@ -1,7 +1,17 @@
-<nav class="flex justify-between">
-    <span>
-        music shuffle
-    </span>
-    <div class>
+<nav class="fixed inset-x-0 top-0 p-4 bg-gray-700">
+    <div class="container flex justify-between mx-auto font-semibold">
+        <div>
+            <a href="/">Music Shuffle</a>
+        </div>
+        {% if isLoggedIn %}
+        <div>
+            <a class="mx-6 hover:text-teal-600 {% if (path == '/') %}text-teal-500{% endif %}" href="/">Home</a>
+            <a class="mx-6 hover:text-teal-600 {% if (path == '/playlists') %}text-teal-500{% endif %}" href="/playlists">Playlists</a>
+            <a class="mx-6 hover:text-teal-600 {% if (path == '/users') %}text-teal-500{% endif %}" href="/users">Users</a>
+        </div>
+        <div>
+            <a class="px-2 py-1 text-sm text-red-100 bg-red-600 rounded-sm hover:bg-red-800" href="/logout">logout</a>
+        </div>
+        {% endif %}
     </div>
 </nav>

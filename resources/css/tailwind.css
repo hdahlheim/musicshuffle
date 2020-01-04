@@ -1,3 +1,18 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@responsive {
+  .grid {
+    display: grid;
+    gap: 1rem;
+  }
+
+  .col-2{
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .col-3{
+    grid-template-columns: 1fr 1fr 1fr;
+  }
+}

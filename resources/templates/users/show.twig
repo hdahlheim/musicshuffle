@@ -1,21 +1,38 @@
 {% extends "layouts/_base.twig" %}
 {% block main %}
-    <main class="container flex p-4 mx-auto bg-gray-800">
-        <div>
-            <div class="text-lg">
-                <span class="text-gray-500">#</span>
-                <span>{{user.id}}</span>
-            </div>
-            <div>
-                <div class="text-gray-500">username</div>
-                <div class="text-3xl">{{user.username}}</div>
-            </div>
-            <div>
-                <div class="text-gray-500">email</div>
-                <div class="text-lg">{{user.email}}</div>
+    <main class="container flex p-4 mx-auto mt-16 bg-gray-800 shadow">
+        <div class="w-1/4 mr-6">
+            <h2 class="mb-4 text-2xl font-bold">User</h2>
+            <div class="p-6 bg-gray-700 rounded shadow">
+                <div class="mb-4 text-center">
+                    <img class="inline border-2 border-gray-800 rounded-full" src="{{user.email|gravatar}}" alt="">
+                </div>
+                <div class="mb-4 text-lg">
+                    <span class="text-gray-500">#</span>
+                    <span>{{user.id}}</span>
+                </div>
+                <div class="mb-4">
+                    <div class="text-gray-500">username</div>
+                    <div class="text-xl">{{user.username}}</div>
+                </div>
+                <div>
+                    <div class="text-gray-500">email</div>
+                    <div class="text-xl">{{user.email}}</div>
+                </div>
+                {% if currentUserId == user.id %}
+                <div class="mt-4">
+                    <a class="block w-full px-4 py-1 font-semibold text-center text-white bg-teal-700 rounded-sm hover:bg-teal-500"
+                    href="/users/{{user.id}}/edit"
+                    >Edit User</a>
+                </div>
+                {% endif %}
             </div>
         </div>
         <div>
+            <h2 class="text-2xl font-bold">Playlits</h2>
+            <ul>
+                <li></li>
+            </ul>
         </div>
     </main>
 {% endblock %}

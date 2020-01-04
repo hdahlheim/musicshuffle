@@ -1,5 +1,6 @@
 {% extends "layouts/_base.twig" %}
 {% block main %}
+    <main class="relative">
     {% for playlist in playlists %}
         <a href="/playlists/{{playlist.id}}">
             <div>
@@ -7,4 +8,5 @@
             </div>
         </a>
     {% endfor %}
+    </main>
 {% endblock %}

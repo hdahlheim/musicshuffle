@@ -3,6 +3,7 @@
 use function Siler\Route\did_match;
 use function Siler\Route\get;
 use function Siler\Route\post;
+use function Siler\Route\put;
 use function Siler\Route\resource;
 
 get('/', '../endpoints/home.php');
@@ -41,6 +42,8 @@ resource('/playlists', '../endpoints/playlists');
 
 get('/playlists/{id}/add-song', '../endpoints/songs/create.php');
 post('/playlists/{id}/add-song', '../endpoints/songs/store.php');
+
+put('/playlists/{id}/add-song/{songid}', '../endpoints/playlists/update.php');
 
 if (!did_match()) notFoundError();
 

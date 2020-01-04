@@ -2,11 +2,9 @@
 
 use function Auth\checkAuthUser;
 use function Database\getPlaylist;
-use function Database\pdo;
 use function Siler\Http\Response\header;
 use function Siler\Twig\render;
 use function Siler\Http\Response\html;
-use function Siler\Http\Response\json;
 use function Validators\validPlaylistId;
 
 checkAuthUser();

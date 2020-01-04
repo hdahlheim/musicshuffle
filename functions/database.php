@@ -2,8 +2,28 @@
 
 namespace Database;
 
+use function Siler\Http\session;
 use function Siler\Http\setsession;
 use function Validators\setErrorAndRedirect;
+
+function savePlaylist($name, $user_id)
+{
+    $query = pdo()->prepare('SELECT * FROM playlists WHERE name=:name');
+    $query->execute(compact('name'));
+    $playlist = $query->fetch(\PDO::FETCH_ASSOC);
+    if (!empty($playlist)) {
+        setErrorAndRedirect('Playlist already exist');
+    }
+    pdo()
+        ->prepare(
+            "INSERT INTO playlists (name, user_id)
+            VALUES (:name, :user_id);"
+        )
+        ->execute(compact('name', 'user_id'));
+    $playlist_id = pdo()->lastInsertID();
+    setsession('infoAlert', 'Playlist created successfully');
+    return $playlist_id;
+}
 
 function saveSong($name, $url, $youtube_id)
 {
@@ -42,7 +62,35 @@ function addSongToPlaylist($song_id, $playlist_id)
         )
         ->execute(compact('song_id', 'playlist_id'));
 
-    setsession('infoAlert', 'Song added successfull');
+    setsession('infoAlert', 'Song added successfully');
+}
+
+function upvoteSong($playlist_id, $song_id)
+{
+$user = session('user_id');
+
+$playlist_item_query = pdo()
+    ->prepare(
+        "SELECT id FROM playlist_items
+        WHERE playlist_id = :playlist_id
+        AND song_id = :song_id;");
+
+$playlist_item_query->execute(compact('playlist_id', 'song_id'));
+$playlist_item = $playlist_item_query->fetch(\PDO::FETCH_ASSOC);
+$playlist_item = $playlist_item['id'];
+
+
+$success = pdo()
+    ->prepare(
+        "INSERT INTO upvotes (user, playlist_item)
+        VALUES (:user, :playlist_item)"
+    )
+    ->execute(compact('user', 'playlist_item'));
+
+if(!$success){
+    setErrorAndRedirect('Upvote failed, you have already upvoted this song');
+}
+setsession('infoAlert', 'Upvote successfully');
 }
 
 function getPlaylist($id){
@@ -53,17 +101,23 @@ function getPlaylist($id){
     $playlistMeta = $playlistMetaQuery->fetch(\PDO::FETCH_ASSOC);
 
     $playlistItemQuery = pdo()->prepare(
-        'SELECT s.* FROM playlists as pl
+        'SELECT s.*, count(uv.playlist_item) upvote
+	    FROM playlists as pl
         LEFT JOIN playlist_items as pli
         ON pl.id = pli.playlist_id
         LEFT JOIN songs as s
         ON pli.song_id = s.id
-        WHERE pl.id=:id;'
+        LEFT JOIN upvotes as uv
+        ON pli.id = uv.playlist_item
+        WHERE pl.id=:id
+        GROUP BY s.id
+        ORDER BY upvote DESC'
     );
     $playlistItemQuery->bindParam('id', $id, \PDO::PARAM_INT);
     $playlistItemQuery->execute();
 
     $playlist = $playlistItemQuery->fetchALL(\PDO::FETCH_ASSOC);
+
     $data = [
         'meta' => $playlistMeta,
         'songs' => $playlist

@@ -2,9 +2,11 @@
 {% block main %}
     <main class="relative">
     {% for playlist in playlists %}
-        <div>
-            {{playlist.name}}
-        </div>
+        <a href="/playlists/{{playlist.id}}">
+            <div>
+                {{playlist.name}}
+            </div>
+        </a>
     {% endfor %}
     </main>
 {% endblock %}

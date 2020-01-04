@@ -10,13 +10,22 @@ use function Siler\Http\setsession;
 /**
  * Checks if the session has an user (is logged in) and redirect if not
  */
-function checkAuthUser()
-{
+function checkAuthUser() {
     if (!isUserLoggedin()){
         redirect('/logout');
         exit;
     }
 }
+
+function checkUserEditRight($id) {
+    $userToEdit = (int) $id;
+    $currentUser = (int) session('user_id');
+    if ($currentUser !== $userToEdit) {
+        setErrorAndRedirect('You can not edit this user');
+    }
+}
+
+
 
 function isUserLoggedin() {
     $user_session = session('user_name');

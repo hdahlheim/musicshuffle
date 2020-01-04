@@ -14,10 +14,16 @@ checkAuthUser();
 $playlist_id = $params['id'];
 validPlaylistId($playlist_id);
 
-$name = post('name');
-$url = post('url');
+$name = trim(post('name'));
+$url = trim(post('url'));
 
+if ($name === '') {
+    setErrorAndRedirect('please enter a playlistname');
+}
 
+if ($url === '') {
+    setErrorAndRedirect('please enter a url');
+}
 
 if(parse_url($url, PHP_URL_HOST) != 'www.youtube.com') {
     setErrorAndRedirect('the url should be from youtube.com');

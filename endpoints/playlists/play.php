@@ -8,7 +8,8 @@ use function Siler\Http\Response\html;
 use function Validators\validPlaylistId;
 
 checkAuthUser();
-validPlaylistId($params['id']);
+$id = (int) $params['id'];
+validPlaylistId($id);
 
 $playlist = getPlaylist($id);
 

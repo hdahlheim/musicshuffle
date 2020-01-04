@@ -8,10 +8,10 @@
     <title>{% block title %}{% endblock %}</title>
     {% block addToHeader %}{% endblock %}
 </head>
-<body class="text-gray-100 bg-gray-900">
+<body class="pt-16 text-gray-100 bg-gray-900">
     {% include "partials/_nav.twig" %}
     {% if errorAlert %}
-    <div class="fixed inset-x-0 top-0 mx-auto mt-8">
+    <div class="flex justify-center w-full">
         <div class="flex items-center p-2 leading-none text-red-100 bg-red-700 rounded-full" role="alert">
             <span class="flex px-2 py-1 mr-3 text-xs font-bold uppercase bg-red-400 rounded-full">
                 Error
@@ -23,7 +23,7 @@
     </div>
     {% endif %}
     {% if infoAlert %}
-    <div class="fixed inset-x-0 top-0 mx-auto mt-8">
+    <div class="flex justify-center w-full">
         <div class="flex items-center p-2 leading-none text-teal-100 bg-teal-700 rounded-full" role="alert">
             <span class="flex px-2 py-1 mr-3 text-xs font-bold uppercase bg-teal-400 rounded-full">
                 Info

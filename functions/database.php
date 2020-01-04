@@ -99,17 +99,17 @@ function getPlaylist($id){
     $playlistMeta = $playlistMetaQuery->fetch(\PDO::FETCH_ASSOC);
 
     $playlistItemQuery = pdo()->prepare(
-        'SELECT s.*, count(uv.playlist_item) AS upvote
+        'SELECT s.*, count(uv.playlist_item) upvote, min(uv.created) timevote
         FROM playlists as pl
         LEFT JOIN playlist_items as pli
-        ON pl.id = pli.playlist_id
+        ON pli.playlist_id = pl.id
         LEFT JOIN songs as s
-        ON pli.song_id = s.id
+        ON s.id = pli.song_id
         LEFT JOIN upvotes as uv
-        ON pli.id = uv.playlist_item
+        ON uv.playlist_item = pli.id
         WHERE pl.id=:id
         GROUP BY s.id
-        ORDER BY upvote DESC'
+        order by upvote desc, timevote'
     );
     $playlistItemQuery->bindParam('id', $id, \PDO::PARAM_INT);
     $playlistItemQuery->execute();
@@ -117,7 +117,7 @@ function getPlaylist($id){
     $playlistItems = $playlistItemQuery->fetchALL(\PDO::FETCH_ASSOC);
 
     /**
-     * Fillter out all empty results
+     * Filter out all empty results
      */
     $playlistItems = array_filter($playlistItems, fn ($item) => $item['id'] !== null);
 

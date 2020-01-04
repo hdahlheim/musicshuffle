@@ -1,6 +1,5 @@
 <?php
 
-use function Siler\Http\path;
 use function Siler\Route\did_match;
 use function Siler\Route\get;
 use function Siler\Route\post;

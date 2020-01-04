@@ -17,7 +17,7 @@ use function Siler\Http\setsession;
  * @param string $rawPassword
  * @return string
  */
-function valid_password($rawPassword)
+function validPassword($rawPassword)
 {
     $password = trim($rawPassword);
 
@@ -44,7 +44,7 @@ function valid_password($rawPassword)
  * @param string $rawUsername
  * @return string
  */
-function valid_username($rawUsername)
+function validUsername($rawUsername)
 {
     $username = htmlspecialchars(trim($rawUsername));
 
@@ -62,7 +62,7 @@ function valid_username($rawUsername)
  * @param string $rawEmail
  * @return string
  */
-function valid_email($rawEmail)
+function validEmail($rawEmail)
 {
     $email = trim($rawEmail);
 

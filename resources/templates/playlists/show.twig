@@ -1,24 +1,46 @@
 {% extends "layouts/_base.twig" %}
 {% block main %}
-<h1>{{playlist.meta.id}}</h1>
-<h1>{{playlist.meta.name}}</h1>
-    <ul>
-    {% for song in playlist.songs %}
-            <form action="/playlists/{{playlist.meta.id}}/add-song/{{song.id}}" method="POST">
-                <li class="flex items-center p-4 mx-4 my-2 bg-gray-700 rounded-sm">
-                        <img class="w-10 h-10 mr-4 bg-black rounded-full" src="" alt="">
-                        <a href="/songs/{{song.id}}">
-                        {{song.name}}
-                        </a>
-                        <input type="hidden" name="_method" value="put" />
-                        <button>upvote</button>
-                        <p>{{song.upvote}}</p>
-                </li>
-            </form>
-    {% endfor %}
-    </ul>
-
-    <a href="/playlists/{{playlist.meta.id}}/add-song">
-        <button>add song</button>
-    </a>
+<main class="container flex justify-between p-4 mx-auto bg-gray-800 rounded-sm">
+    <div class="w-1/4 p-4 mr-6 bg-gray-700">
+        <div>
+            <span class="font-semibold text-gray-500">#</span>
+            <span class="font-semibold">{{playlist.meta.id}}</span>
+        </div>
+        <h1 class="text-3xl font-bold">{{playlist.meta.name}}</h1>
+        <a class="flex items-center justify-center block w-full text-xl group btn-teal" href="/playlists/{{playlist.meta.id}}/play">
+            <span class="mr-2">Play</span>
+            <svg viewBox="0 0 24 24" class="inline-block w-8 h-8">
+                <circle cx="12" cy="12" r="10" class="text-teal-100 fill-current"></circle>
+                <path class="text-teal-500 fill-current group-hover:text-teal-700" d="M15.51 11.14a1 1 0 0 1 0 1.72l-5 3A1 1 0 0 1 9 15V9a1 1 0 0 1 1.51-.86l5 3z"></path>
+            </svg>
+        </a>
+    </div>
+    <div class="w-3/4">
+        <div class="flex justify-between mb-4">
+            <h2 class="text-xl font-bold">Playlist Items</h2>
+            <a class="text-sm btn-teal" href="/playlists/{{playlist.meta.id}}/songs/create">Add Song</a>
+        </div>
+        <ul>
+        {% for song in playlist.songs %}
+            <li class="flex items-center justify-between px-6 py-2 mb-2 bg-gray-700 rounded-sm shadow-md">
+                <a class="w-2/4" href="/songs/{{song.id}}">
+                    {{song.name}}
+                </a>
+                <div class="w-1/4">
+                    <span class="text-sm font-semibold">Votes</span>
+                    <span class="text-sm font-semibold">{{song.upvote}}</span>
+                </div>
+                <form class="flex items-center ml-auto" action="/playlists/{{playlist.meta.id}}/songs/{{song.id}}" method="POST">
+                    <input type="hidden" name="_method" value="put" />
+                    <button>
+                        <svg viewBox="0 0 24 24" class="w-8 h-8 text-gray-100">
+                            <path class="fill-current" fill-rule="evenodd" d="M8.7 13.7a1 1 0 1 1-1.4-1.4l4-4a1 1 0 0 1 1.4 0l4 4a1 1 0 0 1-1.4 1.4L12 10.42l-3.3 3.3z"></path>
+                        </svg>
+                    </button>
+                </form>
+            </li>
+        {% endfor %}
+        </ul>
+    </div>
+</main>
 {% endblock %}

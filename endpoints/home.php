@@ -5,7 +5,7 @@ use function Siler\Twig\render;
 use function Auth\isUserLoggedin;
 
 if (isUserLoggedin()) {
-    html(render('home/loggedin.twig'));
+    html(render('home/home_loggedIn.twig'));
 } else {
-    html(render('home/loggedout.twig'));
+    html(render('home/home_loggedOut.twig'));
 }

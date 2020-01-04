@@ -15,5 +15,4 @@ if ($name === '') {
     setErrorAndRedirect('please enter a playlistname');
 }
 
-$playlist_id = savePlaylist($name, $user_id);
-redirect("/playlists/$playlist_id/add-song");
+redirect("/playlists/$playlist_id");

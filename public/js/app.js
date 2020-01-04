@@ -137,18 +137,17 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
+  props: {
+    playlist: {
+      type: Object
+    }
+  },
   data: function data() {
     return {
       playedSongs: [],
-      songs: ['BW1aX0IbZOE', '0rb9CfOvojk'],
+      songs: [],
+      currentSong: '',
       player: null,
       videoId: null,
       host: 'https://www.youtube-nocookie.com',
@@ -157,23 +156,37 @@ __webpack_require__.r(__webpack_exports__);
       }
     };
   },
+  beforeMount: function beforeMount() {
+    this.songs = this.playlist.songs;
+  },
+  computed: {
+    unplayedSongs: function unplayedSongs() {
+      var _this = this;
+
+      return this.songs.filter(function (item) {
+        return !_this.playedSongs.includes(item);
+      });
+    }
+  },
   methods: {
     ready: function ready(event) {
       this.player = event.target;
       this.nextSong();
     },
-    ended: function ended() {
-      this.playedSongs.push(this.videoId);
-      this.nextSong();
-    },
     nextSong: function nextSong() {
-      var _this = this;
+      if (this.currentSong !== '') {
+        this.playedSongs.push(this.currentSong);
+      }
 
-      var unplayedSongs = this.songs.filter(function (item) {
-        return !_this.playedSongs.includes(item);
-      });
-      var nextSong = unplayedSongs.shift();
-      this.videoId = nextSong;
+      var nextSong = this.unplayedSongs.shift();
+      this.currentSong = nextSong;
+      this.videoId = nextSong.youtube_id;
+    },
+    playThisSong: function playThisSong(song) {
+      this.playedSongs.push(this.currentSong);
+      this.playedSongs.push(song);
+      this.currentSong = song;
+      this.videoId = song.youtube_id;
     }
   }
 });
@@ -666,67 +679,35 @@ var render = function() {
   return _c("div", [
     _c(
       "div",
-      {
-        staticClass: "flex justify-around w-full mt-16",
-        staticStyle: { "max-height": "90vh" },
-        attrs: { id: "app" }
-      },
+      { staticClass: "flex justify-around w-full", attrs: { id: "app" } },
       [
         _c("div", { staticClass: "flex self-center" }, [
           _c(
             "div",
+            { staticClass: "flex flex-col items-center" },
             [
+              _c("h1", { staticClass: "text-4xl font-bold" }, [
+                _vm._v("Current Song: " + _vm._s(_vm.currentSong.name))
+              ]),
+              _vm._v(" "),
               _c("youtube", {
                 attrs: {
-                  "player-width": 420,
+                  "player-width": 450,
                   host: _vm.host,
                   "video-id": _vm.videoId,
                   "player-vars": _vm.playerVars
                 },
-                on: { ready: _vm.ready, ended: _vm.ended }
+                on: { ready: _vm.ready, ended: _vm.nextSong }
               }),
               _vm._v(" "),
-              _c("button", { staticClass: "relative" }, [
-                _c(
-                  "svg",
-                  { staticClass: "w-20 h-20", attrs: { viewBox: "0 0 24 24" } },
-                  [
-                    _c("circle", {
-                      staticClass: "bg-gray-200 fill-current",
-                      attrs: { cx: "12", cy: "12", r: "10" }
-                    }),
-                    _vm._v(" "),
-                    _c("path", {
-                      staticClass: "secondary",
-                      attrs: {
-                        d:
-                          "M15.51 11.14a1 1 0 0 1 0 1.72l-5 3A1 1 0 0 1 9 15V9a1 1 0 0 1 1.51-.86l5 3z"
-                      }
-                    })
-                  ]
-                )
-              ]),
-              _vm._v(" "),
-              _c("button", [
-                _c(
-                  "svg",
-                  { staticClass: "w-16 h-16", attrs: { viewBox: "0 0 24 24" } },
-                  [
-                    _c("circle", {
-                      staticClass: "text-gray-200 fill-current",
-                      attrs: { cx: "12", cy: "12", r: "10" }
-                    }),
-                    _vm._v(" "),
-                    _c("path", {
-                      staticClass: "secondary",
-                      attrs: {
-                        d:
-                          "M14.59 13H7a1 1 0 0 1 0-2h7.59l-2.3-2.3a1 1 0 1 1 1.42-1.4l4 4a1 1 0 0 1 0 1.4l-4 4a1 1 0 0 1-1.42-1.4l2.3-2.3z"
-                      }
-                    })
-                  ]
-                )
-              ])
+              _c(
+                "button",
+                {
+                  staticClass: "w-full text-lg btn-teal",
+                  on: { click: _vm.nextSong }
+                },
+                [_vm._v("Next")]
+              )
             ],
             1
           )
@@ -736,18 +717,20 @@ var render = function() {
           "div",
           {
             staticClass:
-              "relative w-1/2 max-h-full m-4 overflow-y-scroll bg-gray-900 rounded-sm shadow-inner"
+              "relative w-1/2 max-h-full overflow-y-scroll rounded-sm shadow-inner"
           },
           [
+            _c("h2", { staticClass: "text-4xl" }, [_vm._v("Queue:")]),
+            _vm._v(" "),
             _c(
               "ul",
-              _vm._l(20, function(key) {
+              _vm._l(_vm.unplayedSongs, function(song) {
                 return _c(
                   "li",
                   {
-                    key: key,
+                    key: song.id,
                     staticClass:
-                      "flex items-center p-4 m-3 bg-gray-700 rounded-sm"
+                      "flex items-center justify-between p-4 m-3 bg-gray-700 rounded-sm"
                   },
                   [
                     _c("div", [
@@ -755,7 +738,12 @@ var render = function() {
                         "svg",
                         {
                           staticClass: "w-10 h-10",
-                          attrs: { viewBox: "0 0 24 24" }
+                          attrs: { viewBox: "0 0 24 24" },
+                          on: {
+                            click: function($event) {
+                              return _vm.playThisSong(song)
+                            }
+                          }
                         },
                         [
                           _c("circle", {
@@ -774,13 +762,25 @@ var render = function() {
                       )
                     ]),
                     _vm._v(" "),
-                    _c("div", {
-                      staticClass: "text-lg font-semibold leading-none"
-                    }),
+                    _c(
+                      "div",
+                      { staticClass: "text-lg font-semibold leading-none" },
+                      [
+                        _vm._v(
+                          "\n              " +
+                            _vm._s(song.name) +
+                            "\n          "
+                        )
+                      ]
+                    ),
                     _vm._v(" "),
-                    _c("div", [_vm._v("Votes")]),
-                    _vm._v(" "),
-                    _c("div")
+                    _c("div", [
+                      _vm._v(
+                        "\n            Votes: " +
+                          _vm._s(song.upvote) +
+                          "\n          "
+                      )
+                    ])
                   ]
                 )
               }),
@@ -13219,11 +13219,18 @@ __webpack_require__.r(__webpack_exports__);
 
 vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vue_youtube_embed__WEBPACK_IMPORTED_MODULE_2__["default"]);
 new vue__WEBPACK_IMPORTED_MODULE_0___default.a({
-  el: '#app',
-  template: '<App/>',
+  el: '#player',
   components: {
-    App: _components_player_vue__WEBPACK_IMPORTED_MODULE_1__["default"]
-  }
+    player: _components_player_vue__WEBPACK_IMPORTED_MODULE_1__["default"]
+  },
+  data: {
+    playlist: null
+  },
+  beforeMount: function beforeMount() {
+    var rawPlaylist = this.$el.attributes['data-playlist'].value;
+    this.playlist = JSON.parse(rawPlaylist);
+  },
+  template: '<player :playlist="playlist" />'
 });
 
 /***/ }),

@@ -101,17 +101,17 @@ function getPlaylist($id){
     $playlistMeta = $playlistMetaQuery->fetch(\PDO::FETCH_ASSOC);
 
     $playlistItemQuery = pdo()->prepare(
-        'SELECT s.*, count(uv.playlist_item) upvote
-	    FROM playlists as pl
+        'SELECT s.*, count(uv.playlist_item) upvote, uv.created
+        FROM playlists as pl
         LEFT JOIN playlist_items as pli
-        ON pl.id = pli.playlist_id
+        ON pli.playlist_id = pl.id
         LEFT JOIN songs as s
-        ON pli.song_id = s.id
+        ON s.id = pli.song_id
         LEFT JOIN upvotes as uv
-        ON pli.id = uv.playlist_item
-        WHERE pl.id=:id
-        GROUP BY s.id
-        ORDER BY upvote DESC'
+        ON uv.playlist_item = pli.id
+        WHERE pl.id=11
+        GROUP BY s.id, uv.created
+        ORDER BY upvote desc, uv.created'
     );
     $playlistItemQuery->bindParam('id', $id, \PDO::PARAM_INT);
     $playlistItemQuery->execute();

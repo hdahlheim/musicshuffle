@@ -91,6 +91,28 @@ function validPlaylistId($playlist_id)
     return true;
 }
 
+function validateYouTubeUrl($url) {
+    $url = trim($url);
+
+    if ($url === '') {
+        setErrorAndRedirect('please enter a url');
+    }
+
+    if(parse_url($url, PHP_URL_HOST) != 'www.youtube.com') {
+        setErrorAndRedirect('the url should be from youtube.com');
+    }
+}
+
+function validateYouTubeId($youtubeId) {
+    if (empty($youtubeId)) {
+        setErrorAndRedirect('The id is missing');
+    }
+    if(strlen($youtubeId) != 11) {
+        setErrorAndRedirect('The video-id is to short/long');
+    }
+}
+
+
 /**
  * Takes an error and saves it to the sseion for reuse on other pages,
  * after that, the user will be redirected to the point of origin,

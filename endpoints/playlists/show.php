@@ -2,7 +2,6 @@
 
 use function Auth\checkAuthUser;
 use function Database\getPlaylist;
-use function Siler\Http\Response\header;
 use function Siler\Twig\render;
 use function Siler\Http\Response\html;
 use function Validators\validPlaylistId;

@@ -2,7 +2,6 @@
 
 namespace Database;
 
-use function Siler\Http\session;
 use function Siler\Http\setsession;
 use function Validators\setErrorAndRedirect;
 
@@ -103,14 +102,14 @@ function getPlaylist($id){
         'SELECT s.*, count(uv.playlist_item) AS upvote
         FROM playlists as pl
         LEFT JOIN playlist_items as pli
-        ON pli.playlist_id = pl.id
+        ON pl.id = pli.playlist_id
         LEFT JOIN songs as s
-        ON s.id = pli.song_id
+        ON pli.song_id = s.id
         LEFT JOIN upvotes as uv
-        ON uv.playlist_item = pli.id
+        ON pli.id = uv.playlist_item
         WHERE pl.id=:id
-        GROUP BY s.id, uv.created
-        ORDER BY upvote desc, uv.created'
+        GROUP BY s.id
+        ORDER BY upvote DESC'
     );
     $playlistItemQuery->bindParam('id', $id, \PDO::PARAM_INT);
     $playlistItemQuery->execute();

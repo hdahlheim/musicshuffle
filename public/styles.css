@@ -12043,6 +12043,21 @@ video {
   grid-template-columns: 1fr 1fr 1fr;
 }
 
+.btn-teal {
+  padding-left: 1rem;
+  padding-right: 1rem;
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
+  font-weight: 600;
+  color: #e6fffa;
+  background-color: #38b2ac;
+  border-radius: 0.125rem;
+}
+
+.btn-teal:hover {
+  background-color: #2c7a7b;
+}
+
 @media (min-width: 640px) {
   .sm\:sr-only {
     position: absolute;

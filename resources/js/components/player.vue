@@ -4,7 +4,6 @@
       <div class="flex self-center">
         <div>
           <youtube
-
             @ready="ready"
             @ended="ended"
             :player-width="420"
@@ -38,7 +37,6 @@
               </svg>
             </div>
             <div class="text-lg font-semibold leading-none">
-              Playlisttime
             </div>
             <div>Votes</div>
             <div></div>

@@ -144,8 +144,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -776,11 +774,9 @@ var render = function() {
                       )
                     ]),
                     _vm._v(" "),
-                    _c(
-                      "div",
-                      { staticClass: "text-lg font-semibold leading-none" },
-                      [_vm._v("\n            Playlisttime\n          ")]
-                    ),
+                    _c("div", {
+                      staticClass: "text-lg font-semibold leading-none"
+                    }),
                     _vm._v(" "),
                     _c("div", [_vm._v("Votes")]),
                     _vm._v(" "),

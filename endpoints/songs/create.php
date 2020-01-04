@@ -6,4 +6,4 @@ use function Siler\Twig\render;
 
 checkAuthUser();
 
-html(render('playlists/create_playlist.twig'));
+html(render('songs/create.twig', ['playlist_id' => $params['id']]));

@@ -1,10 +1,15 @@
 <?php
 
+use function Siler\Diactoros\redirect;
+use function Siler\Http\Response\html;
+use function Siler\Http\Response\redirect as ResponseRedirect;
+use function Siler\Route\did_match;
 use function Siler\Route\get;
 use function Siler\Route\post;
 use function Siler\Route\put;
 use function Siler\Route\resource;
 use function Siler\Route\did_match;
+use function Siler\Twig\render;
 
 get('/', '../endpoints/home.php');
 
@@ -51,6 +56,5 @@ get('/songs/{id}', '../endpoints/songs/show.php');
 if (!did_match()) notFoundError();
 
 function notFoundError() {
-    http_response_code(404);
-    echo 'Not found';
+    html(render('notfound.twig'));
 }

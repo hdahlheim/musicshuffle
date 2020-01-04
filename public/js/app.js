@@ -145,10 +145,15 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 /* harmony default export */ __webpack_exports__["default"] = ({
+  props: {
+    playlist: {
+      type: Object
+    }
+  },
   data: function data() {
     return {
       playedSongs: [],
-      songs: ['BW1aX0IbZOE', '0rb9CfOvojk'],
+      songs: [],
       player: null,
       videoId: null,
       host: 'https://www.youtube-nocookie.com',
@@ -156,6 +161,9 @@ __webpack_require__.r(__webpack_exports__);
         autoplay: 1
       }
     };
+  },
+  beforeMount: function beforeMount() {
+    this.songs = this.playlist.songs;
   },
   methods: {
     ready: function ready(event) {
@@ -13219,11 +13227,18 @@ __webpack_require__.r(__webpack_exports__);
 
 vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vue_youtube_embed__WEBPACK_IMPORTED_MODULE_2__["default"]);
 new vue__WEBPACK_IMPORTED_MODULE_0___default.a({
-  el: '#app',
-  template: '<App/>',
+  el: '#player',
   components: {
-    App: _components_player_vue__WEBPACK_IMPORTED_MODULE_1__["default"]
-  }
+    player: _components_player_vue__WEBPACK_IMPORTED_MODULE_1__["default"]
+  },
+  data: {
+    playlist: null
+  },
+  beforeMount: function beforeMount() {
+    var rawPlaylist = this.$el.attributes['data-playlist'].value;
+    this.playlist = JSON.parse(rawPlaylist);
+  },
+  template: '<player :playlist="playlist" />'
 });
 
 /***/ }),

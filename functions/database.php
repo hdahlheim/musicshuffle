@@ -35,8 +35,7 @@ function saveSong($name, $url, $youtube_id)
     } else {
         pdo()
             ->prepare(
-                //need to change link to url in db
-                "INSERT INTO songs (name, link, youtube_id)
+                "INSERT INTO songs (name, url, youtube_id)
                 VALUES (:name, :url, :youtube_id)"
             )
             ->execute(compact('name', 'url', 'youtube_id'));
@@ -65,32 +64,32 @@ function addSongToPlaylist($song_id, $playlist_id)
     setsession('infoAlert', 'Song added successfully');
 }
 
-function upvoteSong($playlist_id, $song_id)
-{
-$user = session('user_id');
+function upVoteSong(Int $userId, Int $playlistId, Int $songId) {
+    $playlistItemQuery = pdo()
+        ->prepare(
+            "SELECT id FROM playlist_items
+            WHERE playlist_id = :playlistId
+            AND song_id = :songId;");
 
-$playlist_item_query = pdo()
-    ->prepare(
-        "SELECT id FROM playlist_items
-        WHERE playlist_id = :playlist_id
-        AND song_id = :song_id;");
-
-$playlist_item_query->execute(compact('playlist_id', 'song_id'));
-$playlist_item = $playlist_item_query->fetch(\PDO::FETCH_ASSOC);
-$playlist_item = $playlist_item['id'];
+    $playlistItemQuery->execute(compact('playlistId', 'songId'));
+    $playlistItem = $playlistItemQuery->fetch(\PDO::FETCH_ASSOC);
+    $playlistItemId = $playlistItem['id'];
 
 
-$success = pdo()
-    ->prepare(
-        "INSERT INTO upvotes (user, playlist_item)
-        VALUES (:user, :playlist_item)"
-    )
-    ->execute(compact('user', 'playlist_item'));
+    $insertQuery = pdo()
+        ->prepare(
+            "INSERT INTO upvotes (user, playlist_item)
+            VALUES (:userId, :playlistItemId)"
+        );
+    $insertQuery->bindParam('userId', $userId, \PDO::PARAM_INT);
+    $insertQuery->bindParam('playlistItemId', $playlistItemId, \PDO::PARAM_INT);
 
-if(!$success){
-    setErrorAndRedirect('Upvote failed, you have already upvoted this song');
-}
-setsession('infoAlert', 'Upvote successfully');
+    $success = $insertQuery->execute();
+
+    if(!$success) {
+        setErrorAndRedirect('Upvote failed, you have already upvoted this song');
+    }
+    setsession('infoAlert', 'Upvote successfully');
 }
 
 function getPlaylist($id){
@@ -101,8 +100,8 @@ function getPlaylist($id){
     $playlistMeta = $playlistMetaQuery->fetch(\PDO::FETCH_ASSOC);
 
     $playlistItemQuery = pdo()->prepare(
-        'SELECT s.*, count(uv.playlist_item) upvote
-	    FROM playlists as pl
+        'SELECT s.*, count(DISTINCT uv.playlist_item) AS upvote
+        FROM playlists as pl
         LEFT JOIN playlist_items as pli
         ON pl.id = pli.playlist_id
         LEFT JOIN songs as s
@@ -116,11 +115,16 @@ function getPlaylist($id){
     $playlistItemQuery->bindParam('id', $id, \PDO::PARAM_INT);
     $playlistItemQuery->execute();
 
-    $playlist = $playlistItemQuery->fetchALL(\PDO::FETCH_ASSOC);
+    $playlistItems = $playlistItemQuery->fetchALL(\PDO::FETCH_ASSOC);
+
+    /**
+     * Fillter out all empty results
+     */
+    $playlistItems = array_filter($playlistItems, fn ($item) => $item['id'] !== null);
 
     $data = [
         'meta' => $playlistMeta,
-        'songs' => $playlist
+        'songs' => $playlistItems
     ];
 
     return $data;

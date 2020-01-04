@@ -1,10 +1,10 @@
 <?php
 
-use function Siler\Route\did_match;
 use function Siler\Route\get;
 use function Siler\Route\post;
 use function Siler\Route\put;
 use function Siler\Route\resource;
+use function Siler\Route\did_match;
 
 get('/', '../endpoints/home.php');
 
@@ -40,15 +40,17 @@ resource('/users', '../endpoints/users');
  */
 resource('/playlists', '../endpoints/playlists');
 
-get('/playlists/{id}/add-song', '../endpoints/songs/create.php');
-post('/playlists/{id}/add-song', '../endpoints/songs/store.php');
+get('/playlists/{id}/play', '../endpoints/playlists/play.php');
 
-put('/playlists/{id}/add-song/{songid}', '../endpoints/playlists/update.php');
+post('/playlists/{id}/songs', '../endpoints/songs/store.php');
+get('/playlists/{id}/songs/create', '../endpoints/songs/create.php');
+put('/playlists/{id}/songs/{song_id}', '../endpoints/songs/update.php');
+
+get('/songs/{id}', '../endpoints/songs/show.php');
 
 if (!did_match()) notFoundError();
 
-function notFoundError()
-{
+function notFoundError() {
     http_response_code(404);
     echo 'Not found';
 }

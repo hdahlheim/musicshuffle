@@ -8,10 +8,9 @@ use function Siler\Http\Response\html;
 use function Validators\validPlaylistId;
 
 checkAuthUser();
-
-$id = $params['id'];
-validPlaylistId($id);
+validPlaylistId($params['id']);
 
 $playlist = getPlaylist($id);
 
-html(render('playlists/show.twig', compact('playlist')));
+header('Feature-Policy', 'autoplay \'self\' https://youtube.com');
+html(render('playlists/play.twig', compact('playlist')));

@@ -49,13 +49,15 @@
 
 <script>
 export default {
+  props: {
+    playlist:{
+      type: Object
+    }
+  },
   data() {
     return {
       playedSongs: [],
-      songs: [
-        'BW1aX0IbZOE',
-        '0rb9CfOvojk',
-      ],
+      songs: [],
       player: null,
       videoId: null,
       host: 'https://www.youtube-nocookie.com',
@@ -63,6 +65,9 @@ export default {
         autoplay: 1
       }
     }
+  },
+  beforeMount() {
+    this.songs = this.playlist.songs
   },
   methods: {
     ready(event) {

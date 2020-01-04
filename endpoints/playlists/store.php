@@ -13,4 +13,4 @@ $user_id = $_SESSION['user_id'];
 
 $playlist_id = savePlaylist($name, $user_id);
 
-redirect("/playlists/$playlist_id/add-song");
+redirect("/playlists/$playlist_id");

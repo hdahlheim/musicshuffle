@@ -5,6 +5,7 @@ namespace Validators;
 use PDO;
 
 use function Database\pdo;
+use function Siler\Http\path;
 use function Siler\Http\redirect;
 use function Siler\Http\setsession;
 

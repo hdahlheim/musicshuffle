@@ -40,7 +40,8 @@
           "functions/pdo.php",
           "functions/validators.php",
           "functions/auth.php",
-          "functions/database.php"
+          "functions/database.php",
+          "functions/youtubeapi.php"
         ]
     },
     "scripts": {

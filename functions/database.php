@@ -36,7 +36,7 @@ function saveSong($name, $url, $youtube_id)
         pdo()
             ->prepare(
                 //need to change link to url in db
-                "INSERT INTO songs (name, link, youtube_id)
+                "INSERT INTO songs (name, url, youtube_id)
                 VALUES (:name, :url, :youtube_id)"
             )
             ->execute(compact('name', 'url', 'youtube_id'));
@@ -109,7 +109,7 @@ function getPlaylist($id){
         ON s.id = pli.song_id
         LEFT JOIN upvotes as uv
         ON uv.playlist_item = pli.id
-        WHERE pl.id=11
+        WHERE pl.id=:id
         GROUP BY s.id, uv.created
         ORDER BY upvote desc, uv.created'
     );

@@ -136,15 +136,45 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
-      videoId: 'BW1aX0IbZOE',
+      playedSongs: [],
+      songs: ['BW1aX0IbZOE', '0rb9CfOvojk'],
+      player: null,
+      videoId: null,
       host: 'https://www.youtube-nocookie.com',
       playerVars: {
         autoplay: 1
       }
     };
+  },
+  methods: {
+    ready: function ready(event) {
+      this.player = event.target;
+      this.nextSong();
+    },
+    ended: function ended() {
+      this.playedSongs.push(this.videoId);
+      this.nextSong();
+    },
+    nextSong: function nextSong() {
+      var _this = this;
+
+      var unplayedSongs = this.songs.filter(function (item) {
+        return !_this.playedSongs.includes(item);
+      });
+      var nextSong = unplayedSongs.shift();
+      this.videoId = nextSong;
+    }
   }
 });
 
@@ -637,26 +667,24 @@ var render = function() {
     _c(
       "div",
       {
-        staticClass: "flex justify-between w-full",
+        staticClass: "flex justify-around w-full mt-16",
         staticStyle: { "max-height": "90vh" },
         attrs: { id: "app" }
       },
       [
-        _c(
-          "div",
-          { staticClass: "self-center" },
-          [
-            _c("youtube", {
-              attrs: {
-                "player-width": 320,
-                host: _vm.host,
-                "video-id": _vm.videoId,
-                "player-vars": _vm.playerVars
-              }
-            }),
-            _vm._v(" "),
-            _c("div", { staticClass: "flex" }, [
-              _c("button", [_vm._v("Whatever")]),
+        _c("div", { staticClass: "flex self-center" }, [
+          _c(
+            "div",
+            [
+              _c("youtube", {
+                attrs: {
+                  "player-width": 420,
+                  host: _vm.host,
+                  "video-id": _vm.videoId,
+                  "player-vars": _vm.playerVars
+                },
+                on: { ready: _vm.ready, ended: _vm.ended }
+              }),
               _vm._v(" "),
               _c("button", { staticClass: "relative" }, [
                 _c(
@@ -699,10 +727,10 @@ var render = function() {
                   ]
                 )
               ])
-            ])
-          ],
-          1
-        ),
+            ],
+            1
+          )
+        ]),
         _vm._v(" "),
         _c(
           "div",
@@ -13276,8 +13304,8 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! /Users/tvogel/Documents/schule/gibmit/151_Modul/musicshuffle/resources/js/app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! /Users/tvogel/Documents/schule/gibmit/151_Modul/musicshuffle/resources/css/tailwind.css */"./resources/css/tailwind.css");
+__webpack_require__(/*! /Users/hd/devel/Schule/m151/project/musicshuffle/resources/js/app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! /Users/hd/devel/Schule/m151/project/musicshuffle/resources/css/tailwind.css */"./resources/css/tailwind.css");
 
 
 /***/ })

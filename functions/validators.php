@@ -5,10 +5,8 @@ namespace Validators;
 use PDO;
 
 use function Database\pdo;
-use function Siler\Http\path;
 use function Siler\Http\redirect;
 use function Siler\Http\setsession;
-
 
 
 /**
@@ -79,14 +77,24 @@ function valid_email($rawEmail)
     return $email;
 }
 
-function validPlaylistId($playlist_id)
-{
-    $query = pdo()->prepare('SELECT * FROM playlists WHERE id=:playlist_id');
-    $query->execute(compact('playlist_id'));
+function validPlaylistId($playlistId) {
+    $query = pdo()->prepare('SELECT * FROM playlists WHERE id=:playlistId');
+    $query->execute(compact('playlistId'));
     $playlist = $query->fetch(PDO::FETCH_ASSOC);
     if (empty($playlist)){
         http_response_code(404);
         echo('Playlist does not exist');
+    }
+    return true;
+}
+
+function validSongId($songId) {
+    $query = pdo()->prepare('SELECT * FROM songs WHERE id=:songId');
+    $query->execute(compact('songId'));
+    $song = $query->fetch(PDO::FETCH_ASSOC);
+    if (empty($song)){
+        http_response_code(404);
+        echo('Song does not exist');
     }
     return true;
 }

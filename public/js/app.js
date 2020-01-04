@@ -137,6 +137,9 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: {
     playlist: {
@@ -676,121 +679,133 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", [
-    _c(
-      "div",
-      { staticClass: "flex justify-around w-full", attrs: { id: "app" } },
-      [
-        _c("div", { staticClass: "flex self-center" }, [
-          _c(
-            "div",
-            { staticClass: "flex flex-col items-center" },
-            [
-              _c("h1", { staticClass: "text-4xl font-bold" }, [
-                _vm._v("Current Song: " + _vm._s(_vm.currentSong.name))
+  return _c(
+    "div",
+    { staticClass: "flex justify-between w-full", attrs: { id: "app" } },
+    [
+      _c(
+        "div",
+        { staticClass: "self-center w-1/3 p-4 mr-4 bg-gray-700 rounded" },
+        [
+          _c("div", [
+            _c("div", [
+              _c("span", { staticClass: "text-lg text-gray-500" }, [
+                _vm._v("Current Song:")
               ]),
               _vm._v(" "),
-              _c("youtube", {
-                attrs: {
-                  "player-width": 450,
-                  host: _vm.host,
-                  "video-id": _vm.videoId,
-                  "player-vars": _vm.playerVars
-                },
-                on: { ready: _vm.ready, ended: _vm.nextSong }
-              }),
-              _vm._v(" "),
-              _c(
-                "button",
-                {
-                  staticClass: "w-full text-lg btn-teal",
-                  on: { click: _vm.nextSong }
-                },
-                [_vm._v("Next")]
-              )
-            ],
-            1
-          )
-        ]),
-        _vm._v(" "),
-        _c(
-          "div",
-          {
-            staticClass:
-              "relative w-1/2 max-h-full overflow-y-scroll rounded-sm shadow-inner"
-          },
-          [
-            _c("h2", { staticClass: "text-4xl" }, [_vm._v("Queue:")]),
+              _c("h1", { staticClass: "text-4xl font-bold" }, [
+                _vm._v(_vm._s(_vm.currentSong.name))
+              ])
+            ]),
             _vm._v(" "),
             _c(
-              "ul",
-              _vm._l(_vm.unplayedSongs, function(song) {
-                return _c(
-                  "li",
-                  {
-                    key: song.id,
-                    staticClass:
-                      "flex items-center justify-between p-4 m-3 bg-gray-700 rounded-sm"
+              "div",
+              { staticClass: "w-full overflow-hidden rounded" },
+              [
+                _c("youtube", {
+                  attrs: {
+                    "player-width": 360,
+                    host: _vm.host,
+                    "video-id": _vm.videoId,
+                    "player-vars": _vm.playerVars
                   },
-                  [
-                    _c("div", [
-                      _c(
-                        "svg",
-                        {
-                          staticClass: "w-10 h-10",
-                          attrs: { viewBox: "0 0 24 24" },
-                          on: {
-                            click: function($event) {
-                              return _vm.playThisSong(song)
-                            }
-                          }
-                        },
-                        [
-                          _c("circle", {
-                            staticClass: "text-gray-200 fill-current",
-                            attrs: { cx: "12", cy: "12", r: "10" }
-                          }),
-                          _vm._v(" "),
-                          _c("path", {
-                            staticClass: "text-gray-700 fill-current",
-                            attrs: {
-                              d:
-                                "M15.51 11.14a1 1 0 0 1 0 1.72l-5 3A1 1 0 0 1 9 15V9a1 1 0 0 1 1.51-.86l5 3z"
-                            }
-                          })
-                        ]
-                      )
-                    ]),
-                    _vm._v(" "),
-                    _c(
-                      "div",
-                      { staticClass: "text-lg font-semibold leading-none" },
-                      [
-                        _vm._v(
-                          "\n              " +
-                            _vm._s(song.name) +
-                            "\n          "
-                        )
-                      ]
-                    ),
-                    _vm._v(" "),
-                    _c("div", [
-                      _vm._v(
-                        "\n            Votes: " +
-                          _vm._s(song.upvote) +
-                          "\n          "
-                      )
-                    ])
-                  ]
-                )
-              }),
-              0
+                  on: { ready: _vm.ready, ended: _vm.nextSong }
+                })
+              ],
+              1
+            ),
+            _vm._v(" "),
+            _c(
+              "button",
+              {
+                staticClass: "w-full my-4 text-lg btn-teal",
+                on: { click: _vm.nextSong }
+              },
+              [_vm._v("Next")]
             )
-          ]
-        )
-      ]
-    )
-  ])
+          ])
+        ]
+      ),
+      _vm._v(" "),
+      _c(
+        "div",
+        {
+          staticClass:
+            "relative w-2/3 max-h-full overflow-y-scroll rounded-sm shadow-inner"
+        },
+        [
+          _c(
+            "h2",
+            { staticClass: "mb-4 text-lg font-semibold text-gray-500" },
+            [_vm._v("Queue:")]
+          ),
+          _vm._v(" "),
+          _c(
+            "ul",
+            _vm._l(_vm.unplayedSongs, function(song) {
+              return _c(
+                "li",
+                {
+                  key: song.id,
+                  staticClass:
+                    "flex items-center justify-between px-6 py-2 mb-2 bg-gray-700 rounded-sm p"
+                },
+                [
+                  _c("div", { staticClass: "flex-shrink-0 min-w-0" }, [
+                    _c(
+                      "svg",
+                      {
+                        staticClass: "w-8 h-8",
+                        attrs: { viewBox: "0 0 24 24" },
+                        on: {
+                          click: function($event) {
+                            return _vm.playThisSong(song)
+                          }
+                        }
+                      },
+                      [
+                        _c("circle", {
+                          staticClass:
+                            "text-gray-500 fill-current hover:text-teal-500",
+                          attrs: { cx: "12", cy: "12", r: "10" }
+                        }),
+                        _vm._v(" "),
+                        _c("path", {
+                          staticClass: "text-gray-700 fill-current",
+                          attrs: {
+                            d:
+                              "M15.51 11.14a1 1 0 0 1 0 1.72l-5 3A1 1 0 0 1 9 15V9a1 1 0 0 1 1.51-.86l5 3z"
+                          }
+                        })
+                      ]
+                    )
+                  ]),
+                  _vm._v(" "),
+                  _c(
+                    "div",
+                    { staticClass: "w-3/4 font-semibold leading-none" },
+                    [
+                      _vm._v(
+                        "\n            " + _vm._s(song.name) + "\n        "
+                      )
+                    ]
+                  ),
+                  _vm._v(" "),
+                  _c("div", [
+                    _c("span", { staticClass: "font-semibold" }, [
+                      _vm._v("Votes:")
+                    ]),
+                    _vm._v(" " + _vm._s(song.upvote) + "\n        ")
+                  ])
+                ]
+              )
+            }),
+            0
+          )
+        ]
+      )
+    ]
+  )
 }
 var staticRenderFns = []
 render._withStripped = true

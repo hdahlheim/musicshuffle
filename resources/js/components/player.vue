@@ -1,43 +1,46 @@
 <template>
-  <div>
-    <div class="flex justify-around w-full" id="app">
-      <div class="flex self-center">
-        <div class="flex flex-col items-center">
-          <h1 class="text-4xl font-bold">Current Song: {{currentSong.name}}</h1>
-          <youtube
-            @ready="ready"
-            @ended="nextSong"
-            :player-width="450"
-            :host="host"
-            :video-id="videoId"
-            :player-vars="playerVars" />
-          <button class="w-full text-lg btn-teal" @click="nextSong">Next</button>
+    <div class="flex justify-between w-full" id="app">
+      <div class="self-center w-1/3 p-4 mr-4 bg-gray-700 rounded">
+        <div>
+          <div>
+            <span class="text-lg text-gray-500">Current Song:</span>
+            <h1 class="text-4xl font-bold">{{currentSong.name}}</h1>
+          </div>
+          <div class="w-full overflow-hidden rounded">
+            <youtube
+              @ready="ready"
+              @ended="nextSong"
+              :player-width="360"
+              :host="host"
+              :video-id="videoId"
+              :player-vars="playerVars" />
+          </div>
+          <button class="w-full my-4 text-lg btn-teal" @click="nextSong">Next</button>
         </div>
       </div>
-      <div class="relative w-1/2 max-h-full overflow-y-scroll rounded-sm shadow-inner">
-        <h2 class="text-4xl">Queue:</h2>
+      <div class="relative w-2/3 max-h-full overflow-y-scroll rounded-sm shadow-inner">
+        <h2 class="mb-4 text-lg font-semibold text-gray-500">Queue:</h2>
         <ul>
           <li
             v-for="song in unplayedSongs" :key="song.id"
-            class="flex items-center justify-between p-4 m-3 bg-gray-700 rounded-sm"
+            class="flex items-center justify-between px-6 py-2 mb-2 bg-gray-700 rounded-sm p"
             >
-            <div>
-              <svg @click="playThisSong(song)" viewBox="0 0 24 24" class="w-10 h-10">
-                  <circle cx="12" cy="12" r="10" class="text-gray-200 fill-current"></circle>
+            <div class="flex-shrink-0 min-w-0">
+              <svg @click="playThisSong(song)" viewBox="0 0 24 24" class="w-8 h-8">
+                  <circle cx="12" cy="12" r="10" class="text-gray-500 fill-current hover:text-teal-500"></circle>
                   <path class="text-gray-700 fill-current" d="M15.51 11.14a1 1 0 0 1 0 1.72l-5 3A1 1 0 0 1 9 15V9a1 1 0 0 1 1.51-.86l5 3z"></path>
               </svg>
             </div>
-            <div class="text-lg font-semibold leading-none">
+            <div class="w-3/4 font-semibold leading-none">
                 {{ song.name }}
             </div>
             <div>
-              Votes: {{ song.upvote }}
+              <span class="font-semibold">Votes:</span> {{ song.upvote }}
             </div>
           </li>
         </ul>
       </div>
     </div>
-  </div>
 </template>
 
 <script>

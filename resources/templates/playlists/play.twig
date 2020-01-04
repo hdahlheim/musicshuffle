@@ -1,6 +1,6 @@
 {% extends "layouts/_base.twig" %}
 {% block main %}
-    <main class="container mx-auto bg-gray-800">
+    <main class="container p-4 mx-auto bg-gray-800">
         <div data-playlist="{{ playlist|json_encode }}" id="player">
             <noscript>Pleas activate javascript</noscript>
         </div>

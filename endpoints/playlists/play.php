@@ -8,9 +8,10 @@ use function Siler\Http\Response\html;
 use function Validators\validPlaylistId;
 
 checkAuthUser();
-$id = (int) $params['id'];
-validPlaylistId($id);
 
+$id = (int) $params['id'];
+
+validPlaylistId($id);
 $playlist = getPlaylist($id);
 
 header('Feature-Policy', 'autoplay \'self\' https://youtube.com');

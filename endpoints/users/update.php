@@ -18,8 +18,7 @@ $password = validPassword(post('password'));
 
 $success = pdo()
     ->prepare(
-        'UPDATE users (password)
-        VALUES (:password)
+        'UPDATE users SET password = :password
         WHERE id=:id'
     )
     ->execute(compact('id', 'password'));

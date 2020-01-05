@@ -15,7 +15,7 @@
         }
     ],
     "require": {
-        "php": ">=7.1",
+        "php": ">=7.4",
         "ext-json": "*",
         "leocavalcante/siler": "^1.7",
         "twig/twig": "^3.0",

@@ -2,6 +2,8 @@
 
 ## Install the Application
 
+This application uses PHP 7.4
+
 * Point your virtual host document root to `public/` directory.
 * Install the composer dependencies with composer.
 

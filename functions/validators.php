@@ -9,7 +9,6 @@ use function Siler\Http\Request\post;
 use function Siler\Http\session;
 use function Siler\Http\setsession;
 
-
 /**
  * Takes a raw string and checks if this string is a valid password
  * if password is valid, the encripted password will be returned
@@ -23,7 +22,7 @@ function validPassword($rawPassword, $rawPasswordCheck)
     $password = trim($rawPassword);
     $passwordCheck = trim($rawPasswordCheck);
 
-    if  ($password !== $passwordCheck) {
+    if ($password !== $passwordCheck) {
         setErrorAndRedirect('Passwords do not match');
     }
 
@@ -92,11 +91,12 @@ function validEmail($rawEmail)
  * @param integer $playlistId
  * @return boolean|void
  */
-function validPlaylistId($playlistId) {
+function validPlaylistId($playlistId)
+{
     $query = pdo()->prepare('SELECT * FROM playlists WHERE id=:playlistId');
     $query->execute(compact('playlistId'));
     $playlist = $query->fetch(\PDO::FETCH_ASSOC);
-    if (empty($playlist)){
+    if (empty($playlist)) {
         notFoundError();
     }
     return true;
@@ -109,11 +109,12 @@ function validPlaylistId($playlistId) {
  * @param integer $songId
  * @return boolean|void
  */
-function validSongId($songId) {
+function validSongId($songId)
+{
     $query = pdo()->prepare('SELECT * FROM songs WHERE id=:songId');
     $query->execute(compact('songId'));
     $song = $query->fetch(\PDO::FETCH_ASSOC);
-    if (empty($song)){
+    if (empty($song)) {
         notFoundError();
     }
     return true;
@@ -126,11 +127,12 @@ function validSongId($songId) {
  * @param integer $userId
  * @return boolean|void
  */
-function validUserId($userId) {
+function validUserId($userId)
+{
     $query = pdo()->prepare('SELECT * FROM users WHERE id=:userId');
     $query->execute(compact('userId'));
     $user = $query->fetch(\PDO::FETCH_ASSOC);
-    if (empty($user)){
+    if (empty($user)) {
         notFoundError();
     }
     return true;
@@ -143,14 +145,15 @@ function validUserId($userId) {
  * @param string $url
  * @return void
  */
-function validateYouTubeUrl($url) {
+function validateYouTubeUrl($url)
+{
     $url = trim($url);
 
     if ($url === '') {
         setErrorAndRedirect('please enter a url');
     }
 
-    if(parse_url($url, PHP_URL_HOST) != 'www.youtube.com') {
+    if (parse_url($url, PHP_URL_HOST) != 'www.youtube.com') {
         setErrorAndRedirect('the url should be from youtube.com');
     }
 }
@@ -162,11 +165,12 @@ function validateYouTubeUrl($url) {
  * @param string $youtubeId
  * @return void
  */
-function validateYouTubeId($youtubeId) {
+function validateYouTubeId($youtubeId)
+{
     if (empty($youtubeId)) {
         setErrorAndRedirect('The id is missing');
     }
-    if(strlen($youtubeId) != 11) {
+    if (strlen($youtubeId) != 11) {
         setErrorAndRedirect('The video-id is to short/long');
     }
 }
@@ -178,7 +182,8 @@ function validateYouTubeId($youtubeId) {
  *
  * @return void
  */
-function generateCSRFToken() {
+function generateCSRFToken()
+{
     if (!session('csrf_token')) {
         setsession('csrf_token', sha1(random_bytes(32)));
     }
@@ -190,7 +195,8 @@ function generateCSRFToken() {
  *
  * @return void
  */
-function validCSRFToken() {
+function validCSRFToken()
+{
     if (post('_csrf_token') !== session('csrf_token')) {
         setErrorAndRedirect('CSRF Token do not match');
     }

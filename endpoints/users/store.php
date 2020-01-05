@@ -17,7 +17,7 @@ $password = validPassword(post('password'), post('password_check'));
 
 $success = storeUser($email, $username, $password);
 
-if(!$success){
+if (!$success) {
     setErrorAndRedirect('Registration failed');
 }
 

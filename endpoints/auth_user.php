@@ -19,4 +19,3 @@ if ($user) {
 } else {
     setErrorAndRedirect('Login failed');
 }
-

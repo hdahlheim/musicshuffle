@@ -49,9 +49,9 @@ function storeSong($name, $url, $youtube_id)
     }
 
     pdo()->prepare(
-            "INSERT INTO songs (name, url, youtube_id)
+        "INSERT INTO songs (name, url, youtube_id)
             VALUES (:name, :url, :youtube_id)"
-        )
+    )
         ->execute(compact('name', 'url', 'youtube_id'));
 
     return pdo()->lastInsertId();
@@ -71,7 +71,7 @@ function addSongToPlaylist($songId, $playlistId)
             'SELECT * FROM playlist_items
             WHERE song_id=:songId
             AND playlistId=:playlistId'
-            );
+        );
 
     $playlistItem = __executeQuery($query, compact('songId', 'playlistId'));
 
@@ -97,17 +97,20 @@ function addSongToPlaylist($songId, $playlistId)
  * @param integer $songId
  * @return boolean
  */
-function upVoteSong($userId, $playlistId, $songId) {
+function upVoteSong($userId, $playlistId, $songId)
+{
     $playlistItemQuery = pdo()
         ->prepare(
             "SELECT id FROM playlist_items
             WHERE playlist_id = :playlistId
-            AND song_id = :songId;");
-
-    $playlistItem = __executeQuery($playlistItemQuery,
-            compact('playlistId', 'songId'),
-            false
+            AND song_id = :songId;"
         );
+
+    $playlistItem = __executeQuery(
+        $playlistItemQuery,
+        compact('playlistId', 'songId'),
+        false
+    );
 
     $playlistItemId = $playlistItem['id'];
 
@@ -130,7 +133,8 @@ function upVoteSong($userId, $playlistId, $songId) {
  * @param integer $start
  * @return array
  */
-function getAllPlaylists($limit = 50, $start = 0) {
+function getAllPlaylists($limit = 50, $start = 0)
+{
     $query = pdo()->prepare(
         'SELECT name, created, id, user_id FROM playlists LIMIT :start,:limit;'
     );
@@ -188,7 +192,8 @@ function countOfPlaylistsByUser($id)
  * @param integer $id
  * @return array
  */
-function getPlaylist($id){
+function getPlaylist($id)
+{
     $playlistMeta = __selectOneById('playlists', $id);
 
     $playlistItemQuery = pdo()->prepare(
@@ -253,7 +258,8 @@ function storePlaylist($name, $userId)
  * @param integer $id
  * @return array
  */
-function getUserById($id) {
+function getUserById($id)
+{
     $query = pdo()->prepare(
         'SELECT username, email, id FROM users WHERE id=:id;'
     );
@@ -267,7 +273,8 @@ function getUserById($id) {
  * @param string $username
  * @return array
  */
-function getUserByName($username) {
+function getUserByName($username)
+{
     return __selectByField('users', 'username', compact('username'), false);
 }
 
@@ -278,7 +285,8 @@ function getUserByName($username) {
  * @param integer $start
  * @return array
  */
-function getAllUsers($limit = 50, $start = 0) {
+function getAllUsers($limit = 50, $start = 0)
+{
     $query = pdo()->prepare(
         'SELECT username, email, id FROM users LIMIT :start,:limit;'
     );
@@ -295,7 +303,8 @@ function getAllUsers($limit = 50, $start = 0) {
  * @param string $password
  * @return boolen
  */
-function storeUser($email, $username, $password) {
+function storeUser($email, $username, $password)
+{
     return !!pdo()
     ->prepare(
         "INSERT INTO users (username, password, email)
@@ -311,7 +320,8 @@ function storeUser($email, $username, $password) {
  * @param string $password
  * @return boolen
  */
-function updateUserPassword($id, $newPassword) {
+function updateUserPassword($id, $newPassword)
+{
     return !!pdo()
         ->prepare(
             'UPDATE users SET password = :password
@@ -321,7 +331,8 @@ function updateUserPassword($id, $newPassword) {
 }
 
 
-function countOf($table) {
+function countOf($table)
+{
     return pdo()->query("SELECT count(id) as count from $table;")
         ->fetch(\PDO::FETCH_ASSOC)['count'];
 }
@@ -336,7 +347,8 @@ function countOf($table) {
  * @param string $name
  * @return array
  */
-function __selectOneByName($table, $name) {
+function __selectOneByName($table, $name)
+{
     $query = pdo()->prepare("SELECT * FROM $table WHERE name=:name");
     $query->bindParam('name', $name, \PDO::PARAM_STR);
     return __executeQuery($query, null, false);
@@ -351,7 +363,8 @@ function __selectOneByName($table, $name) {
  * @param integer $id
  * @return array
  */
-function __selectOneById($table, $id) {
+function __selectOneById($table, $id)
+{
     $query = pdo()->prepare("SELECT * FROM $table WHERE id=:id");
     $query->bindParam('id', $id, \PDO::PARAM_INT);
     return __executeQuery($query, null, false);
@@ -368,7 +381,8 @@ function __selectOneById($table, $id) {
  * @param boolean $fetchAll
  * @return array
  */
-function __selectByField($table, $field, $data, $fetchAll = false) {
+function __selectByField($table, $field, $data, $fetchAll = false)
+{
     $query = pdo()->prepare("SELECT * FROM $table WHERE $field=:$field");
     return __executeQuery($query, $data, $fetchAll);
 }
@@ -383,7 +397,8 @@ function __selectByField($table, $field, $data, $fetchAll = false) {
  * @param boolean $fetchAll
  * @return array
  */
-function __executeQuery($query, $data = null, $fetchAll = true) {
+function __executeQuery($query, $data = null, $fetchAll = true)
+{
     if ($data) {
         $query->execute($data);
     } else {

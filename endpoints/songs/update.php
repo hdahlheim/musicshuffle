@@ -22,7 +22,7 @@ validPlaylistId($playlistId);
 
 $success = upVoteSong($userId, $playlistId, $songId);
 
-if(!$success) {
+if (!$success) {
     setErrorAndRedirect('Upvote failed, you have already upvoted this song');
 }
 setsession('infoAlert', 'Upvote successfully');

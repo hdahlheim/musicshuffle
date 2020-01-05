@@ -23,7 +23,8 @@ $playlists = getPlaylistsByUser($user['id'], $limit, $page);
 $total = countOfPlaylistsByUser($user['id']);
 
 html(
-    render('users/show.twig',
+    render(
+        'users/show.twig',
         compact('user', 'playlists', 'page', 'limit', 'total')
     )
 );

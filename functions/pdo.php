@@ -1,6 +1,7 @@
 <?php
 
 namespace Database;
+
 use Siler\Container;
 
 /**
@@ -9,8 +10,9 @@ use Siler\Container;
  *
  * @return \PDO
  */
-function pdo() {
-    if (Container\has('PDO_INSTANCE')){
+function pdo()
+{
+    if (Container\has('PDO_INSTANCE')) {
         return Container\get('PDO_INSTANCE');
     }
 

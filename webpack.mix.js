@@ -1,9 +1,9 @@
 let mix = require('laravel-mix');
+require('laravel-mix-postcss-config');
 
 mix.js('resources/js/app.js', 'public/js/')
-  .postCss('resources/css/tailwind.css', 'public/styles.css', [
-    require('tailwindcss'),
-  ])
+  .postCss('resources/css/tailwind.css', 'public/styles.css')
+  .postCssConfig()
 
 // mix.options({
 //   extractVueStyles: false, // Extract .vue component styling to file, rather than inline.

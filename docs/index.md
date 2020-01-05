@@ -3,6 +3,7 @@
   - [Projekt Planung](#projekt-planung)
   - [Überprüfung der Nutzereingaben](#%c3%9cberpr%c3%bcfung-der-nutzereingaben)
   - [Script Injection](#script-injection)
+  - [CSRF Protection](#csrf-protection)
   - [Testing](#testing)
 
 ## Projekt Planung
@@ -10,5 +11,7 @@
 ## Überprüfung der Nutzereingaben
 
 ## Script Injection
+
+## CSRF Protection
 
 ## Testing

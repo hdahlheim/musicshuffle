@@ -10,8 +10,9 @@ use function Siler\Http\setsession;
 /**
  * Checks if the session has an user (is logged in) and redirect if not
  */
-function checkAuthUser() {
-    if (!isUserLoggedin()){
+function checkAuthUser()
+{
+    if (!isUserLoggedin()) {
         redirect('/logout');
         exit;
     }
@@ -25,7 +26,8 @@ function checkAuthUser() {
  * @param integer $id
  * @return boolean|void
  */
-function checkUserEditRight($id) {
+function checkUserEditRight($id)
+{
     $userToEdit = (int) $id;
     $currentUser = (int) session('user_id');
     if ($currentUser !== $userToEdit) {
@@ -39,9 +41,10 @@ function checkUserEditRight($id) {
  *
  * @return boolean
  */
-function isUserLoggedin() {
+function isUserLoggedin()
+{
     $user_session = session('user_name');
-    if (is_null($user_session)){
+    if (is_null($user_session)) {
         return false;
     }
     return true;
@@ -54,8 +57,8 @@ function isUserLoggedin() {
  * @param Array $user
  * @param string|void $password
  */
-function authUser($user, $password) {
-
+function authUser($user, $password)
+{
     if (password_verify($password, $user['password'])) {
         session_regenerate_id();
 
@@ -67,5 +70,3 @@ function authUser($user, $password) {
         setErrorAndRedirect('Password is wrong');
     }
 }
-
-

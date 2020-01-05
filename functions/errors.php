@@ -10,7 +10,8 @@ use function Siler\Twig\render;
  *
  * @return void
  */
-function notFoundError() {
+function notFoundError()
+{
     html(render('notfound.twig'), 404);
     exit;
 }
@@ -20,7 +21,8 @@ function notFoundError() {
  *
  * @return void
  */
-function internalServerError() {
+function internalServerError()
+{
     html('Internal Server Error', 500);
     exit;
 }

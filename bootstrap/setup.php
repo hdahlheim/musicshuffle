@@ -81,19 +81,20 @@ $twigEnv->addFilter(new \Twig\TwigFilter('gravatar', function ($email) {
  * Add the vtImg function to Twig, this function allows us to add youtube
  * thumbnails in diffrent sizes for a given youtube id to our application.
  */
-$twigEnv->addFunction(new \Twig\TwigFunction(
+$twigEnv->addFunction(
+    new \Twig\TwigFunction(
     'ytImg',
     'YouTubeAPI\getYoutubeThumbnailURL'
-    )
+)
 );
 
 /**
  * Add a csrf Input field function to Twig, this function allows us to add
  * csrf token fields everyware in twig.
  */
-$twigEnv->addFunction(new \Twig\TwigFunction('csrfField', function () {
+$twigEnv->addFunction(
+    new \Twig\TwigFunction('csrfField', function () {
         $token = session('csrf_token');
         echo "<input name=\"_csrf_token\" type=\"hidden\" value=\"$token\">";
     }, ['is_safe' => ['html']])
 );
-

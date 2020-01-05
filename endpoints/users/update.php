@@ -20,7 +20,7 @@ $password = validPassword(post('password'), post('password_check'));
 
 $success = updateUserPassword($id, $password);
 
-if(!$success){
+if (!$success) {
     setErrorAndRedirect('Update failed');
 }
 setsession('infoAlert', 'Update successfull');

@@ -91,16 +91,33 @@ function upVoteSong(Int $userId, Int $playlistId, Int $songId) {
     setsession('infoAlert', 'Upvote successfully');
 }
 
-function getLastFivePlaylistsOfUser($id)
+function getFivePlaylistsOfUser($id, $page = 1)
 {
+    $limit = 5;
+    $start = (int) $limit * ($page - 1);
     $playlistQuery = pdo()->prepare(
         'SELECT * FROM playlists
         WHERE user_id=:id
         ORDER BY created DESC
-        LIMIT 5;'
+        LIMIT :start,:limit;'
     );
-    $playlistQuery->execute(compact('id'));
+    $playlistQuery->bindParam('id', $id, \PDO::PARAM_INT);
+    $playlistQuery->bindParam('start', $start, \PDO::PARAM_INT);
+    $playlistQuery->bindParam('limit', $limit, \PDO::PARAM_INT);
+    $playlistQuery->execute();
     return $playlistQuery->fetchALL(\PDO::FETCH_ASSOC);
+}
+
+function getTotalNumberPlaylistsOfUser($id)
+{
+    $query = pdo()
+        ->prepare(
+            'SELECT count(id) as count from playlists WHERE user_id=:id;'
+        );
+    $query->bindParam('id', $id, \PDO::PARAM_INT);
+    $query->execute();
+
+    return $query->fetch(\PDO::FETCH_ASSOC)['count'];
 }
 
 function getPlaylist($id){

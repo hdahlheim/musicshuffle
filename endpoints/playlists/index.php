@@ -8,8 +8,9 @@ use function Siler\Http\Request\get;
 
 checkAuthUser();
 
-$limit = 6;
-$start = $limit * get('p', 0);
+$limit = 10;
+$page = (int) get('p', 1);
+$start = $limit * ($page - 1);
 
 $playlistsQuery = pdo()->prepare(
     'SELECT name, created, id, user_id FROM playlists LIMIT :start,:limit;'
@@ -28,4 +29,4 @@ $playlists = $playlistsQuery->fetchAll();
  * array in the twig template and html() makes/sends it as a proper response
  * (header response)
  */
-html(render('playlists/index.twig', compact('playlists', 'limit', 'total')));
+html(render('playlists/index.twig', compact('playlists', 'page', 'limit', 'total')));

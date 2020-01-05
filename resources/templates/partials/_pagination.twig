@@ -1,0 +1,58 @@
+{% set totalpages = (total // limit) %}
+{% if total > limit %}
+<div class="flex justify-center mt-4">
+    <ul class="flex">
+        <li>
+        {% if 1 == page %}
+            <a class="block px-3 py-2 leading-none text-gray-600 bg-gray-700 border-r border-gray-900 rounded-l-sm">
+                Back
+            </a>
+        {% else %}
+            <a class="block px-3 py-2 leading-none text-teal-400 bg-gray-700 border-r border-gray-900 rounded-l-sm hover:text-white hover:bg-teal-400"
+                href="?p={{ page - 1 }}">
+                Back
+            </a>
+        {% endif %}
+        </li>
+        {% for p in (1..totalpages + 1) %}
+        <li class="">
+        {% if p == page %}
+            <a class="block px-3 py-2 leading-none text-teal-400 bg-gray-700 border-r border-gray-900 font-semibol group hover:bg-teal-400 group-hover:text-white"
+                href="?p={{p}}">
+                {{p}}
+                </a>
+        {% else %}
+            <a class="block px-3 py-2 leading-none text-white bg-gray-700 border-r border-gray-900 hover:bg-teal-400"
+                href="?p={{p}}">
+                {{p}}
+            </a>
+        {% endif %}
+        </li>
+        {% endfor %}
+        {% if page == totalpages + 1 %}
+        <li class="">
+            <a class="block px-3 py-2 leading-none text-gray-600 bg-gray-700 rounded-r-sm">
+                Next
+            </a>
+        </li>
+        {% else %}
+        <li class="">
+            <a class="block px-3 py-2 leading-none text-teal-400 bg-gray-700 rounded-r-sm hover:text-white hover:bg-teal-400"
+                href="?p={{ page + 1 }}">
+                Next
+            </a>
+        </li>
+        {% endif %}
+    </ul>
+</div>
+{% endif %}
+
+{# if ($total_no_of_pages <= 10){
+	for ($counter = 1; $counter <= $total_no_of_pages; $counter++){
+	if ($counter == $page_no) {
+	echo "<li class='active'><a>$counter</a></li>";
+	        }else{
+        echo "<li><a href='?page_no=$counter'>$counter</a></li>";
+                }
+        }
+} #}

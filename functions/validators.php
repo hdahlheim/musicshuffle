@@ -6,6 +6,8 @@ use PDO;
 use function Database\pdo;
 use function Errors\notFoundError;
 use function Siler\Http\redirect;
+use function Siler\Http\Request\post;
+use function Siler\Http\session;
 use function Siler\Http\setsession;
 
 
@@ -84,6 +86,13 @@ function validEmail($rawEmail)
     return $email;
 }
 
+/**
+ * Check the if the given playlist Id is valid. If not the user will be
+ * redirected to a 404 page.
+ *
+ * @param int $playlistId
+ * @return boolean|void
+ */
 function validPlaylistId($playlistId) {
     $query = pdo()->prepare('SELECT * FROM playlists WHERE id=:playlistId');
     $query->execute(compact('playlistId'));
@@ -94,6 +103,13 @@ function validPlaylistId($playlistId) {
     return true;
 }
 
+/**
+ * Check the if the given playlist Id is valid. If not the user will be
+ * redirected to a 404 page.
+ *
+ * @param int $songId
+ * @return boolean|void
+ */
 function validSongId($songId) {
     $query = pdo()->prepare('SELECT * FROM songs WHERE id=:songId');
     $query->execute(compact('songId'));
@@ -104,6 +120,13 @@ function validSongId($songId) {
     return true;
 }
 
+/**
+ * Check the if the given user Id is valid. If not the user will be
+ * redirected to a 404 page.
+ *
+ * @param int $userId
+ * @return boolean|void
+ */
 function validUserId($userId) {
     $query = pdo()->prepare('SELECT * FROM users WHERE id=:userId');
     $query->execute(compact('userId'));
@@ -114,6 +137,13 @@ function validUserId($userId) {
     return true;
 }
 
+/**
+ * Check the if the given youtube URL is valid. If not the user will be
+ * redirected to the request origin and an error will be displayed.
+ *
+ * @param String $url
+ * @return void
+ */
 function validateYouTubeUrl($url) {
     $url = trim($url);
 
@@ -126,6 +156,13 @@ function validateYouTubeUrl($url) {
     }
 }
 
+/**
+ * * Check the if the given youtube URL is valid. If not the user will be
+ * redirected to the request origin and an error will be displayed.
+ *
+ * @param String $youtubeId
+ * @return void
+ */
 function validateYouTubeId($youtubeId) {
     if (empty($youtubeId)) {
         setErrorAndRedirect('The id is missing');
@@ -133,6 +170,19 @@ function validateYouTubeId($youtubeId) {
     if(strlen($youtubeId) != 11) {
         setErrorAndRedirect('The video-id is to short/long');
     }
+}
+
+function generateCSRFToken() {
+    if (!session('csrf_token')) {
+        setsession('csrf_token', sha1(random_bytes(32)));
+    }
+}
+
+function validCSRFToken() {
+    if (post('_csrf_token') !== session('csrf_token')) {
+        setErrorAndRedirect('CSRF Token do not match');
+    }
+    return true;
 }
 
 

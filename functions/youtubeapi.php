@@ -5,8 +5,13 @@ namespace YouTubeAPI;
 use function Siler\array_get;
 use function Siler\Dotenv\env;
 
+/**
+ * Parses a youtube url and return the video ID
+ *
+ * @param String $url
+ * @return String
+ */
 function getYouTubeVideoId($url) {
-    // youtube_id generieren
     $query = parse_url($url, PHP_URL_QUERY);
     $query_array = explode('&', $query);
 
@@ -24,13 +29,26 @@ function getYouTubeVideoId($url) {
     return array_get($query_array_asoc, 'v', '');
 }
 
+/**
+ * A makes an youtube api request to get the video titel for a given video id.
+ * This functions need a youtube api key to work.
+ *
+ * @param String $id
+ * @return String
+ */
 function getYouTubeVideoName($id) {
     $apiKey = env('YOUTUBE_API_KEY');
     $data = json_decode(file_get_contents("https://www.googleapis.com/youtube/v3/videos?part=snippet&id=$id&key=$apiKey"));
     return $data->items[0]->snippet->title;
 }
 
-
+/**
+ * Returns a youtube thumbnail url for a given video ID in the specified quality
+ *
+ * @param String $id
+ * @param integer $size
+ * @return void
+ */
 function getYoutubeThumbnailURL($id, $size = 0) {
     switch ($size) {
         case 0:

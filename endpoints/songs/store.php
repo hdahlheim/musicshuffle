@@ -5,12 +5,14 @@ use function Database\addSongToPlaylist;
 use function Database\saveSong;
 use function Siler\Http\redirect;
 use function Siler\Http\Request\post;
+use function Validators\validCSRFToken;
 use function Validators\validateYouTubeUrl;
 use function Validators\validPlaylistId;
 use function YouTubeAPI\getYouTubeVideoId;
 use function YouTubeAPI\getYouTubeVideoName;
 
 checkAuthUser();
+validCSRFToken();
 
 $playlist_id = $params['id'];
 

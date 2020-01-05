@@ -6,6 +6,7 @@
             Register
         </h2>
         <form action="/users" method="POST">
+            {{ csrfField() }}
             <lable class="block mb-4">
                 <span class="block text-sm font-semibold">Username</span>
                 <input class="w-full bg-gray-700 border-gray-800 form-input"

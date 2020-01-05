@@ -22,7 +22,11 @@ function pdo() {
     $db_password = $config['db']['pwd'];
 
     $dsn = "mysql:host={$db_host};dbname={$db_database}";
-    $pdo = new \PDO($dsn, $db_user, $db_password);
-    Container\set('PDO_INSTANCE', $pdo);
+    try {
+        $pdo = new \PDO($dsn, $db_user, $db_password);
+        Container\set('PDO_INSTANCE', $pdo);
+    } catch (\Throwable $th) {
+        Errors\internalServerError();
+    }
     return $pdo;
 }

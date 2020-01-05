@@ -7,11 +7,13 @@ use function Siler\Http\redirect;
 use function Siler\Http\Request\post;
 use function Siler\Http\setsession;
 use function Validators\setErrorAndRedirect;
+use function Validators\validCSRFToken;
 use function Validators\validPassword;
 
 $id = $params['id'];
 
 checkAuthUser();
+validCSRFToken();
 checkUserEditRight($id);
 
 $password = validPassword(post('password'), post('password_check'));

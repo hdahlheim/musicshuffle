@@ -6,8 +6,10 @@ use function Siler\Http\redirect;
 use function Siler\Http\Request\post;
 use function Siler\Http\session;
 use function Validators\setErrorAndRedirect;
+use function Validators\validCSRFToken;
 
 checkAuthUser();
+validCSRFToken();
 
 $name = trim(post('name'));
 $user_id = session('user_id');

@@ -6,6 +6,9 @@ use function Siler\Twig\render;
 use function Auth\checkAuthUser;
 use function Siler\Http\Request\get;
 
+/**
+ * Check if a user is logged in,
+ */
 checkAuthUser();
 
 $limit = 10;

@@ -17,6 +17,14 @@ function checkAuthUser() {
     }
 }
 
+/**
+ * Checks if the user as the right to edit the requested user.
+ * if this check fails the user will be redirected and a
+ * error message will be displayed.
+ *
+ * @param int $id
+ * @return boolean|void
+ */
 function checkUserEditRight($id) {
     $userToEdit = (int) $id;
     $currentUser = (int) session('user_id');
@@ -26,8 +34,11 @@ function checkUserEditRight($id) {
     return true;
 }
 
-
-
+/**
+ * Checks if a user is logged in. And return a boolean.
+ *
+ * @return boolean
+ */
 function isUserLoggedin() {
     $user_session = session('user_name');
     if (is_null($user_session)){
@@ -41,7 +52,7 @@ function isUserLoggedin() {
  * Redirect and set the session-infos if the password is right
  *
  * @param Array $user
- * @param String $password
+ * @param String|void $password
  */
 function authUser($user, $password) {
 

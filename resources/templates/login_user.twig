@@ -6,6 +6,7 @@
             Login
         </h2>
         <form action="/login" method="POST">
+            {{ csrfField() }}
             <lable class="block mb-4">
                 <span class="block text-sm font-semibold">Username</span>
                 <input class="w-full bg-gray-700 border-gray-800 form-input"

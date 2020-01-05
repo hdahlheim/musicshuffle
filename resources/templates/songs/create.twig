@@ -6,6 +6,7 @@
             Add Song to playlist: {{playlist_id}}
         </h2>
         <form action="/playlists/{{playlist_id}}/songs" method="POST">
+            {{ csrfField() }}
             <lable class="block mb-4">
                 <span class="block text-sm font-semibold">URL</span>
                 <input class="w-full bg-gray-700 border-gray-800 form-input"

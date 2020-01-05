@@ -69,7 +69,7 @@ function addSongToPlaylist($songId, $playlistId)
     $query = pdo()
         ->prepare(
             'SELECT * FROM playlist_items
-            WHERE song_id=:song_id
+            WHERE song_id=:songId
             AND playlistId=:playlistId'
             );
 

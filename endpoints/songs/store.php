@@ -13,10 +13,13 @@ use function YouTubeAPI\getYouTubeVideoName;
 checkAuthUser();
 
 $playlist_id = $params['id'];
-$url = post('url');
 
 validPlaylistId($playlist_id);
+
+$url = post('url');
+
 validateYouTubeUrl($url);
+
 $youtubeId = getYouTubeVideoId($url);
 $videoName = getYouTubeVideoName($youtubeId);
 

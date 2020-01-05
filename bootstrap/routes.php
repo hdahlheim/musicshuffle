@@ -50,8 +50,4 @@ put('/playlists/{id}/songs/{song_id}', '../endpoints/songs/update.php');
 
 get('/songs/{id}', '../endpoints/songs/show.php');
 
-if (!did_match()) notFoundError();
-
-function notFoundError() {
-    html(render('notfound.twig'));
-}
+if (!did_match()) Errors\notFoundError();

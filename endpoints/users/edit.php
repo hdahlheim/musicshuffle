@@ -5,11 +5,15 @@ use function Auth\checkUserEditRight;
 use function Database\pdo;
 use function Siler\Http\Response\html;
 use function Siler\Twig\render;
+use function Validators\validUserId;
 
 checkAuthUser();
-checkUserEditRight($params['id']);
 
-$id = $params['id'];
+$id = (int) $params['id'];
+
+validUserId($id);
+checkUserEditRight($id);
+
 $userQuery = pdo()->prepare(
     'SELECT username, email, id FROM users WHERE id=:id;'
 );

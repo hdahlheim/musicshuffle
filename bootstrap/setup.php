@@ -5,6 +5,7 @@ use Siler\Twig;
 use function Auth\isUserLoggedin;
 use function Siler\Http\flash;
 use function Siler\Http\session;
+use function YouTubeAPI\getYoutubeThumbnailURL;
 
 $dotenv = Dotenv\Dotenv::create(__DIR__.'/..');
 $dotenv->load();
@@ -48,4 +49,6 @@ $twigEnv->addFilter(new \Twig\TwigFilter('gravatar', function ($email) {
     $encodedEmail = md5(strtolower(trim($email)));
     return "https://www.gravatar.com/avatar/{$encodedEmail}?d=retro";
 }));
+
+$twigEnv->addFunction(new \Twig\TwigFunction('ytImg', getYoutubeThumbnailURL($id, $size)));
 

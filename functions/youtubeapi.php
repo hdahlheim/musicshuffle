@@ -30,3 +30,26 @@ function getYouTubeVideoName($id) {
     return $data->items[0]->snippet->title;
 }
 
+
+function getYoutubeThumbnailURL($id, $size = 0) {
+    $realSize = null;
+    switch ($size) {
+        case 1:
+            $realSize = 'default';
+        case 2:
+            break;
+        case 3:
+            $realSize = 'mqdefault';
+            break;
+        case 4:
+            $realSize = 'hqdefault';
+            break;
+        case 5:
+            $realSize = 'sddefault';
+            break;
+        default:
+            $realSize = 'default';
+            break;
+    }
+    return "https://i.ytimg.com/vi/$id/$realSize.jpg";
+}

@@ -43,7 +43,7 @@ function isUserLoggedin() {
  * @param Array $user
  * @param String $password
  */
-function authUser($user, $password, $passwordCheck) {
+function authUser($user, $password) {
 
     if (password_verify($password, $user['password'])) {
         session_regenerate_id();

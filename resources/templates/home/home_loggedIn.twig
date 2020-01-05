@@ -4,12 +4,7 @@
         <h1 class="text-5xl">Home</h1>
         <div class="p-2 mb-4 bg-gray-800 rounded-sm">
             <h2 class="text-xl">My Playlists</h2>
-            <div class="flex flex-wrap">
-                <div class="w-full h-20 max-w-xs m-1 bg-black"></div>
-                <div class="w-full h-20 max-w-xs m-1 bg-black"></div>
-                <div class="w-full h-20 max-w-xs m-1 bg-black"></div>
-                <div class="w-full h-20 max-w-xs m-1 bg-black"></div>
-            </div>
+            {% include "partials/_playlists_list.twig" %}
         </div>
         <div class="p-2 mb-4 bg-gray-800 rounded-sm">
             <h2 class="text-xl">Recently added Playlists</h2>

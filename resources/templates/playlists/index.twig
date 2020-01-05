@@ -5,14 +5,6 @@
             <h2 class="text-xl font-bold">Playlists</h2>
             <a class="text-sm btn-teal" href="/playlists/create">New Playlist</a>
         </div>
-        <ul>
-        {% for playlist in playlists %}
-        <li class="px-6 py-3 mb-1 bg-gray-700 rounded-sm shadow-md group hover:bg-teal-600">
-            <a class="block" href="/playlists/{{playlist.id}}">
-                <div class="text-lg font-semibold">{{playlist.name}}</div>
-            </a>
-        </li>
-        {% endfor %}
-    </ul>
+        {% include "partials/_playlists_list.twig" %}
     </main>
 {% endblock %}

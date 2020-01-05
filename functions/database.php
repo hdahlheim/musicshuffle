@@ -91,6 +91,18 @@ function upVoteSong(Int $userId, Int $playlistId, Int $songId) {
     setsession('infoAlert', 'Upvote successfully');
 }
 
+function getLastFivePlaylistsOfUser($id)
+{
+    $playlistQuery = pdo()->prepare(
+        'SELECT * FROM playlists
+        WHERE user_id=:id
+        ORDER BY created DESC
+        LIMIT 5;'
+    );
+    $playlistQuery->execute(compact('id'));
+    return $playlistQuery->fetchALL(\PDO::FETCH_ASSOC);
+}
+
 function getPlaylist($id){
     $playlistMetaQuery = pdo()->prepare(
         'SELECT * FROM playlists WHERE id=:id;'

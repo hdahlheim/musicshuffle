@@ -4,11 +4,12 @@
     <h2 class="mb-4 text-2xl font-bold">User List</h2>
     <ul class="">
     {% for user in users %}
-        <li class="flex items-center px-6 py-3 mb-1 bg-gray-700 rounded-sm shadow-md group hover:bg-teal-600">
+        <li class="mb-1 bg-gray-700 rounded-sm shadow-md group hover:bg-teal-600">
+            <a class="flex items-center px-6 py-3" href="/users/{{user.id}}">
             <img class="flex-shrink-0 w-10 h-10 mr-4 border-2 border-gray-800 rounded-full shadow-inner" src="{{user.email|gravatar}}" alt="">
             <div class="w-1/4 text-lg font-semibold">{{user.username}}</div>
             <div class="w-1/4">{{user.email}}</div>
-            <a class="ml-auto text-sm font-semibold text-teal-400 group-hover:text-teal-200" href="/users/{{user.id}}">View</a>
+            </a>
         </li>
     {% endfor %}
     </ul>

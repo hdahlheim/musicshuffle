@@ -1,0 +1,11 @@
+{% extends "layouts/_base.twig" %}
+{% block main %}
+    <main class="container px-6 py-4 mx-auto bg-gray-800 rounded-sm">
+        <div class="flex items-center justify-between mb-4">
+            <h2 class="text-xl font-bold">Playlists</h2>
+            <a class="text-sm btn-teal" href="/playlists/create">New Playlist</a>
+        </div>
+        {% include "partials/_playlists_list.twig" %}
+        {% include "partials/_pagination.twig" %}
+    </main>
+{% endblock %}

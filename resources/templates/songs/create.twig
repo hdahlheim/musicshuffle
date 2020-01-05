@@ -1,0 +1,25 @@
+{% extends "layouts/_base.twig" %}
+{% block main %}
+<div class="container flex items-center justify-center h-screen mx-auto">
+    <div class="w-full max-w-sm p-4 bg-gray-800 rounded-sm">
+        <h2 class="mb-4 text-lg font-bold">
+            Add Song to playlist: {{playlist_id}}
+        </h2>
+        <form action="/playlists/{{playlist_id}}/songs" method="POST">
+            {{ csrfField() }}
+            <lable class="block mb-4">
+                <span class="block text-sm font-semibold">URL</span>
+                <input class="w-full bg-gray-700 border-gray-800 form-input"
+                    name="url"
+                    placeholder="youtubeurl"
+                    required>
+            </lable>
+            <button
+                class="w-full px-4 py-2 mt-4 font-semibold text-teal-100 bg-teal-500 rounded-sm hover:bg-teal-700"
+                type="submit">
+                Add song
+            </button>
+        </form>
+    </div>
+</div>
+{% endblock %}

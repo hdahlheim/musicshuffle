@@ -1,0 +1,9 @@
+<ul>
+    {% for playlist in playlists %}
+    <li class="mb-1 bg-gray-700 rounded-sm shadow-md group hover:bg-teal-600">
+        <a class="block px-6 py-3" href="/playlists/{{playlist.id}}">
+            <div class="text-lg font-semibold">{{playlist.name}}</div>
+        </a>
+    </li>
+    {% endfor %}
+</ul>

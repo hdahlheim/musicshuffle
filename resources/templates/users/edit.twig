@@ -1,0 +1,52 @@
+{% extends "layouts/_base.twig" %}
+{% block main %}
+    <main class="max-w-md p-4 mx-auto bg-gray-800 shadow">
+        <div>
+            <div class="text-center">
+                <img class="inline border-2 border-teal-800 rounded-full" src="{{user.email|gravatar}}" alt="">
+            </div>
+            <div class="mb-4 text-lg">
+                <div class="text-sm font-semibold text-gray-500"># ID</div>
+                <div>{{user.id}}</div>
+            </div>
+            <div class="mb-4">
+                <div class="text-sm font-semibold text-gray-500">username</div>
+                <div class="text-lg">{{user.username}}</div>
+            </div>
+            <div class="mb-4">
+                <div class="text-sm font-semibold text-gray-500">email</div>
+                <div class="text-lg">{{user.email}}</div>
+            </div>
+            <form method="POST" action="/users/{{user.id}}">
+                <input name="_method" type="hidden" value="PUT">
+                {{ csrfField() }}
+                <lable class="block mb-4">
+                    <span class="block text-sm font-semibold text-gray-500">
+                        Password
+                    </span>
+                    <input class="w-full bg-gray-700 border-gray-800 form-input"
+                        name="password"
+                        placeholder="Password"
+                        type="password">
+                </lable>
+                <lable class="block mb-4">
+                    <span class="block text-sm font-semibold text-gray-500">
+                        Password Confirm
+                    </span>
+                    <input class="w-full bg-gray-700 border-gray-800 form-input"
+                        name="password_check"
+                        placeholder="Password"
+                        type="password">
+                </lable>
+                <button
+                class="w-full mb-2 btn-teal"
+                type="submit"
+                >Update</button>
+                <a
+                class="block w-full px-4 py-2 mb-2 text-center text-red-100 bg-red-600 rounded-sm hover:bg-red-800"
+                href="/users"
+                >Cancel</a>
+            </form>
+        </div>
+    </main>
+{% endblock %}

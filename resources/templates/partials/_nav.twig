@@ -1,0 +1,40 @@
+<nav class="fixed inset-x-0 top-0 p-4 bg-gray-700 shadow">
+    <div class="container flex justify-between mx-auto font-semibold">
+        <div>
+            <a href="/">Music Shuffle</a>
+        </div>
+        {% if isLoggedIn %}
+        <div class="hidden md:block">
+            <a class="mx-6 hover:text-teal-600 {% if (path == '/') %}text-teal-500{% endif %}" href="/">Home</a>
+            <a class="mx-6 hover:text-teal-600 {% if (path == '/playlists') %}text-teal-500{% endif %}" href="/playlists">Playlists</a>
+            <a class="mx-6 hover:text-teal-600 {% if (path == '/users') %}text-teal-500{% endif %}" href="/users">Users</a>
+        </div>
+        <div class="hidden md:block">
+            <a class="px-2 py-1 text-sm text-red-100 bg-red-600 rounded-sm hover:bg-red-800" href="/logout">logout</a>
+        </div>
+        <button onClick="toggleMenu()" class="block md:hidden">
+            <svg viewBox="0 0 24 24" class="w-6 h-6">
+                <path class="text-gray-100 fill-current" fill-rule="evenodd" d="M4 5h16a1 1 0 0 1 0 2H4a1 1 0 1 1 0-2zm0 6h16a1 1 0 0 1 0 2H4a1 1 0 0 1 0-2zm0 6h16a1 1 0 0 1 0 2H4a1 1 0 0 1 0-2z"></path>
+            </svg>
+        </button>
+        {% endif %}
+    </div>
+    {% if isLoggedIn %}
+    <div class="hidden mt-2 md:hidden" id="menu" >
+        <ul class="font-semibold">
+            <li class="mb-2">
+                <a class="hover:text-teal-600 {% if (path == '/') %}text-teal-500{% endif %}" href="/">Home</a>
+            </li>
+            <li class="mb-2">
+                <a class="hover:text-teal-600 {% if (path == '/playlists') %}text-teal-500{% endif %}" href="/playlists">Playlists</a>
+            </li>
+            <li class="mb-2">
+                <a class="hover:text-teal-600 {% if (path == '/users') %}text-teal-500{% endif %}" href="/users">Users</a>
+            </li>
+            <li>
+                <a class="px-2 py-1 text-sm text-red-100 bg-red-600 rounded-sm hover:bg-red-800" href="/logout">logout</a>
+            </li>
+        </ul>
+    </div>
+    {% endif %}
+</nav>

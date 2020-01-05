@@ -1,0 +1,12 @@
+{% extends "layouts/_base.twig" %}
+{% block main %}
+    <main class="container p-4 mx-auto bg-gray-800">
+        <div data-playlist="{{ playlist|json_encode }}" id="player">
+            <noscript>Pleas activate javascript</noscript>
+        </div>
+    </main>
+{% endblock %}
+
+{% block scripts %}
+<script src="/js/app.js"></script>
+{% endblock %}

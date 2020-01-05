@@ -1,0 +1,26 @@
+{% extends "layouts/_base.twig" %}
+{% block main %}
+<div class="container flex items-center justify-center h-screen mx-auto">
+    <div class="w-full max-w-sm p-4 bg-gray-800 rounded-sm">
+        <h2 class="mb-4 text-lg font-bold">
+            Add Playlist
+        </h2>
+        <form action="/playlists" method="POST">
+            {{ csrfField() }}
+            <lable class="block mb-4">
+                <span class="block text-sm font-semibold">Playlistname</span>
+                <input class="w-full bg-gray-700 border-gray-800 form-input"
+                    name="name"
+                    placeholder="Playlistname"
+                    type="text"
+                    required>
+            </lable>
+            <button
+                class="w-full mt-4 font-semibold rounded-sm btn-teal"
+                type="submit">
+                Add Playlist
+            </button>
+        </form>
+    </div>
+</div>
+{% endblock %}

@@ -1,3 +1,31 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@responsive {
+  .grid {
+    display: grid;
+    gap: 1rem;
+  }
+
+  .col-2{
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .col-3{
+    grid-template-columns: 1fr 1fr 1fr;
+  }
+}
+
+.btn-teal {
+  @apply px-4;
+  @apply py-2;
+  @apply font-semibold;
+  @apply text-teal-100;
+  @apply bg-teal-500;
+  @apply rounded-sm;
+}
+
+.btn-teal:hover {
+  @apply bg-teal-700;
+}

@@ -268,7 +268,7 @@ function getUserById($id) {
  * @return array
  */
 function getUserByName($username) {
-    return __selectByField('users', 'username', compact('username'));
+    return __selectByField('users', 'username', compact('username'), false);
 }
 
 /**

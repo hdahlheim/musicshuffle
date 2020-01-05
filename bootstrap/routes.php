@@ -64,4 +64,6 @@ put('/playlists/{id}/songs/{song_id}', '../endpoints/songs/update.php');
 /**
  * If no page endpoint matches the requested endpoint we display an error page.
  */
-if (!did_match()) Errors\notFoundError();
+if (!did_match()) {
+    Errors\notFoundError();
+}

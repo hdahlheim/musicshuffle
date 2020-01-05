@@ -27,15 +27,7 @@
         "process-timeout": 0,
         "sort-packages": true
     },
-    "autoload": {
-        "psr-4": {
-            "App\\": "src/"
-        }
-    },
     "autoload-dev": {
-        "psr-4": {
-            "Tests\\": "tests/"
-        },
         "files": [
           "functions/pdo.php",
           "functions/validators.php",
@@ -47,6 +39,5 @@
     },
     "scripts": {
         "start": "php -S localhost:8080 -t public",
-        "test": "phpunit"
     }
 }

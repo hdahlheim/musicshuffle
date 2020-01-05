@@ -1,7 +1,7 @@
 {% extends "layouts/_base.twig" %}
 {% block main %}
-    <main class="container flex p-4 mx-auto bg-gray-800 shadow">
-        <div class="w-1/4 mr-6">
+    <main class="container p-4 mx-auto bg-gray-800 shadow md:flex">
+        <div class="w-full md:mr-4 lg:mr-6 md:w-1/2 lg:w-1/4">
             <h2 class="mb-4 text-2xl font-bold">User</h2>
             <div class="p-6 bg-gray-700 rounded shadow">
                 <div class="mb-4 text-center">
@@ -28,7 +28,7 @@
                 {% endif %}
             </div>
         </div>
-        <div class="w-3/4">
+        <div class="w-full mt-4 md:mt-0 md:w-1/2 lg:w-3/4">
             <h2 class="mb-4 text-2xl font-bold">Last 5 playlists</h2>
             {% include "partials/_playlists_list.twig" %}
         </div>

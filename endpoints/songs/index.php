@@ -1,21 +1,19 @@
 <?php
 
-use function Database\pdo;
+/**
+ * This file is actually never called in the current version of the project
+ */
+
 use function Siler\Http\Response\html;
 use function Siler\Twig\render;
 use function Auth\checkAuthUser;
+use function Database\getAllSongs;
 
 checkAuthUser();
 
 $limit = 10;
 
-$songsQuery = pdo()->prepare(
-    'SELECT name, link, youtube_id FROM songs LIMIT :limit;'
-);
-$songsQuery->bindParam('limit', $limit, PDO::PARAM_INT);
-$songsQuery->execute();
-
-$songs = $songsQuery->fetchAll(\PDO::FETCH_ASSOC);
+$songs = getAllSongs($limit);
 
 /**
  * The compact() function creates a key value array, render() puts the generated

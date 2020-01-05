@@ -146,6 +146,10 @@ __webpack_require__.r(__webpack_exports__);
       type: Object
     }
   },
+
+  /**
+   * Dataattributes for the vue component
+   */
   data: function data() {
     return {
       playedSongs: [],
@@ -163,6 +167,9 @@ __webpack_require__.r(__webpack_exports__);
     this.songs = this.playlist.songs;
   },
   computed: {
+    /**
+     * Returns a list of unplayed songs
+     */
     unplayedSongs: function unplayedSongs() {
       var _this = this;
 
@@ -172,10 +179,19 @@ __webpack_require__.r(__webpack_exports__);
     }
   },
   methods: {
+    /**
+     * This method gets called when the iframe player is ready and starts
+     * the next song in the playlist
+     */
     ready: function ready(event) {
       this.player = event.target;
       this.nextSong();
     },
+
+    /**
+     * Moves the current song to the played list and sets the next song
+     * in the list as current song.
+     */
     nextSong: function nextSong() {
       if (this.currentSong !== '') {
         this.playedSongs.push(this.currentSong);
@@ -185,6 +201,11 @@ __webpack_require__.r(__webpack_exports__);
       this.currentSong = nextSong;
       this.videoId = nextSong.youtube_id;
     },
+
+    /**
+     * Sets the selected song as current song and moves previous the current
+     * to the played list.
+     */
     playThisSong: function playThisSong(song) {
       this.playedSongs.push(this.currentSong);
       this.playedSongs.push(song);
@@ -13232,7 +13253,15 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+/**
+ * Register the vue youtube player component
+ */
+
 vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vue_youtube_embed__WEBPACK_IMPORTED_MODULE_2__["default"]);
+/**
+ * Create a vue instance for the DOM node with the id #player
+ */
+
 new vue__WEBPACK_IMPORTED_MODULE_0___default.a({
   el: '#player',
   components: {

@@ -2,8 +2,14 @@ import Vue from 'vue'
 import player from './components/player.vue'
 import VueYoutube from 'vue-youtube-embed'
 
+/**
+ * Register the vue youtube player component
+ */
 Vue.use(VueYoutube)
 
+/**
+ * Create a vue instance for the DOM node with the id #player
+ */
 new Vue({
   el: '#player',
   components: { player },

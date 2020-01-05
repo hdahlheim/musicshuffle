@@ -1,6 +1,6 @@
 <?php
 
-use function Database\pdo;
+use function Database\storeUser;
 use function Siler\Http\redirect;
 use function Siler\Http\Request\post;
 use function Siler\Http\setsession;
@@ -15,14 +15,11 @@ $email = validEmail(post('email'));
 $username = validUsername(post('username'));
 $password = validPassword(post('password'), post('password_check'));
 
-$success = pdo()
-    ->prepare(
-        "INSERT INTO users (username, password, email)
-        VALUES (:username, :password, :email)"
-    )
-    ->execute(compact('username', 'password', 'email'));
+$success = storeUser($email, $username, $password);
+
 if(!$success){
     setErrorAndRedirect('Registration failed');
 }
+
 setsession('infoAlert', 'Registration successfull');
 redirect('/login');

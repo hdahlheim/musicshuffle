@@ -2,7 +2,7 @@
 
 use function Auth\checkAuthUser;
 use function Database\addSongToPlaylist;
-use function Database\saveSong;
+use function Database\storeSong;
 use function Siler\Http\redirect;
 use function Siler\Http\Request\post;
 use function Validators\validCSRFToken;
@@ -14,9 +14,9 @@ use function YouTubeAPI\getYouTubeVideoName;
 checkAuthUser();
 validCSRFToken();
 
-$playlist_id = $params['id'];
+$playlistId = $params['id'];
 
-validPlaylistId($playlist_id);
+validPlaylistId($playlistId);
 
 $url = post('url');
 
@@ -25,7 +25,7 @@ validateYouTubeUrl($url);
 $youtubeId = getYouTubeVideoId($url);
 $videoName = getYouTubeVideoName($youtubeId);
 
-$song_id = saveSong($videoName, $url, $youtubeId);
-addSongToPlaylist($song_id, $playlist_id);
+$songId = storeSong($videoName, $url, $youtubeId);
+addSongToPlaylist($songId, $playlistId);
 
-redirect("/playlists/$playlist_id");
+redirect("/playlists/$playlistId");

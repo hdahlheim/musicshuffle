@@ -50,6 +50,9 @@ export default {
       type: Object
     }
   },
+  /**
+   * Dataattributes for the vue component
+   */
   data() {
     return {
       playedSongs: [],
@@ -67,6 +70,9 @@ export default {
     this.songs = this.playlist.songs
   },
   computed: {
+    /**
+     * Returns a list of unplayed songs
+     */
     unplayedSongs(){
       return this.songs.filter((item) => {
           return !this.playedSongs.includes(item)
@@ -74,10 +80,18 @@ export default {
     }
   },
   methods: {
+    /**
+     * This method gets called when the iframe player is ready and starts
+     * the next song in the playlist
+     */
     ready(event) {
       this.player = event.target
       this.nextSong()
     },
+    /**
+     * Moves the current song to the played list and sets the next song
+     * in the list as current song.
+     */
     nextSong() {
       if (this.currentSong !== '') {
         this.playedSongs.push(this.currentSong)
@@ -86,6 +100,10 @@ export default {
       this.currentSong = nextSong
       this.videoId = nextSong.youtube_id
     },
+    /**
+     * Sets the selected song as current song and moves previous the current
+     * to the played list.
+     */
     playThisSong(song) {
       this.playedSongs.push(this.currentSong)
       this.playedSongs.push(song)

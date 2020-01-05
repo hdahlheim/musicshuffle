@@ -4,6 +4,8 @@ use function Database\pdo;
 use function Siler\Http\Response\html;
 use function Siler\Twig\render;
 use function Auth\checkAuthUser;
+use function Database\countOf;
+use function Database\getAllPlaylists;
 use function Siler\Http\Request\get;
 
 /**
@@ -15,17 +17,9 @@ $limit = 10;
 $page = (int) get('p', 1);
 $start = $limit * ($page - 1);
 
-$playlistsQuery = pdo()->prepare(
-    'SELECT name, created, id, user_id FROM playlists LIMIT :start,:limit;'
-);
-$playlistsQuery->bindParam('limit', $limit, PDO::PARAM_INT);
-$playlistsQuery->bindParam('start', $start, PDO::PARAM_INT);
-$playlistsQuery->execute();
-$total = pdo()
-            ->query('SELECT count(id) as count from playlists;')
-            ->fetch(\PDO::FETCH_ASSOC)['count'];
+$playlists = getAllPlaylists($limit, $start);
 
-$playlists = $playlistsQuery->fetchAll();
+$total = countOf('playlists');
 
 /**
  * The compact() function creates a key value array, render() puts the generated

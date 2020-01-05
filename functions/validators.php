@@ -2,7 +2,6 @@
 
 namespace Validators;
 
-use PDO;
 use function Database\pdo;
 use function Errors\notFoundError;
 use function Siler\Http\redirect;
@@ -90,13 +89,13 @@ function validEmail($rawEmail)
  * Check the if the given playlist Id is valid. If not the user will be
  * redirected to a 404 page.
  *
- * @param int $playlistId
+ * @param integer $playlistId
  * @return boolean|void
  */
 function validPlaylistId($playlistId) {
     $query = pdo()->prepare('SELECT * FROM playlists WHERE id=:playlistId');
     $query->execute(compact('playlistId'));
-    $playlist = $query->fetch(PDO::FETCH_ASSOC);
+    $playlist = $query->fetch(\PDO::FETCH_ASSOC);
     if (empty($playlist)){
         notFoundError();
     }
@@ -107,13 +106,13 @@ function validPlaylistId($playlistId) {
  * Check the if the given playlist Id is valid. If not the user will be
  * redirected to a 404 page.
  *
- * @param int $songId
+ * @param integer $songId
  * @return boolean|void
  */
 function validSongId($songId) {
     $query = pdo()->prepare('SELECT * FROM songs WHERE id=:songId');
     $query->execute(compact('songId'));
-    $song = $query->fetch(PDO::FETCH_ASSOC);
+    $song = $query->fetch(\PDO::FETCH_ASSOC);
     if (empty($song)){
         notFoundError();
     }
@@ -124,13 +123,13 @@ function validSongId($songId) {
  * Check the if the given user Id is valid. If not the user will be
  * redirected to a 404 page.
  *
- * @param int $userId
+ * @param integer $userId
  * @return boolean|void
  */
 function validUserId($userId) {
     $query = pdo()->prepare('SELECT * FROM users WHERE id=:userId');
     $query->execute(compact('userId'));
-    $user = $query->fetch(PDO::FETCH_ASSOC);
+    $user = $query->fetch(\PDO::FETCH_ASSOC);
     if (empty($user)){
         notFoundError();
     }
@@ -141,7 +140,7 @@ function validUserId($userId) {
  * Check the if the given youtube URL is valid. If not the user will be
  * redirected to the request origin and an error will be displayed.
  *
- * @param String $url
+ * @param string $url
  * @return void
  */
 function validateYouTubeUrl($url) {
@@ -160,7 +159,7 @@ function validateYouTubeUrl($url) {
  * * Check the if the given youtube URL is valid. If not the user will be
  * redirected to the request origin and an error will be displayed.
  *
- * @param String $youtubeId
+ * @param string $youtubeId
  * @return void
  */
 function validateYouTubeId($youtubeId) {
@@ -172,12 +171,25 @@ function validateYouTubeId($youtubeId) {
     }
 }
 
+/**
+ * Generates a sha1 hash of a random 256bit string for use as a CSRF token.
+ * the token is than stored in the session. This process is skiped if
+ * CSRF token allready exists in the session of the user.
+ *
+ * @return void
+ */
 function generateCSRFToken() {
     if (!session('csrf_token')) {
         setsession('csrf_token', sha1(random_bytes(32)));
     }
 }
 
+/**
+ * Checks if the CSRF token from a form is the same as the token stored
+ * in the user session. If the check fails the user will be redirected.
+ *
+ * @return void
+ */
 function validCSRFToken() {
     if (post('_csrf_token') !== session('csrf_token')) {
         setErrorAndRedirect('CSRF Token do not match');

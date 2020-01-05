@@ -1,6 +1,7 @@
 <?php
 
 use function Auth\authUser;
+use function Database\getUserByName;
 use function Database\pdo;
 use function Siler\Http\Request\post;
 use function Validators\setErrorAndRedirect;
@@ -11,9 +12,7 @@ validCSRFToken();
 $username = post('username');
 $password = post('password');
 
-$userQuery = pdo()->prepare('SELECT id, username, password FROM users WHERE username = :username');
-$userQuery->execute(array('username' => $username));
-$user = $userQuery->fetch(PDO::FETCH_ASSOC);
+$user = getUserByName($username);
 
 if ($user) {
     authUser($user, $password);

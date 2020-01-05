@@ -5,127 +5,191 @@ namespace Database;
 use function Siler\Http\setsession;
 use function Validators\setErrorAndRedirect;
 
-function savePlaylist($name, $user_id)
+/**
+ * Get the song with the given id from the database
+ *
+ * @param integer $id
+ * @return array
+ */
+function getSongById($id)
 {
-    $query = pdo()->prepare('SELECT * FROM playlists WHERE name=:name');
-    $query->execute(compact('name'));
-    $playlist = $query->fetch(\PDO::FETCH_ASSOC);
-    if (!empty($playlist)) {
-        setErrorAndRedirect('Playlist already exist');
-    }
-    pdo()
-        ->prepare(
-            "INSERT INTO playlists (name, user_id)
-            VALUES (:name, :user_id);"
-        )
-        ->execute(compact('name', 'user_id'));
-    $playlist_id = pdo()->lastInsertID();
-    setsession('infoAlert', 'Playlist created successfully');
-    return $playlist_id;
+    return __selectOneById('songs', $id);
 }
 
-function saveSong($name, $url, $youtube_id)
+/**
+ * Get all the song from the database
+ *
+ * @return array
+ */
+function getAllSongs($limit = 50, $start = 0)
+{
+    $query = pdo()->prepare(
+        'SELECT name, link, youtube_id FROM songs LIMIT :start,:limit;'
+    );
+    $query->bindParam('limit', $limit, \PDO::PARAM_INT);
+    $query->bindParam('start', $start, \PDO::PARAM_INT);
+    return __executeQuery($query);
+}
+
+/**
+ * Store a song in the database
+ *
+ * @param string $name
+ * @param string $url
+ * @param string $youtube_id
+ * @return array
+ */
+function storeSong($name, $url, $youtube_id)
 {
     $query = pdo()->prepare('SELECT * FROM songs WHERE youtube_id=:youtube_id');
-    $query->execute(compact('youtube_id'));
-    $song = $query->fetch(\PDO::FETCH_ASSOC);
+    $song = __executeQuery($query, compact('youtube_id'), false);
+
     if (!empty($song)) {
-        $song_id = $song['id'];
-    } else {
-        pdo()
-            ->prepare(
-                "INSERT INTO songs (name, url, youtube_id)
-                VALUES (:name, :url, :youtube_id)"
-            )
-            ->execute(compact('name', 'url', 'youtube_id'));
-        $song_id = pdo()->lastInsertId();
+        return $song['id'];
     }
-    return $song_id;
+
+    pdo()->prepare(
+            "INSERT INTO songs (name, url, youtube_id)
+            VALUES (:name, :url, :youtube_id)"
+        )
+        ->execute(compact('name', 'url', 'youtube_id'));
+
+    return pdo()->lastInsertId();
 }
 
-function addSongToPlaylist($song_id, $playlist_id)
+/**
+ * Add the song with the given id to a playlist
+ *
+ * @param integer $songId
+ * @param integer $playlistId
+ * @return void
+ */
+function addSongToPlaylist($songId, $playlistId)
 {
-    $query = pdo()->prepare('SELECT * FROM playlist_items WHERE song_id=:song_id AND playlist_id=:playlist_id');
-    $query->execute(compact('song_id', 'playlist_id'));
-    $playlist_item = $query->fetch(\PDO::FETCH_ASSOC);
+    $query = pdo()
+        ->prepare(
+            'SELECT * FROM playlist_items
+            WHERE song_id=:song_id
+            AND playlistId=:playlistId'
+            );
 
-    if (!empty($playlist_item)) {
+    $playlistItem = __executeQuery($query, compact('songId', 'playlistId'));
+
+    if (!empty($playlistItem)) {
         setErrorAndRedirect('Song already exist in this playlist');
     }
 
     pdo()
         ->prepare(
             "INSERT INTO playlist_items (song_id, playlist_id)
-            VALUES (:song_id, :playlist_id)"
+            VALUES (:songId, :playlistId)"
         )
-        ->execute(compact('song_id', 'playlist_id'));
+        ->execute(compact('songId', 'playlistId'));
 
     setsession('infoAlert', 'Song added successfully');
 }
 
-function upVoteSong(Int $userId, Int $playlistId, Int $songId) {
+/**
+ * Store a up Vote for a song in a playlist i the database
+ *
+ * @param integer $userId
+ * @param integer $playlistId
+ * @param integer $songId
+ * @return boolean
+ */
+function upVoteSong($userId, $playlistId, $songId) {
     $playlistItemQuery = pdo()
         ->prepare(
             "SELECT id FROM playlist_items
             WHERE playlist_id = :playlistId
             AND song_id = :songId;");
 
-    $playlistItemQuery->execute(compact('playlistId', 'songId'));
-    $playlistItem = $playlistItemQuery->fetch(\PDO::FETCH_ASSOC);
-    $playlistItemId = $playlistItem['id'];
+    $playlistItem = __executeQuery($playlistItemQuery,
+            compact('playlistId', 'songId'),
+            false
+        );
 
+    $playlistItemId = $playlistItem['id'];
 
     $insertQuery = pdo()
         ->prepare(
             "INSERT INTO upvotes (user, playlist_item)
             VALUES (:userId, :playlistItemId)"
         );
+
     $insertQuery->bindParam('userId', $userId, \PDO::PARAM_INT);
     $insertQuery->bindParam('playlistItemId', $playlistItemId, \PDO::PARAM_INT);
 
-    $success = $insertQuery->execute();
-
-    if(!$success) {
-        setErrorAndRedirect('Upvote failed, you have already upvoted this song');
-    }
-    setsession('infoAlert', 'Upvote successfully');
+    return !!$insertQuery->execute();
 }
 
-function getFivePlaylistsOfUser($id, $page = 1)
+/**
+ * Get all playlists in the database
+ *
+ * @param integer $limit
+ * @param integer $start
+ * @return array
+ */
+function getAllPlaylists($limit = 50, $start = 0) {
+    $query = pdo()->prepare(
+        'SELECT name, created, id, user_id FROM playlists LIMIT :start,:limit;'
+    );
+    $query->bindParam('limit', $limit, \PDO::PARAM_INT);
+    $query->bindParam('start', $start, \PDO::PARAM_INT);
+
+    return __executeQuery($query);
+}
+
+/**
+ * Get all palylists from the user with the given id from the database.
+ *
+ * @param integer $id
+ * @param integer $limit
+ * @param integer $page
+ * @return void
+ */
+function getPlaylistsByUser($id, $limit = 5, $page = 1)
 {
-    $limit = 5;
     $start = (int) $limit * ($page - 1);
-    $playlistQuery = pdo()->prepare(
+    $query = pdo()->prepare(
         'SELECT * FROM playlists
         WHERE user_id=:id
         ORDER BY created DESC
         LIMIT :start,:limit;'
     );
-    $playlistQuery->bindParam('id', $id, \PDO::PARAM_INT);
-    $playlistQuery->bindParam('start', $start, \PDO::PARAM_INT);
-    $playlistQuery->bindParam('limit', $limit, \PDO::PARAM_INT);
-    $playlistQuery->execute();
-    return $playlistQuery->fetchALL(\PDO::FETCH_ASSOC);
+    $query->bindParam('id', $id, \PDO::PARAM_INT);
+    $query->bindParam('start', $start, \PDO::PARAM_INT);
+    $query->bindParam('limit', $limit, \PDO::PARAM_INT);
+
+    return __executeQuery($query);
 }
 
-function getTotalNumberPlaylistsOfUser($id)
+/**
+ * Get count of all playlists from the user.
+ *
+ * @param integer $id
+ * @return integer
+ */
+function countOfPlaylistsByUser($id)
 {
     $query = pdo()
         ->prepare(
             'SELECT count(id) as count from playlists WHERE user_id=:id;'
         );
     $query->bindParam('id', $id, \PDO::PARAM_INT);
-    $query->execute();
+    $result = __executeQuery($query, null, false);
 
-    return $query->fetch(\PDO::FETCH_ASSOC)['count'];
+    return $result['count'];
 }
 
+/**
+ * Get the playlist with the given id
+ *
+ * @param integer $id
+ * @return array
+ */
 function getPlaylist($id){
-    $playlistMetaQuery = pdo()->prepare(
-        'SELECT * FROM playlists WHERE id=:id;'
-    );
-    $playlistMetaQuery->execute(compact('id'));
-    $playlistMeta = $playlistMetaQuery->fetch(\PDO::FETCH_ASSOC);
+    $playlistMeta = __selectOneById('playlists', $id);
 
     $playlistItemQuery = pdo()->prepare(
         'SELECT s.*, count(uv.playlist_item) upvote, min(uv.created) timevote
@@ -141,9 +205,8 @@ function getPlaylist($id){
         order by upvote desc, timevote'
     );
     $playlistItemQuery->bindParam('id', $id, \PDO::PARAM_INT);
-    $playlistItemQuery->execute();
 
-    $playlistItems = $playlistItemQuery->fetchALL(\PDO::FETCH_ASSOC);
+    $playlistItems = __executeQuery($playlistItemQuery);
 
     /**
      * Filter out all empty results
@@ -154,4 +217,180 @@ function getPlaylist($id){
         'meta' => $playlistMeta,
         'songs' => $playlistItems
     ];
+}
+
+/**
+ * Store a playlist in the database
+ *
+ * @param string $name
+ * @param integer $user_id
+ * @return void
+ */
+function storePlaylist($name, $userId)
+{
+    $playlist = __selectOneByName('playlists', $name);
+    if (!empty($playlist)) {
+        setErrorAndRedirect('Playlist already exist');
+    }
+
+    pdo()
+        ->prepare(
+            "INSERT INTO playlists (name, user_id)
+            VALUES (:name, :userId);"
+        )
+        ->execute(compact('name', 'userId'));
+
+    $playlistId = pdo()->lastInsertID();
+
+    setsession('infoAlert', 'Playlist created successfully');
+
+    return $playlistId;
+}
+
+/**
+ * Get User with the given Id from the database.
+ *
+ * @param integer $id
+ * @return array
+ */
+function getUserById($id) {
+    $query = pdo()->prepare(
+        'SELECT username, email, id FROM users WHERE id=:id;'
+    );
+    $query->bindParam('id', $id, \PDO::PARAM_INT);
+    return __executeQuery($query, null, false);
+}
+
+/**
+ * Get User with the given Username from the database.
+ *
+ * @param string $username
+ * @return array
+ */
+function getUserByName($username) {
+    return __selectByField('users', 'username', compact('username'));
+}
+
+/**
+ * Get all users from the database
+ *
+ * @param integer $limit
+ * @param integer $start
+ * @return array
+ */
+function getAllUsers($limit = 50, $start = 0) {
+    $query = pdo()->prepare(
+        'SELECT username, email, id FROM users LIMIT :start,:limit;'
+    );
+    $query->bindParam('limit', $limit, \PDO::PARAM_INT);
+    $query->bindParam('start', $start, \PDO::PARAM_INT);
+    return __executeQuery($query);
+}
+
+/**
+ * Store the user in the database
+ *
+ * @param string $email
+ * @param string $username
+ * @param string $password
+ * @return boolen
+ */
+function storeUser($email, $username, $password) {
+    return !!pdo()
+    ->prepare(
+        "INSERT INTO users (username, password, email)
+        VALUES (:username, :password, :email)"
+    )
+    ->execute(compact('username', 'password', 'email'));
+}
+
+/**
+ * Update the password of the user
+ *
+ * @param integer $id
+ * @param string $password
+ * @return boolen
+ */
+function updateUserPassword($id, $newPassword) {
+    return !!pdo()
+        ->prepare(
+            'UPDATE users SET password = :password
+            WHERE id=:id'
+        )
+        ->execute(compact('id', 'password'));
+}
+
+
+function countOf($table) {
+    return pdo()->query("SELECT count(id) as count from $table;")
+        ->fetch(\PDO::FETCH_ASSOC)['count'];
+}
+
+
+/**
+ * Select one entry from a table by Name, this function is unsafe and only
+ * intended for private API as suggested by the __ at the beginning of
+ * the function name.
+ *
+ * @param string $table
+ * @param string $name
+ * @return array
+ */
+function __selectOneByName($table, $name) {
+    $query = pdo()->prepare("SELECT * FROM $table WHERE name=:name");
+    $query->bindParam('name', $name, \PDO::PARAM_STR);
+    return __executeQuery($query, null, false);
+}
+
+/**
+ * Select one entry from a table by ID, this function is unsafe and only
+ * intended for private API as suggested by the __ at the beginning of
+ * the function name.
+ *
+ * @param string $table
+ * @param integer $id
+ * @return array
+ */
+function __selectOneById($table, $id) {
+    $query = pdo()->prepare("SELECT * FROM $table WHERE id=:id");
+    $query->bindParam('id', $id, \PDO::PARAM_INT);
+    return __executeQuery($query, null, false);
+}
+
+/**
+ * Select all entries from a table by the supplied, this function is unsafe and
+ * only intended for private API as suggested by the __ at the beginning of
+ * the function name.
+ *
+ * @param string $table
+ * @param string $field
+ * @param array $data
+ * @param boolean $fetchAll
+ * @return array
+ */
+function __selectByField($table, $field, $data, $fetchAll = false) {
+    $query = pdo()->prepare("SELECT * FROM $table WHERE $field=:data");
+    return __executeQuery($query, $data, $fetchAll);
+}
+
+/**
+ * Execute a prepared PDO query.
+ * The user has the option to provide a data array and to change default fetch
+ * method.
+ *
+ * @param \PDOStatement $query
+ * @param array $data
+ * @param boolean $fetchAll
+ * @return array
+ */
+function __executeQuery($query, $data = null, $fetchAll = true) {
+    if ($data) {
+        $query->execute($data);
+    } else {
+        $query->execute();
+    }
+    if ($fetchAll) {
+        return $query->fetchAll(\PDO::FETCH_ASSOC);
+    }
+    return $query->fetch(\PDO::FETCH_ASSOC);
 }

@@ -22,7 +22,7 @@ function checkAuthUser() {
  * if this check fails the user will be redirected and a
  * error message will be displayed.
  *
- * @param int $id
+ * @param integer $id
  * @return boolean|void
  */
 function checkUserEditRight($id) {
@@ -52,7 +52,7 @@ function isUserLoggedin() {
  * Redirect and set the session-infos if the password is right
  *
  * @param Array $user
- * @param String|void $password
+ * @param string|void $password
  */
 function authUser($user, $password) {
 

@@ -8,7 +8,7 @@ use function Siler\Dotenv\env;
 /**
  * Parses a youtube url and return the video ID
  *
- * @param String $url
+ * @param string $url
  * @return String
  */
 function getYouTubeVideoId($url) {
@@ -20,20 +20,20 @@ function getYouTubeVideoId($url) {
      * key => value array with the query param as key and the value as value
      * @var array
      */
-    $query_array_asoc = array_reduce($query_array, function($accumulator, $item){
+    $queryArrayAsoc = array_reduce($query_array, function($accumulator, $item){
         [$key, $value] = explode('=', $item);
         $accumulator[$key] = $value;
         return $accumulator;
     }, []);
 
-    return array_get($query_array_asoc, 'v', '');
+    return array_get($queryArrayAsoc, 'v', '');
 }
 
 /**
  * A makes an youtube api request to get the video titel for a given video id.
  * This functions need a youtube api key to work.
  *
- * @param String $id
+ * @param string $id
  * @return String
  */
 function getYouTubeVideoName($id) {
@@ -45,7 +45,7 @@ function getYouTubeVideoName($id) {
 /**
  * Returns a youtube thumbnail url for a given video ID in the specified quality
  *
- * @param String $id
+ * @param string $id
  * @param integer $size
  * @return void
  */

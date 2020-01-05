@@ -1,7 +1,7 @@
 <?php
 
 use function Auth\checkAuthUser;
-use function Database\savePlaylist;
+use function Database\storePlaylist;
 use function Siler\Http\redirect;
 use function Siler\Http\Request\post;
 use function Siler\Http\session;
@@ -12,12 +12,12 @@ checkAuthUser();
 validCSRFToken();
 
 $name = trim(post('name'));
-$user_id = session('user_id');
+$userId = session('user_id');
 
 if ($name === '') {
     setErrorAndRedirect('please enter a playlistname');
 }
 
-$playlist_id = savePlaylist($name, $user_id);
+$playlistId = storePlaylist($name, $userId);
 
-redirect("/playlists/$playlist_id");
+redirect("/playlists/$playlistId");

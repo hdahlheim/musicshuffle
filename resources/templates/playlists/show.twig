@@ -1,19 +1,23 @@
 {% extends "layouts/_base.twig" %}
 {% block main %}
 <main class="container justify-between p-4 mx-auto bg-gray-800 rounded-sm md:flex">
-    <div class="w-full p-4 bg-gray-700 md:mr-2 ld:mr-6 md:w-1/2 ld:w-1/4">
+    <div class="flex flex-col self-start justify-between w-full h-48 p-4 bg-gray-700 md:mr-2 lg:mr-6 md:w-1/2 lg:w-1/4">
         <div>
-            <span class="font-semibold text-gray-500">#</span>
-            <span class="font-semibold">{{playlist.meta.id}}</span>
+            <div>
+                <span class="font-semibold text-gray-500">#</span>
+                <span class="font-semibold">{{playlist.meta.id}}</span>
+            </div>
+            <h1 class="text-3xl font-bold">{{playlist.meta.name}}</h1>
         </div>
-        <h1 class="text-3xl font-bold">{{playlist.meta.name}}</h1>
-        <a class="flex items-center justify-center block w-full text-xl group btn-teal" href="/playlists/{{playlist.meta.id}}/play">
-            <span class="mr-2">Play</span>
-            <svg viewBox="0 0 24 24" class="inline-block w-8 h-8">
-                <circle cx="12" cy="12" r="10" class="text-teal-100 fill-current"></circle>
-                <path class="text-teal-500 fill-current group-hover:text-teal-700" d="M15.51 11.14a1 1 0 0 1 0 1.72l-5 3A1 1 0 0 1 9 15V9a1 1 0 0 1 1.51-.86l5 3z"></path>
-            </svg>
-        </a>
+        <div>
+            <a class="flex items-center justify-center block w-full text-xl group btn-teal" href="/playlists/{{playlist.meta.id}}/play">
+                <span class="mr-2">Play</span>
+                <svg viewBox="0 0 24 24" class="inline-block w-8 h-8">
+                    <circle cx="12" cy="12" r="10" class="text-teal-100 fill-current"></circle>
+                    <path class="text-teal-500 fill-current group-hover:text-teal-700" d="M15.51 11.14a1 1 0 0 1 0 1.72l-5 3A1 1 0 0 1 9 15V9a1 1 0 0 1 1.51-.86l5 3z"></path>
+                </svg>
+            </a>
+        </div>
     </div>
     <div class="w-full mt-4 md:mt-0 md:w-1/2 lg:w-3/4">
         <div class="flex justify-between mb-4">
@@ -22,8 +26,11 @@
         </div>
         <ul>
         {% for song in playlist.songs %}
-            <li class="flex items-center justify-between px-6 py-2 mb-2 bg-gray-700 rounded-sm shadow-md">
-                <a class="w-2/4" href="/songs/{{song.id}}">
+            <li class="flex items-center justify-between px-4 py-2 mb-2 bg-gray-700 rounded-sm shadow-md">
+                <a class="flex items-center w-2/4" href="/songs/{{song.id}}">
+                    <div class="inline-block w-8 h-8 mr-4 rounded-sm">
+                        <img class="object-cover h-full" src="{{ytImg(song.youtube_id, 0)}}" alt="{{song.name}}">
+                    </div>
                     {{song.name}}
                 </a>
                 <div class="w-1/4">

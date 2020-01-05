@@ -32,20 +32,22 @@ function getYouTubeVideoName($id) {
 
 
 function getYoutubeThumbnailURL($id, $size = 0) {
-    $realSize = null;
     switch ($size) {
-        case 1:
+        case 0:
             $realSize = 'default';
-        case 2:
+        case 1:
             break;
-        case 3:
+        case 2:
             $realSize = 'mqdefault';
             break;
-        case 4:
+        case 3:
             $realSize = 'hqdefault';
             break;
-        case 5:
+        case 4:
             $realSize = 'sddefault';
+            break;
+        case 5:
+            $realSize = 'maxresdefault';
             break;
         default:
             $realSize = 'default';

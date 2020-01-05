@@ -8,7 +8,8 @@ use function Validators\validPlaylistId;
 
 checkAuthUser();
 
-$id = $params['id'];
+$id = (int) $params['id'];
+
 validPlaylistId($id);
 
 $playlist = getPlaylist($id);

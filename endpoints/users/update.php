@@ -14,7 +14,7 @@ $id = $params['id'];
 checkAuthUser();
 checkUserEditRight($id);
 
-$password = validPassword(post('password'));
+$password = validPassword(post('password'), post('password_check'));
 
 $success = pdo()
     ->prepare(

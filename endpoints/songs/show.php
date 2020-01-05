@@ -4,10 +4,13 @@ use function Auth\checkAuthUser;
 use function Database\pdo;
 use function Siler\Http\Response\html;
 use function Siler\Twig\render;
+use function Validators\validSongId;
 
 checkAuthUser();
 
 $id = (int) $params['id'];
+
+validSongId($id);
 
 $songQuery = pdo()->prepare(
     'SELECT name, url, youtube_id, id FROM songs

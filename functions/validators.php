@@ -3,8 +3,8 @@
 namespace Validators;
 
 use PDO;
-
 use function Database\pdo;
+use function Errors\notFoundError;
 use function Siler\Http\redirect;
 use function Siler\Http\setsession;
 
@@ -17,9 +17,14 @@ use function Siler\Http\setsession;
  * @param string $rawPassword
  * @return string
  */
-function validPassword($rawPassword)
+function validPassword($rawPassword, $rawPasswordCheck)
 {
     $password = trim($rawPassword);
+    $passwordCheck = trim($rawPasswordCheck);
+
+    if  ($password !== $passwordCheck) {
+        setErrorAndRedirect('Passwords do not match');
+    }
 
     if (empty($password)) {
         setErrorAndRedirect('Password is empty');
@@ -29,6 +34,8 @@ function validPassword($rawPassword)
         setErrorAndRedirect('Password is to short please enter more than 8 chars');
     }
 
+    // wenn wir vergessen das wieder rein zu machen tut uns das leid wir haben aber
+    // ganz ganz sicher dran gedacht! Ehrenwort :^)
     // if (!preg_match('/(?=^.{8,}$)((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$/', $password)) {
     //     setErrorAndRedirect('Password need specialchars');
     // }
@@ -82,8 +89,7 @@ function validPlaylistId($playlistId) {
     $query->execute(compact('playlistId'));
     $playlist = $query->fetch(PDO::FETCH_ASSOC);
     if (empty($playlist)){
-        http_response_code(404);
-        echo('Playlist does not exist');
+        notFoundError();
     }
     return true;
 }
@@ -93,8 +99,17 @@ function validSongId($songId) {
     $query->execute(compact('songId'));
     $song = $query->fetch(PDO::FETCH_ASSOC);
     if (empty($song)){
-        http_response_code(404);
-        echo('Song does not exist');
+        notFoundError();
+    }
+    return true;
+}
+
+function validUserId($userId) {
+    $query = pdo()->prepare('SELECT * FROM users WHERE id=:userId');
+    $query->execute(compact('userId'));
+    $user = $query->fetch(PDO::FETCH_ASSOC);
+    if (empty($user)){
+        notFoundError();
     }
     return true;
 }

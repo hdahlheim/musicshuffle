@@ -5,13 +5,13 @@ use function Siler\Http\redirect;
 use function Siler\Http\Request\post;
 use function Siler\Http\setsession;
 use function Validators\setErrorAndRedirect;
-use function Validators\valid_password;
-use function Validators\valid_email;
-use function Validators\valid_username;
+use function Validators\validPassword;
+use function Validators\validEmail;
+use function Validators\validUsername;
 
-$email = valid_email(post('email'));
-$username = valid_username(post('username'));
-$password = valid_password(post('password'));
+$email = validEmail(post('email'));
+$username = validUsername(post('username'));
+$password = validPassword(post('password'));
 
 $success = pdo()
     ->prepare(

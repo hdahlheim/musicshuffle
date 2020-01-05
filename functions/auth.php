@@ -23,6 +23,7 @@ function checkUserEditRight($id) {
     if ($currentUser !== $userToEdit) {
         setErrorAndRedirect('You can not edit this user');
     }
+    return true;
 }
 
 

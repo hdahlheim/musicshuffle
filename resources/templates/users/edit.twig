@@ -3,7 +3,7 @@
     <main class="max-w-md p-4 mx-auto bg-gray-800 shadow">
         <div>
             <div class="text-center">
-                <img class="inline rounded-full" src="{{user.email|gravatar}}" alt="">
+                <img class="inline border-2 border-teal-800 rounded-full" src="{{user.email|gravatar}}" alt="">
             </div>
             <div class="mb-4 text-lg">
                 <div class="text-sm font-semibold text-gray-500"># ID</div>
@@ -17,7 +17,8 @@
                 <div class="text-sm font-semibold text-gray-500">email</div>
                 <div class="text-lg">{{user.email}}</div>
             </div>
-            <form>
+            <form method="POST" action="/users/{{user.id}}">
+                <input name="_method" type="hidden" value="PUT">
                 <lable class="block mb-4">
                     <span class="block text-sm font-semibold text-gray-500">
                         Password
@@ -37,11 +38,11 @@
                         type="password">
                 </lable>
                 <button
-                class="w-full px-4 py-1 mb-2 text-white bg-teal-700 rounded-sm"
+                class="w-full mb-2 btn-teal"
                 type="submit"
                 >Update</button>
                 <a
-                class="block w-full px-4 py-1 mb-2 text-center text-white bg-red-600 rounded-sm"
+                class="block w-full px-4 py-2 mb-2 text-center text-red-100 bg-red-600 rounded-sm hover:bg-red-800"
                 href="/users"
                 >Cancel</a>
             </form>

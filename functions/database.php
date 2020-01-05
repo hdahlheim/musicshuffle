@@ -369,7 +369,7 @@ function __selectOneById($table, $id) {
  * @return array
  */
 function __selectByField($table, $field, $data, $fetchAll = false) {
-    $query = pdo()->prepare("SELECT * FROM $table WHERE $field=:data");
+    $query = pdo()->prepare("SELECT * FROM $table WHERE $field=:$field");
     return __executeQuery($query, $data, $fetchAll);
 }
 

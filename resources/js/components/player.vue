@@ -18,12 +18,12 @@
           <button class="w-full my-4 text-lg btn-teal" @click="nextSong">Next</button>
         </div>
       </div>
-      <div class="relative w-2/3 max-h-full overflow-y-scroll rounded-sm shadow-inner">
+      <div class="relative w-2/3 max-h-full overflow-y-scroll rounded-sm">
         <h2 class="mb-4 text-lg font-semibold text-gray-500">Queue:</h2>
         <ul>
           <li
             v-for="song in unplayedSongs" :key="song.id"
-            class="flex items-center justify-between px-6 py-2 mb-2 bg-gray-700 rounded-sm p"
+            class="flex items-center justify-between px-6 py-2 mb-2 bg-gray-700 rounded-sm"
             >
             <div class="flex-shrink-0 min-w-0">
               <svg @click="playThisSong(song)" viewBox="0 0 24 24" class="w-8 h-8">

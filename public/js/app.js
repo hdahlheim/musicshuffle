@@ -751,8 +751,7 @@ var render = function() {
       _c(
         "div",
         {
-          staticClass:
-            "relative w-2/3 max-h-full overflow-y-scroll rounded-sm shadow-inner"
+          staticClass: "relative w-2/3 max-h-full overflow-y-scroll rounded-sm"
         },
         [
           _c(
@@ -769,7 +768,7 @@ var render = function() {
                 {
                   key: song.id,
                   staticClass:
-                    "flex items-center justify-between px-6 py-2 mb-2 bg-gray-700 rounded-sm p"
+                    "flex items-center justify-between px-6 py-2 mb-2 bg-gray-700 rounded-sm"
                 },
                 [
                   _c("div", { staticClass: "flex-shrink-0 min-w-0" }, [

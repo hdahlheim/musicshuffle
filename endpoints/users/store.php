@@ -11,7 +11,7 @@ use function Validators\validUsername;
 
 $email = validEmail(post('email'));
 $username = validUsername(post('username'));
-$password = validPassword(post('password'));
+$password = validPassword(post('password'), post('password_check'));
 
 $success = pdo()
     ->prepare(

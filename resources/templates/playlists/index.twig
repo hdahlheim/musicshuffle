@@ -6,5 +6,12 @@
             <a class="text-sm btn-teal" href="/playlists/create">New Playlist</a>
         </div>
         {% include "partials/_playlists_list.twig" %}
+        {% if total > limit %}
+            {% set end = (total // limit) %}
+            {% for p in (0..end) %}
+            <a href="?p={{p}}">{{p}}</a>
+            {% endfor %}
+        {% endif %}
+
     </main>
 {% endblock %}

@@ -1,7 +1,7 @@
 <?php
 
 use function Auth\checkAuthUser;
-use function Auth\checkUserEditRight;
+use function Auth\canUserEditUser;
 use function Database\getUserById;
 use function Database\pdo;
 use function Siler\Http\Response\html;
@@ -13,7 +13,7 @@ checkAuthUser();
 $id = (int) $params['id'];
 
 validUserId($id);
-checkUserEditRight($id);
+canUserEditUser($id);
 
 $user = getUserById($id);
 

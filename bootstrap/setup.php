@@ -90,7 +90,7 @@ $twigEnv->addFunction(
 
 /**
  * Add a csrf Input field function to Twig, this function allows us to add
- * csrf token fields everyware in twig.
+ * csrf token fields everywhere in twig.
  */
 $twigEnv->addFunction(
     new \Twig\TwigFunction('csrfField', function () {

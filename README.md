@@ -17,7 +17,7 @@ Testprotokoll im Ordner `docs`
 
 ## Install the Application
 
-This application uses PHP 7.4
+This application needs PHP 7.4
 
 * Point your virtual host document root to `public/` directory.
 * Install the composer dependencies with composer.
@@ -29,6 +29,8 @@ composer install
 
 * Copy the `.env` file and fill out the information. The database information
 must match the database you want to use.
+
+The `DB_ROOT_PASSWORD` is only needed for the docker env.
 
 ## Dev Env
 

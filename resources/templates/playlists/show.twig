@@ -20,6 +20,7 @@
         </div>
         {% if currentUserId == playlist.meta.user_id %}
         <form method="POST" action="/playlists/{{playlist.meta.id}}">
+            {{ csrfField() }}
             <input name="_method" type="hidden" value="DELETE">
             <button class="flex items-center justify-center block w-full text-xl group text-red-100 bg-red-600 rounded-sm hover:bg-red-800"
             type="submit">

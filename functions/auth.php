@@ -2,7 +2,7 @@
 
 namespace Auth;
 
-use function Database\getUserIdByPlaylistId;
+use function Database\getPlaylistOwnerId;
 use function Siler\Http\session;
 use function Validators\setErrorAndRedirect;
 use function Siler\Http\redirect;
@@ -47,7 +47,7 @@ function canUserEditUser($id)
  */
 function canUserEditPlaylist($id)
 {
-    $playlistUserId = (int) getUserIdByPlaylistId($id);
+    $playlistUserId = (int) getPlaylistOwnerId($id);
     $currentUser = (int) session('user_id');
     if ($currentUser !== $playlistUserId ) {
         setErrorAndRedirect('You can not edit this playlist');

@@ -3,7 +3,6 @@
 use function Auth\canUserEditPlaylist;
 use function Auth\checkAuthUser;
 use function Database\deletePlaylist;
-use function Database\getPlaylist;
 use function Siler\Http\Response\redirect;
 use function Siler\Http\setsession;
 use function Validators\setErrorAndRedirect;
@@ -13,6 +12,7 @@ use function Validators\validPlaylistId;
 $id = (int) $params['id'];
 
 checkAuthUser();
+validCSRFToken();
 
 validPlaylistId($id);
 canUserEditPlaylist($id);

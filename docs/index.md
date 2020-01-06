@@ -79,7 +79,7 @@ hinein wie es bei manchen anderen Mehrzweck CSS Frameworks der Fall ist.
 
 #### Setup
 
-Im Verzeichnis `bootstrap` werden wird das komplette Setup der Anwendung
+Im Verzeichnis `bootstrap` wird das komplette Setup der Anwendung
 vorgenommen. Hier werden die Endpunkte registriert und Einstellungen geladen
 und die Twig Umgebung aufgesetzt.
 

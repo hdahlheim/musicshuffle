@@ -140,7 +140,7 @@ Insgesamt gibt es in unserer Anwendung 10 verschiedene Validators:
 
 `validPassword`, `validUsername`, `validEmail`, `validPlaylistId`,
 `validSongId`, `validUserId`, `validPlaylistname`, `validateYouTubeUrl`,
-`validateYouTubeId`, `validCSRFToken`
+`validateYouTubeId`, `validCSRFToken`.
 
 Auf jeden einzelnen Validator genau einzugehen würde den Rahmen dieses
 Dokumentes Sprengen. Die einzelnen Funktionen sind relativ kurz und einfach
@@ -178,7 +178,8 @@ vergessen sollten.
 
 ## Session Highjacking
 
-Nach jedem Login wird die Session Id neu Generiert.
+Nach jedem Login wird die Session ID mittels `session_regenerate_id()` neu
+Generiert.
 
 ## CSRF Protection
 

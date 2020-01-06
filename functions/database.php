@@ -330,7 +330,12 @@ function updateUserPassword($id, $newPassword)
         ->execute(compact('id', 'password'));
 }
 
-
+/**
+ * Returns the count of entries in a given table
+ *
+ * @param string $table
+ * @return integer
+ */
 function countOf($table)
 {
     return pdo()->query("SELECT count(id) as count from $table;")

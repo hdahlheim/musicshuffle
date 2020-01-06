@@ -27,8 +27,7 @@ cd [my-app-name]
 composer install
 ```
 
-* Copy the `.env` file and fill out the information. The database information
-must match the database you want to use.
+* Copy the `.env.dist` file as `.env` file and fill out the information. The database information must match the database you want to use.
 
 The `DB_ROOT_PASSWORD` is only needed for the docker env.
 

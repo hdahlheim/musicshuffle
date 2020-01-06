@@ -66,6 +66,12 @@ hinein wie es bei manchen anderen Mehrzweck CSS Frameworks der Fall ist.
 
 ## Datei Struktur
 
+### Setup
+
+Im Verzeichnis `bootstrap` werden wird das komplette Setup der Anwendung
+vorgenommen. Hier werden die Endpunkte registriert und Einstellungen geladen
+und die Twig Umgebung aufgesetzt.
+
 ### Eigene Logik
 
 Dem Vorbild von *Siler* Folgend verwenden wir in unserem gesamten Projekt in

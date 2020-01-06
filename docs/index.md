@@ -7,6 +7,7 @@
     - [Framework](#framework)
     - [Templating und CSS](#templating-und-css)
     - [Datei Struktur](#datei-struktur)
+      - [Setup](#setup)
       - [Eigene Logik](#eigene-logik)
       - [Endpunkte](#endpunkte)
     - [Codestyle](#codestyle)
@@ -75,6 +76,12 @@ müssen. Auch zwingt und Tailwindcss nicht in vorgegebene Markup Strukturen
 hinein wie es bei manchen anderen Mehrzweck CSS Frameworks der Fall ist.
 
 ### Datei Struktur
+
+#### Setup
+
+Im Verzeichnis `bootstrap` werden wird das komplette Setup der Anwendung
+vorgenommen. Hier werden die Endpunkte registriert und Einstellungen geladen
+und die Twig Umgebung aufgesetzt.
 
 #### Eigene Logik
 

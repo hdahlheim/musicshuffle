@@ -2,6 +2,8 @@
 
 App developed by Tatyana Vogel and Malte Dahlheim
 
+**Für den vollen Funktionsumfang benötig diese Anwendung einen Youtube API Key**
+
 ## Install the Application
 
 This application uses PHP 7.4

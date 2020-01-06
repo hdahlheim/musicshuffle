@@ -6,7 +6,7 @@
   - [Projekt Aufbau](#projekt-aufbau)
     - [Framework](#framework)
     - [Templating und CSS](#templating-und-css)
-    - [Datei Struktur](#datei-struktur)
+    - [Dateistruktur](#dateistruktur)
       - [Setup](#setup)
       - [Eigene Logik](#eigene-logik)
       - [Endpunkte](#endpunkte)
@@ -75,7 +75,7 @@ und uns nicht über vermeintlich nützliche CSS Klassen Namen den Kopf zerbreche
 müssen. Auch zwingt und Tailwindcss nicht in vorgegebene Markup Strukturen
 hinein wie es bei manchen anderen Mehrzweck CSS Frameworks der Fall ist.
 
-### Datei Struktur
+### Dateistruktur
 
 #### Setup
 
@@ -105,7 +105,7 @@ Insgesamt unterteilt sich unsere Anwendung in fünf Namespaces.
 
 #### Endpunkte
 
-Für wir verwenden im Projekt ein Datei basiertes routing. Jede Resource hat ein
+Wir verwenden im Projekt ein Datei basiertes routing. Jede Resource hat ein
 eigenes Unterverzeichnis im `endpoints` Verzeichnis, ausgenommen davon sind
 Endpunkte mit Session Bezug und der Homeendpunkt.
 
@@ -154,7 +154,7 @@ verwendeten Funktionen befinden sich im Namespace `Validators`.
 Hier gibt es z. B. Funktionen wie `validPassword` welche ein Passwort String und
 einen Passwort Bestätigungsstring entgegennimmt und auf Richtigkeit überprüft.
 Die Überprüfung beinhaltet einen Check auf die Übereinstimmung der beiden
-Passwort Strings, einen Check, ob das Passwort lehr ist, sowie einem Check,
+Passwort Strings, einen Check, ob das Passwort leer ist, sowie einem Check,
 ob das Passwort mindestens 8 Zeichen lang ist.
 
 Insgesamt gibt es in unserer Anwendung 10 verschiedene Validator Funktionen:

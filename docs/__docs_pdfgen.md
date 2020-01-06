@@ -94,7 +94,7 @@ Insgesamt unterteilt sich unsere Anwendung in fünf Namespaces.
 
 ### Endpunkte
 
-Für wir verwenden im Projekt ein Datei basiertes routing. Jede Resource hat ein
+Wir verwenden im Projekt ein Datei basiertes routing. Jede Resource hat ein
 eigenes Unterverzeichnis im `endpoints` Verzeichnis, ausgenommen davon sind
 Endpunkte mit Session Bezug und der Homeendpunkt.
 
@@ -143,7 +143,7 @@ verwendeten Funktionen befinden sich im Namespace `Validators`.
 Hier gibt es z. B. Funktionen wie `validPassword` welche ein Passwort String und
 einen Passwort Bestätigungsstring entgegennimmt und auf Richtigkeit überprüft.
 Die Überprüfung beinhaltet einen Check auf die Übereinstimmung der beiden
-Passwort Strings, einen Check, ob das Passwort lehr ist, sowie einem Check,
+Passwort Strings, einen Check, ob das Passwort leer ist, sowie einem Check,
 ob das Passwort mindestens 8 Zeichen lang ist.
 
 Insgesamt gibt es in unserer Anwendung 10 verschiedene Validator Funktionen:

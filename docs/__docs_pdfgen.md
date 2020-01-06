@@ -99,31 +99,32 @@ eigenes Unterverzeichnis im `endpoints` Verzeichnis, ausgenommen davon sind
 Endpunkte mit Session Bezug und der Homeendpunkt.
 
 
-| Endpunkt                          | HTTP Verb | Server Action                  |
-| --------------------------------- | --------- | ------------------------------ |
-| `/`                               | GET       | endpoints/home.php             |
-| `/login`                          | GET       | endpoints/login.php            |
-| `/login`                          | POST      | endpoints/auth_user.php        |
-| `/logout`                         | POST      | endpoints/logout.php           |
-| `/logout`                         | GET       | endpoints/logout.php           |
-| `/register`                       | GET       | endpoints/register.php         |
-| `/users`                          | GET       | endpoints/users/index.php      |
-| `/users/create`                   | GET       | endpoints/users/create.php     |
-| `/users`                          | POST      | endpoints/users/store.php      |
-| `/users/{id}`                     | GET       | endpoints/users/show.php       |
-| `/users/{id}/edit`                | GET       | endpoints/users/edit.php       |
-| `/users/{id}`                     | PUT       | endpoints/users/update.php     |
-| `/playlists`                      | GET       | endpoints/playlists/index.php  |
-| `/playlists/create`               | GET       | endpoints/playlists/create.php |
-| `/playlists`                      | POST      | endpoints/playlists/store.php  |
-| `/playlists/{id}`                 | GET       | endpoints/playlists/show.php   |
-| `/playlists/{id}/play`            | GET       | endpoints/playlists/play.php   |
-| `/playlists/{id}/edit`            | GET       | endpoints/playlists/edit.php   |
-| `/playlists/{id}/songs/create`    | GET       | endpoints/songs/create.php     |
-| `/playlists/{id}/songs`           | POST      | endpoints/songs/store.php      |
-| `/playlists/{id}/songs/{song_id}` | PUT       | endpoints/songs/update.php     |
-| `/songs/{id}`                     | GET       | endpoints/songs/show.php       |
-| `/playlists/{id}/edit`            | GET       | endpoints/playlists/edit.php   |
+| Endpunkt                          | HTTP Verb | Server Action                   |
+| --------------------------------- | --------- | ------------------------------- |
+| `/`                               | GET       | endpoints/home.php              |
+| `/login`                          | GET       | endpoints/login.php             |
+| `/login`                          | POST      | endpoints/auth_user.php         |
+| `/logout`                         | POST      | endpoints/logout.php            |
+| `/logout`                         | GET       | endpoints/logout.php            |
+| `/register`                       | GET       | endpoints/register.php          |
+| `/users`                          | GET       | endpoints/users/index.php       |
+| `/users/create`                   | GET       | endpoints/users/create.php      |
+| `/users`                          | POST      | endpoints/users/store.php       |
+| `/users/{id}`                     | GET       | endpoints/users/show.php        |
+| `/users/{id}/edit`                | GET       | endpoints/users/edit.php        |
+| `/users/{id}`                     | PUT       | endpoints/users/update.php      |
+| `/playlists`                      | GET       | endpoints/playlists/index.php   |
+| `/playlists/create`               | GET       | endpoints/playlists/create.php  |
+| `/playlists`                      | POST      | endpoints/playlists/store.php   |
+| `/playlists/{id}`                 | GET       | endpoints/playlists/show.php    |
+| `/playlists/{id}/play`            | GET       | endpoints/playlists/play.php    |
+| `/playlists/{id}/edit`            | GET       | endpoints/playlists/edit.php    |
+| `/playlists/{id}     `            | DELETE    | endpoints/playlists/destroy.php |
+| `/playlists/{id}/songs/create`    | GET       | endpoints/songs/create.php      |
+| `/playlists/{id}/songs`           | POST      | endpoints/songs/store.php       |
+| `/playlists/{id}/songs/{song_id}` | PUT       | endpoints/songs/update.php      |
+| `/songs/{id}`                     | GET       | endpoints/songs/show.php        |
+| `/playlists/{id}/edit`            | GET       | endpoints/playlists/edit.php    |
 
 ## Codestyle
 

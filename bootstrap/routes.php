@@ -5,7 +5,6 @@
  * handel. We use Siler Route functions for routing.
  */
 
-use function Siler\Route\delete;
 use function Siler\Route\get;
 use function Siler\Route\post;
 use function Siler\Route\put;

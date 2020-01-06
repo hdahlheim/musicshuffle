@@ -64,7 +64,7 @@ und uns nicht über vermeintlich nützliche CSS Klassen Namen den Kopf zerbreche
 müssen. Auch zwingt und Tailwindcss nicht in vorgegebene Markup Strukturen
 hinein wie es bei manchen anderen Mehrzweck CSS Frameworks der Fall ist.
 
-## Datei Struktur
+## Dateistruktur
 
 ### Setup
 
@@ -173,7 +173,7 @@ $username = validUsername($_POST['username']);
 
 ## Schreiben in die Datenbank (SQL Injections)
 
-Nuerzer\*Innen eingeben werden nur über prepared Statements in die Datenbank
+Nutzer\*Innen eingeben werden nur über prepared Statements in die Datenbank
 geschrieben. Für den Zugriff auf die Datenbank verwenden wir *PDO*. Durch
 die prepared Statements verhindern wir die Injection von SQL Statements durch
 böswillige Nutzer*Innen.

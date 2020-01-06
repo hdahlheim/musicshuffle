@@ -189,8 +189,10 @@ vergessen sollten.
 
 # Session Highjacking
 
-Nach jedem Login wird die Session ID mittels `session_regenerate_id()` neu
-generiert.
+Nach jedem Login wird die Session ID mittels `session_regenerate_id(true)` neu
+generiert. Dies Passiert ebenfalls beim ändern des Passworts.
+
+Die Session wird beim Logout `session_destroy()` zerstört.
 
 # CSRF Protection
 

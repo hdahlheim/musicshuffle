@@ -333,13 +333,16 @@ function storeUser($email, $username, $password)
  */
 function updateUserPassword($id, $newPassword)
 {
-    return !!pdo()
+    $query = pdo()
         ->prepare(
             'UPDATE users SET `password` = :newPassword
             WHERE id=:id'
-        )
-        ->execute(compact('id', 'newPassword'));
-    session_regenerate_id(true);
+        );
+    if (!!$query->execute(compact('id', 'newPassword'))){
+        session_regenerate_id(true);
+        return true;
+    }
+    return false;
 }
 
 /**

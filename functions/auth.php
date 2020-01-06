@@ -2,10 +2,11 @@
 
 namespace Auth;
 
-use function Siler\Http\session;
-use function Validators\setErrorAndRedirect;
+use function Database\getPlaylistOwnerId;
 use function Siler\Http\redirect;
+use function Siler\Http\session;
 use function Siler\Http\setsession;
+use function Validators\setErrorAndRedirect;
 
 /**
  * Checks if the session has an user (is logged in) and redirect if not
@@ -32,6 +33,24 @@ function checkUserEditRight($id)
     $currentUser = (int) session('user_id');
     if ($currentUser !== $userToEdit) {
         setErrorAndRedirect('You can not edit this user');
+    }
+    return true;
+}
+
+/**
+ * Checks if the user has the right to edit the requested playlist.
+ * if this check fails the user will be redirected and a
+ * error message will be displayed.
+ *
+ * @param integer $id
+ * @return boolean|void
+ */
+function canUserEditPlaylist($id)
+{
+    $playlistUserId = (int) getPlaylistOwnerId($id);
+    $currentUser = (int) session('user_id');
+    if ($currentUser !== $playlistUserId ) {
+        setErrorAndRedirect('You can not edit this playlist');
     }
     return true;
 }

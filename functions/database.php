@@ -32,6 +32,17 @@ function getAllSongs($limit = 50, $start = 0)
 }
 
 /**
+ * Get the owner of the playlist
+ *
+ * @param integer $playlistId
+ * @return integer
+ */
+function getPlaylistOwnerId($playlistId)
+{
+    return (int) __selectOneById('playlists', $playlistId)['user_id'];
+}
+
+/**
  * Store a song in the database
  *
  * @param string $name
@@ -328,6 +339,24 @@ function updateUserPassword($id, $newPassword)
             WHERE id=:id'
         )
         ->execute(compact('id', 'password'));
+}
+
+/**
+ * deletes the playlist and every entity witch is related to the playlist
+ *
+ * @param integer $playlist_id
+ * @return boolen
+ */
+function deletePlaylist($playlistId)
+{
+    $id = __selectByField('playlist_items', 'playlist_id', ['playlist_id'=>$playlistId])['id'];
+
+    $upvotesQuery = pdo()->prepare('DELETE FROM upvotes where playlist_item=:id');
+    $upvotesQuery->execute(compact('id'));
+    $playlistItemsQuery = pdo()->prepare('DELETE FROM playlist_items where id=:id');
+    $playlistItemsQuery->execute(compact('id'));
+    $playlistsQuery = pdo()->prepare('DELETE FROM playlists where id=:id');
+    return $playlistsQuery->execute(['id'=>$playlistId]);
 }
 
 /**

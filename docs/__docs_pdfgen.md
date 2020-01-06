@@ -1,23 +1,13 @@
-# Dokumentation Music shuffle
-- [Dokumentation Music shuffle](#dokumentation-music-shuffle)
-  - [Glossar](#glossar)
-  - [Projekt Planung](#projekt-planung)
-    - [Arbeiten während des Projekts](#arbeiten-w%c3%a4hrend-des-projekts)
-  - [Projekt Aufbau](#projekt-aufbau)
-    - [Framework](#framework)
-    - [Templating und CSS](#templating-und-css)
-    - [Datei Struktur](#datei-struktur)
-      - [Eigene Logik](#eigene-logik)
-      - [Endpunkte](#endpunkte)
-    - [Codestyle](#codestyle)
-  - [Überprüfung der Nutzer*Inneneingaben](#%c3%9cberpr%c3%bcfung-der-nutzerinneneingaben)
-    - [Schreiben in die Datenbank (SQL Injections)](#schreiben-in-die-datenbank-sql-injections)
-  - [Script Injection](#script-injection)
-  - [Session Highjacking](#session-highjacking)
-  - [CSRF Protection](#csrf-protection)
-  - [Testing](#testing)
+---
+title: "Technische Dokumentation Music shuffle"
+author: [Tatyana Vogel, Malte Dahlheim]
+date: "2020-01-06"
+titlepage: true
+toc-own-page: true
+keywords: [GIBM, M151]
+---
 
-## Glossar
+# Glossar
 
 | Begriff | Bedeutung                                                                                                          |
 | ------- | ------------------------------------------------------------------------------------------------------------------ |
@@ -26,12 +16,12 @@
 | Siler   | PHP Library zum Erstellen von schlanken Webanwendungen                                                             |
 | Twig    | PHP Template Library                                                                                               |
 
-## Projekt Planung
+# Projekt Planung
 
 Die Planung des Projektes wurde mit der Hilfe von *Github Projects* durchgeführt.
 Dort haben wir Issues und Notes im Kanbanboard verfolgt.
 
-### Arbeiten während des Projekts
+## Arbeiten während des Projekts
 
 Einzelne Funktionen wurden in eigenen Branches entwickelt und über
 *Pull Requests* in den Master Branch gemerged.
@@ -40,9 +30,9 @@ Das Mergen konnte vor der Endphase des Projekts nur von dem anderen Teammitglied
 durchgeführt werden. Damit wollten wir verhindern, dass ohne das Wissen das jeweils
 anderen Teammitglieds Änderungen am Projekt vorgenommen werden.
 
-## Projekt Aufbau
+# Projekt Aufbau
 
-### Framework
+## Framework
 
 Die ursprüngliche Version des Projekts war als mit dem *SLIM Framework* geplant.
 Nach langem hin und er stellte sich aber heraus, dass das Projekt Skelett,
@@ -60,7 +50,7 @@ Wir verwenden *Siler* hauptsächlich für das URL Routing aber hier und da nutze
 wir ein paar der Helferfunktionen z. B. für den sichern Zugriff auf die PHP
 Superglobalen Variablen wie `$_SESSION`, `$_GET`, `$_POST`.
 
-### Templating und CSS
+## Templating und CSS
 
 Für Templates des Projektes verwenden wir Twig. Diese entscheid wurde getroffen,
 weil wir uns als Team einig waren, das PHP keine schöne Templating Sprache ist.
@@ -74,9 +64,9 @@ und uns nicht über vermeintlich nützliche CSS Klassen Namen den Kopf zerbreche
 müssen. Auch zwingt und Tailwindcss nicht in vorgegebene Markup Strukturen
 hinein wie es bei manchen anderen Mehrzweck CSS Frameworks der Fall ist.
 
-### Datei Struktur
+## Datei Struktur
 
-#### Eigene Logik
+### Eigene Logik
 
 Dem Vorbild von *Siler* Folgend verwenden wir in unserem gesamten Projekt in
 Namespaces unterteilte Funktionen. Dies mag auf den ersten Blick ungewöhnlich
@@ -96,7 +86,7 @@ Insgesamt unterteilt sich unsere Anwendung in fünf Namespaces.
 | Validators | Funktionen für das Validieren von Eingaben              |
 | YouTubeAPI | Funktionen für das Arbeiten mit der YouTube API         |
 
-#### Endpunkte
+### Endpunkte
 
 Für wir verwenden im Projekt ein Datei basiertes routing. Jede Resource hat ein
 eigenes Unterverzeichnis im `endpoints` Verzeichnis, ausgenommen davon sind
@@ -129,13 +119,13 @@ Endpunkte mit Session Bezug und der Homeendpunkt.
 | `/songs/{id}`                     | GET       | endpoints/songs/show.php       |
 | `/playlists/{id}/edit`            | GET       | endpoints/playlists/edit.php   |
 
-### Codestyle
+## Codestyle
 
 Im ganzen Projekt werden für von uns geschriebene Funktionen- und Variablennamen
 camelCase verwendet. Der Komplette PHP Code wurde mit **php-cs-fixer** überprüft
 und Formatiert.
 
-## Überprüfung der Nutzer\*Inneneingaben
+# Überprüfung der Nutzer\*Inneneingaben
 
 Auf der Clientseite sind alle Eingabefelder, die Notwendig sind, mit dem required
 Attribute versehen. Für jedes Eingabefeld wird der entsprechende Input Type
@@ -175,14 +165,14 @@ use function Validators\validUsername;
 $username = validUsername($_POST['username']);
 ```
 
-### Schreiben in die Datenbank (SQL Injections)
+## Schreiben in die Datenbank (SQL Injections)
 
 Nuerzer*Innen eingeben werden nur über prepared Statements in die Datenbank
 geschrieben. Für den Zugriff auf die Datenbank verwenden wir *PDO*. Durch
 die prepared Statements verhindern wir die Injection von SQL Statements durch
 böswillige Nutzer*Innen.
 
-## Script Injection
+# Script Injection
 
 Im ganzen Projekt wird darauf geachtet, dass es zu keinen Script Injections
 kommen kann. Eingaben wie die des Usernames werden mit `htmlspecialchars`
@@ -190,12 +180,12 @@ escaped. Twig übernimmt für uns auch das escaping von Strings in den Views, so
 haben wir auch einen gewissen Schutz, falls wir das Validieren einer Eingabe mal
 vergessen sollten.
 
-## Session Highjacking
+# Session Highjacking
 
 Nach jedem Login wird die Session ID mittels `session_regenerate_id()` neu
 generiert.
 
-## CSRF Protection
+# CSRF Protection
 
 Jedes Formular beinhaltet ein verstecktes Input Feld welches als Wert einen
 SHA1 Hash hat. Der Hash wird aus einem zufällig generierten 255 Bit langen String
@@ -206,7 +196,7 @@ Bei jeder abgeschickten Formular, welches die Methode POST verwendet wird der
 dieser Hash mit dem in der Session gespeicherten Hash verglichen. Wenn die
 beiden Hashes nicht übereinstimmen, wird ein Fehler angezeigt.
 
-## Testing
+# Testing
 
 Ursprünglich gab es den Gedanken unsere Anwendung mit End to End Test, voll
 automatisch zu testen. Aus Zeitgründen wurde das Projekt nur Manuel getestet.

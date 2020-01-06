@@ -1,4 +1,6 @@
-# Musicshuffle
+# Music shuffle
+
+App developed by Tatyana Vogel and Malte Dahlheim
 
 ## Install the Application
 
@@ -47,3 +49,6 @@ file in the `./db` directory.
 
 In the docker environment we work with a user that has full access right on
 the database
+
+# Docs
+Documentation can be found in the [docs directory](docs/index.md).

@@ -50,6 +50,9 @@ cd [my-app-name]
 docker-compose up -d
 ```
 
+The Database server runs on port 13306, you still need to create the database
+tables yourself.
+
 The application runs `http://localhost:8080`, open the address in your browser.
 
 If you want to edit the javascript or css you need npm installed.

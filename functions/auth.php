@@ -27,7 +27,7 @@ function checkAuthUser()
  * @param integer $id
  * @return boolean|void
  */
-function editUserEditUser($id)
+function canUserEditUser($id)
 {
     $userToEdit = (int) $id;
     $currentUser = (int) session('user_id');

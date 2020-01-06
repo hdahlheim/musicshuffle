@@ -79,7 +79,7 @@ function isUserLoggedin()
 function authUser($user, $password)
 {
     if (password_verify($password, $user['password'])) {
-        session_regenerate_id();
+        session_regenerate_id(true);
 
         setsession('user_name', $user['username']);
         setsession('user_id', $user['id']);

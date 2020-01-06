@@ -339,6 +339,7 @@ function updateUserPassword($id, $newPassword)
             WHERE id=:id'
         )
         ->execute(compact('id', 'newPassword'));
+    session_regenerate_id(true);
 }
 
 /**

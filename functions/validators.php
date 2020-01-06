@@ -62,6 +62,25 @@ function validUsername($rawUsername)
 }
 
 /**
+ * Takes a raw string and checks if it qualifies as a valid Playlistname.
+ * If the string qualifies as a Playlistname, it will be returned as
+ * an sanitized string. If not the user will be redirected.
+ *
+ * @param string $rawUsername
+ * @return string
+ */
+function validPlaylistname($rawName)
+{
+    $name = htmlspecialchars(trim($rawName));
+
+    if ($name === '') {
+        setErrorAndRedirect('please enter a playlistname');
+    }
+
+    return $name;
+}
+
+/**
  * Takes a raw string and checks if it qualifies as a valid e-mail address.
  * If the string qualifies as an e-mail address, it will be returned.
  * Else the user will be redirected, to the origin of the request.

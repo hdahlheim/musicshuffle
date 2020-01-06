@@ -6,7 +6,7 @@
     - [Framework](#framework)
     - [Templating und CSS](#templating-und-css)
     - [Eigene Logik](#eigene-logik)
-  - [Überprüfung der Nutzer*Ineingaben](#%c3%9cberpr%c3%bcfung-der-nutzerineingaben)
+  - [Überprüfung der Nutzer*Inneneingaben](#%c3%9cberpr%c3%bcfung-der-nutzerinneneingaben)
     - [Schreiben in die Datenbank](#schreiben-in-die-datenbank)
   - [Script Injection](#script-injection)
   - [CSRF Protection](#csrf-protection)
@@ -78,7 +78,7 @@ Insgesamt unterteilt sich unsere Anwendung in fünf Namespaces.
 | Validators | Funktionen für das Validieren von Eingaben             |
 | YouTubeAPI | Funktionen für das Arbeiten mit der YouTube API        |
 
-## Überprüfung der Nutzer*Ineingaben
+## Überprüfung der Nutzer*Inneneingaben
 
 In dem Project Musicshuffle werden alle Nutzereingaben Überprüft, die dafür
 verwendeten Funktionen befinden sich im Namespace `Validators`.
@@ -89,11 +89,11 @@ Die Überprüfung beinhaltet einen check auf die Übereinstimmung der beiden
 Password Strings, einen Check ob das Passwort lehr ist, sowie einem check
 ob das Passwort mindestens 8 Zeichen lang ist.
 
-Insgesamt gibt es in unserer Anwendung 9 verschiedene Validators:
+Insgesamt gibt es in unserer Anwendung 10 verschiedene Validators:
 
-`validPassword`, `validUsername`, `validEmail`, `validPlaylistId`
-`validSongId`, `validUserId`, `validateYouTubeUrl`, `validateYouTubeId`
-`validCSRFToken`
+`validPassword`, `validUsername`, `validEmail`, `validPlaylistId`,
+`validSongId`, `validUserId`, `validPlaylistname`, `validateYouTubeUrl`,
+`validateYouTubeId`, `validCSRFToken`
 
 Auf jeden einzelnen Validator genau einzugehen würde den Rahmen dieses
 Dokumentes Sprengen. Die einzelnen Funktionen sind relativ kurz und einfach
@@ -121,7 +121,8 @@ geschrieben. Für den zugriff auf die Datenbank verwenden wir PDO.
 
 ## Script Injection
 
-Im ganzen project wird darauf geachtet
+Im ganzen project wird darauf geachtet, dass es zu keinen Script Injections
+kommen kann. eingaben wie die es Usernames werden mit `htmlspecialchars`
 
 ## CSRF Protection
 

@@ -5,6 +5,7 @@ namespace Database;
 use function Siler\Http\setsession;
 use function Validators\setErrorAndRedirect;
 
+
 /**
  * Get the song with the given id from the database
  *
@@ -29,6 +30,11 @@ function getAllSongs($limit = 50, $start = 0)
     $query->bindParam('limit', $limit, \PDO::PARAM_INT);
     $query->bindParam('start', $start, \PDO::PARAM_INT);
     return __executeQuery($query);
+}
+
+function getUserIdByPlaylistId($playlist_id)
+{
+    return __selectOneById('playlists', $playlist_id)['user_id'];
 }
 
 /**
@@ -330,6 +336,24 @@ function updateUserPassword($id, $newPassword)
         ->execute(compact('id', 'password'));
 }
 
+
+/**
+ * deletes the playlist and every entity witch is related to the playlist
+ *
+ * @param integer $playlist_id
+ * @return boolen
+ */
+function deletePlaylist($playlist_id)
+{
+    $id = __selectByField('playlist_items', 'playlist_id', compact('playlist_id'))['id'];
+
+    $upvotesQuery = pdo()->prepare('DELETE FROM upvotes where playlist_item=:id');
+    $upvotesQuery->execute(compact('id'));
+    $playlistItemsQuery = pdo()->prepare('DELETE FROM playlist_items where id=:id');
+    $playlistItemsQuery->execute(compact('id'));
+    $playlistsQuery = pdo()->prepare('DELETE FROM playlists where id=:id');
+    return $playlistsQuery->execute(['id'=>$playlist_id]);
+}
 
 function countOf($table)
 {

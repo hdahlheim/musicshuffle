@@ -18,6 +18,15 @@
                 </svg>
             </a>
         </div>
+        {% if currentUserId == playlist.meta.user_id %}
+        <form method="POST" action="/playlists/{{playlist.meta.id}}">
+            <input name="_method" type="hidden" value="DELETE">
+            <button class="flex items-center justify-center block w-full text-xl group text-red-100 bg-red-600 rounded-sm hover:bg-red-800"
+            type="submit">
+                Delete Playlist
+            </button>
+        </form>
+        {% endif %}
     </div>
     <div class="w-full mt-4 md:mt-0 md:w-1/2 lg:w-3/4">
         <div class="flex justify-between mb-4">

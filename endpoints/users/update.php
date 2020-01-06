@@ -1,7 +1,7 @@
 <?php
 
 use function Auth\checkAuthUser;
-use function Auth\checkUserEditRight;
+use function Auth\canUserEditUser;
 use function Database\updateUserPassword;
 use function Siler\Http\redirect;
 use function Siler\Http\Request\post;
@@ -14,7 +14,7 @@ $id = (int) $params['id'];
 
 checkAuthUser();
 validCSRFToken();
-checkUserEditRight($id);
+canUserEditUser($id);
 
 $password = validPassword(post('password'), post('password_check'));
 

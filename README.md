@@ -4,6 +4,17 @@ App developed by Tatyana Vogel and Malte Dahlheim
 
 **Für den vollen Funktionsumfang benötig diese Anwendung einen Youtube API Key**
 
+Eine Live version kann unter [musicshuffle.shrug.ch](https://musicshuffle.shrug.ch)
+angeschaut werden.
+
+HTTP BASIC AUTH Daten:
+
+- shuffle
+- hugh-bakery-mercia
+
+Der SQL dump befindet sich im Ordner `abgabe` die Dokumentation und das
+Testprotokoll im Ordner `docs`
+
 ## Install the Application
 
 This application uses PHP 7.4

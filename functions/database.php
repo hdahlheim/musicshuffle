@@ -335,10 +335,10 @@ function updateUserPassword($id, $newPassword)
 {
     return !!pdo()
         ->prepare(
-            'UPDATE users SET password = :password
+            'UPDATE users SET `password` = :newPassword
             WHERE id=:id'
         )
-        ->execute(compact('id', 'password'));
+        ->execute(compact('id', 'newPassword'));
 }
 
 /**

@@ -27,7 +27,7 @@ function checkAuthUser()
  * @param integer $id
  * @return boolean|void
  */
-function checkUserEditRight($id)
+function editUserEditUser($id)
 {
     $userToEdit = (int) $id;
     $currentUser = (int) session('user_id');
@@ -49,7 +49,7 @@ function canUserEditPlaylist($id)
 {
     $playlistUserId = (int) getPlaylistOwnerId($id);
     $currentUser = (int) session('user_id');
-    if ($currentUser !== $playlistUserId ) {
+    if ($currentUser !== $playlistUserId) {
         setErrorAndRedirect('You can not edit this playlist');
     }
     return true;

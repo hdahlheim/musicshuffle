@@ -1,16 +1,19 @@
 <?php
 
+use function Auth\canUserEditPlaylist;
 use function Auth\checkAuthUser;
 use function Database\getPlaylist;
 use function Siler\Http\Response\html;
 use function Siler\Twig\render;
 use function Validators\validPlaylistId;
 
+$id = (int) $params['id'];
+
 checkAuthUser();
 
-$playlistId = (int) $params['id'];
+validPlaylistId($id);
+canUserEditPlaylist($id);
 
-validPlaylistId($playlistId);
-$playlist = getPlaylist($playlistId);
+$playlist = getPlaylist($id);
 
-html(render('songs/create.twig', compact('playlist')));
+html(render('playlists/edit.twig', compact('playlist')));

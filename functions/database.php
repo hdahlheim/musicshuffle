@@ -349,14 +349,14 @@ function updateUserPassword($id, $newPassword)
  */
 function deletePlaylist($playlistId)
 {
-    $id = __selectByField('playlist_items', 'playlist_id', ['playlist_id'=>$playlistId])['id'];
+    $id = __selectByField('playlist_items', 'playlist_id', ['playlist_id' => $playlistId])['id'];
 
     $upvotesQuery = pdo()->prepare('DELETE FROM upvotes where playlist_item=:id');
     $upvotesQuery->execute(compact('id'));
     $playlistItemsQuery = pdo()->prepare('DELETE FROM playlist_items where id=:id');
     $playlistItemsQuery->execute(compact('id'));
     $playlistsQuery = pdo()->prepare('DELETE FROM playlists where id=:id');
-    return $playlistsQuery->execute(['id'=>$playlistId]);
+    return !!$playlistsQuery->execute(['id'=>$playlistId]);
 }
 
 /**

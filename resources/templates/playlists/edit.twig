@@ -1,0 +1,31 @@
+{% extends "layouts/_base.twig" %}
+{% block main %}
+    <main class="max-w-md p-4 mx-auto bg-gray-800 shadow">
+        <div>
+            <div class="mb-4 text-lg">
+                <div class="text-sm font-semibold text-gray-500"># ID</div>
+                <div>{{playlist.meta.id}}</div>
+            </div>
+            <div class="mb-4">
+                <div class="text-sm font-semibold text-gray-500">Name</div>
+                <div class="text-lg">{{playlist.meta.name}}</div>
+            </div>
+            <div class="mb-4">
+                <div class="text-sm font-semibold text-gray-500">Warning</div>
+                <div class="text-lg text-red-400">This action can't be undone</div>
+            </div>
+            <form method="POST" action="/playlists/{{playlist.meta.id}}">
+                <input name="_method" type="hidden" value="DELETE">
+                {{ csrfField() }}
+                <button
+                class="block w-full px-4 py-2 mb-2 font-semibold text-center text-red-100 bg-red-600 rounded-sm hover:bg-red-800"
+                type="submit"
+                >Delete</button>
+                <a
+                class="block w-full mb-2 text-center btn-teal"
+                href="/playlists"
+                >Cancel</a>
+            </form>
+        </div>
+    </main>
+{% endblock %}
